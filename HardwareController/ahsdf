@@ -1,0 +1,37 @@
+						for(i=0;i<20;i++){				//read bytes less checksum
+							bytetoRead[i]=(uint8_t)Serial.read();
+							checksumCalc += (uint8_t)bytetoRead[i];
+							//debug("check %x",checksumIMUCalc);
+						}
+						bytetoRead[20]=Serial.read();
+						bytetoRead[21]=Serial.read();
+						checksumRead = (unsigned int)bytetoRead[20] + (((unsigned int)bytetoRead[21])<<8);
+						if(checksumRead == checksumCalc){//if checksums do not agree throw away data goto next task
+							course = (int)bytetoRead[0]+((int)bytetoRead[1]<<8);
+							yawRead = (int)bytetoRead[2]+((int)bytetoRead[3]<<8);
+							windHeading = (int)bytetoRead[4]+((int)bytetoRead[5]<<8);
+							speed = (int)bytetoRead[6]+((int)bytetoRead[7]<<8) +((int)bytetoRead[8]<<16)+((int)bytetoRead[9]<<24);
+							lat = (int)bytetoRead[10]+((int)bytetoRead[11]<<8) +((int)bytetoRead[12]<<16)+((int)bytetoRead[13]<<24);
+							lon = (int)bytetoRead[14]+((int)bytetoRead[15]<<8) +((int)bytetoRead[16]<<16)+((int)bytetoRead[17]<<24);
+							rollRead = (int)bytetoRead[18]+((int)bytetoRead[19]<<8);
+						}
+						
+						for(i=0;i<20;i++){				//read bytes less checksum
+							bytetoRead[i]=(uint8_t)Serial.read();
+							checksumCalc += (uint8_t)bytetoRead[i];
+							//debug("check %x",checksumIMUCalc);
+						}
+						bytetoRead[20]=Serial.read();
+						bytetoRead[21]=Serial.read();
+						checksumRead = (unsigned int)bytetoRead[20] + (((unsigned int)bytetoRead[21])<<8);
+						if(checksumRead == checksumCalc){//if checksums do not agree throw away data goto next task
+							MS_Cur = (int)bytetoRead[0]+((int)bytetoRead[1]<<8);
+							MS_SetP = (int)bytetoRead[2]+((int)bytetoRead[3]<<8);
+							MS_Meas= (int)bytetoRead[4]+((int)bytetoRead[5]<<8);
+							JS_Cur = (int)bytetoRead[6]+((int)bytetoRead[7]<<8);
+							JS_SetP = (int)bytetoRead[8]+((int)bytetoRead[9]<<8);
+							JS_Meas= (int)bytetoRead[10]+((int)bytetoRead[11]<<8);
+							Rud_Cur = (int)bytetoRead[12]+((int)bytetoRead[13]<<8);
+							Rud_SetP = (int)bytetoRead[14]+((int)bytetoRead[15]<<8);
+							Rud_Meas= (int)bytetoRead[16]+((int)bytetoRead[17]<<8);
+							rollRead =(int)bytetoRead[18]+((int)bytetoRead[19]<<8);

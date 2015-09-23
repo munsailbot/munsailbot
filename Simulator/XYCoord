@@ -1,0 +1,30 @@
+public class XYCoord {
+	double xPos;
+	double yPos;
+	double earthRad = 6372795;
+	public XYCoord (double lat,double longt, double baseLat,double baseLong){ 
+		double deltaLong = Math.toRadians(longt-baseLong); 
+		double deltaLat = Math.toRadians(lat-baseLat); 
+		lat = Math.toRadians (lat); // not sure if function correct
+		double clat = Math.cos(lat); 
+		 
+		xPos = clat*deltaLong*earthRad; 
+		yPos = deltaLat*earthRad; 
+	}
+	/**** Xpos **** 
+	@params: none 
+	@return: x_pos 
+	*/
+	public double XPos(){ 
+	    return xPos; 
+	} 
+	  
+	/**** Ypos **** 
+	@params: none 
+	@return: y_pos 
+	*/
+	public double YPos(){ 
+	    return yPos; 
+	} 
+} 
+	  

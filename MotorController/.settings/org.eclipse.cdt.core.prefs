@@ -1,0 +1,3 @@
+#Wed Feb 16 19:29:45 NST 2011
+eclipse.preferences.version=1
+environment/project/de.innot.avreclipse.configuration.app.debug.26823982=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<environment append\="true" appendContributed\="true">\r\n<variable delimiter\=";" name\="BUILDARTIFACT" operation\="replace" value\="MotorControl.elf"/>\r\n</environment>\r\n
