@@ -40,15 +40,19 @@ There is a guide [here](http://jkuhlm.bplaced.net/hellobone/) for cross-compilin
 It also discusses compiling with make and Eclipse. CMake may be configured to generate an Eclipse project if you wish.
 
 To generate a *nix makefile for Linux/MacOS, the usual procedure is
+```
 $> cd munsailbot/<subproject>
 $> mkdir build
 $> cd build
 $> cmake ../ -G "Unix Makefiles"
+```
 
 Provided CMake can find everything, this will generate a Makefile for the project.
 You can then compile with
+```
 $> cd ../
 $> make
+```
 
 For arduino-based projects, this will generate a .hex file which can be uploaded with the upload.sh script found
 in the root directory of the project (*nix only). Depending on your system this script may need to be adjusted.
