@@ -1,6 +1,6 @@
-#include "../include/TinyGPSPlus/TinyGPS++.h"
-#include "../include/Autonomy.h"
-#include "../include/Utility.h"
+#include "TinyGPSPlus/TinyGPS++.h"
+#include "Autonomy.h"
+#include "Utility.h"
 
 #include <curses.h>
 
@@ -37,7 +37,7 @@ Autonomy::Autonomy(Timer* timer){
 
 
     for(std::string line; std::getline(fin, line); ){
-        std::istringstream in(line);      //make a stream for the line itself
+        std::istringstream in(line);                                            // make a stream for the line itself
 
         double lat,lon;
 
@@ -50,6 +50,7 @@ Autonomy::Autonomy(Timer* timer){
 
         _waypoints.push_back(point);
     }
+
     fin.close();
 
     _numWaypoints = _waypoints.size();
@@ -67,13 +68,13 @@ Autonomy::Autonomy(Timer* timer){
     _startedTack = false;
     _startedRecovery = false;
     _initialCoordsCaptured = false;
-    _hasTacked = false;                                                         // Has the boat tacked recently
+    _hasTacked = false;                                                         // Has the boat tacked recently?
 
     _downwindCount = 0;
     _upwindCount = 0;
     _startedUpwind = false;
 
-    _offset = 150;                                                              // How much is 150 in feet?
+    _offset = 150;                                                              // How much is 150 in feet? 30
     _tackEvent = 0;
 
     _timer = timer;
@@ -89,7 +90,7 @@ void Autonomy::setMode(MODE m){
     if(_mode == STATION_KEEPING_STRAT1) _sailState = MOVE_TO_POINT;
 }
 
-// Executes a single state->action step. The frequency of these steps is determined externally.
+// Executes a step. The frequency of these steps is determined externally.      // TODO: TACK AT AN EXTREME ANGLE AT CLOSE RANGE
 void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial){
     uint8_t main, jib, rud;
     main = _lastMain;
@@ -133,7 +134,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             fout << "Initial Lon: "  << _initialLatLon.y << std::endl;
         }
     }
-
+                                                                                // TODO: ADD ANGLEDTACKLINES TO UPWIND CASE
     if(_mode == LONG_DISTANCE){
         motorstate_t r;
         switch(_sailState){
@@ -167,11 +168,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             case MOVE_TO_POINT:
                 mvprintw(10, 2, "STATE: MOVE TO POINT\n");
                 if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
-                                                                                // WHAT DOES THIS CHECK MEAN?
+
                     if(wpDist <= 5){                                            // Is it within distance of waypoint?
                         _sailState = REACHED_POINT;
                     }
-                    else{                                                       // If not, find absolute wind and set sail mode
+                    else{                                                       // TODO: If not, find absolute wind and set sail mode
                         uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
                         fout << "Absolute Wind: " << windAbs << std::endl;
                         if(angleBetween(cardinalToStandard(windAbs), cardinalToStandard(wpCourse)) <= 75){
@@ -196,7 +197,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
                 //TODO: course and heading are raw values, should compute track and true heading
 
-                if(wpDist <= 5){                                                // If within distance
+                if(wpDist <= 5){
                     _sailState = REACHED_POINT;
                 }
 
@@ -226,9 +227,105 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
                 mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
                 mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
+                                                                                // TODO: IS THIS SECTION CORRECT?
+                if(wpDist <= 150){                                               // Create angled tack lines if within 30 feet
+                  if(wpDist <= 5){
+                      _sailState = REACHED_POINT;
+                  }
+                  if(_upwindCount >= 3){
+                      _downwindCount = 0;
 
-                if(wpDist <= 5){
-                    _sailState = REACHED_POINT;
+                      std::cout << "Started upwind: " << _startedUpwind << std::endl;
+                      if(_startedUpwind == false){
+                          Point<double> llp;
+                          llp.x = state.latitude;
+                          llp.y = state.longitude;
+
+                          //_boatPolar.x = distanceBetweenPoints(_initialLatLon, llp);
+                          _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
+                          _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
+                          _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
+                          _initialCart.x = _boatCart.x;
+                          _initialCart.y = _boatCart.y;
+                          fout << "Initial Boat XY: " << _initialCart.x << ", " << _initialCart.y << std::endl;
+                          fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
+                          mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
+
+                          Point<double> llw;
+                          llw.x = _waypoints[_wpId].lat;
+                          llw.y = _waypoints[_wpId].lon;
+                          //_waypointPolar.x = distanceBetweenPoints(_initialLatLon, llw);
+                          _waypointPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y);
+                          _waypointPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y));
+                          _waypointCart = polarToCartesian(_waypointPolar.x, _waypointPolar.y);
+
+                          _startedUpwind = true;
+                      }
+                         else{
+                          Point<double> llp;
+                          llp.x = state.latitude;
+                          llp.y = state.longitude;
+
+                          //_boatPolar.x = distanceBetweenPoints(_initialLatLon, llp);
+                          _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
+                          _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
+                          _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
+                          mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
+                          mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
+                          fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
+
+                          std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
+                          std::pair<Line, Line> angledLines = generateAngledControlLines(_initialCart, _waypointCart, _offset);
+
+                          mvprintw(18, 1, "Line 1: %f, %f, %f, %f", lines.first.a.x, lines.first.a.y, lines.first.b.x, lines.first.b.y);
+                          mvprintw(19, 1, "Line 2: %f, %f, %f, %f", lines.second.a.x, lines.second.a.y, lines.second.b.x, lines.second.b.y);
+                          fout << "Line1: " << lines.first.a.x << ","  << lines.first.a.y << "," << lines.first.b.x << "," << lines.first.b.y << std::endl;
+                          fout << "Line2: " << lines.second.a.x << ","  << lines.second.a.y << "," << lines.second.b.x << "," << lines.second.b.y << std::endl;
+                          fout << "Line3: " << angledLines.first.a.x << ","  <<  angledLines.first.a.y << "," <<  angledLines.first.b.x << "," << angledLines.first.b.y << std::endl;
+                          fout << "Line4: " << angledLines.second.a.x << ","  << angledLines.second.a.y << "," << angledLines.second.b.x << "," << angledLines.second.b.y << std::endl;
+                          uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
+
+                                                                                // TODO: DOES THIS LOGIC MAKE SENSE?
+                          if((pointBelowLine(_boatCart, lines.second) && pointBelowLine(_boatCart, lines.first)
+                           && pointBelowLine(_boatCart, angledLines.first) && pointBelowLine(_boatCart, angledLines.second))
+                           || (pointAboveLine(_boatCart, lines.second) && pointAboveLine(_boatCart, lines.first) && pointAboveLine(_boatCart,
+                           angledLines.first && pointAboveLine(_boatCart, angledLines.second)))){
+                              _sailState = TACK;
+
+                              if(_tackEvent == 0){
+                                  //_offset -= 3;
+                                  _tackEvent = 1;
+                              }
+                          }
+                          else{
+                              if(state.windDirection > -15 && state.windDirection < 15 && state.speed < 0.5){
+                                  break;
+                              }
+                              else{
+                                  if(state.windDirection < 0)
+                                      r = courseByWind(state.windDirection, -65);
+                                  else
+                                      r = courseByWind(state.windDirection, 65);
+                                  main = r.main;
+                                  jib = r.jib;
+                                  rud = static_cast<uint8_t>(r.rudder + 35);
+                                  _sailState = MOVING_CHECK;
+                              }
+                          }
+                                                                                // TODO: CHECK THIS LOGIC
+                          if((pointBelowLine(_boatCart, lines.second) && pointAboveLine(_boatCart, lines.first)) &&
+                          (pointBelowLine(_boatCart, angledLines.second) && pointAboveLine(_boatCart, angledLines.first))
+                          || (pointAboveLine(_boatCart, lines.second) && pointBelowLine(_boatCart, lines.first))
+                          && (pointBelowLine(_boatCart, angledLines.first) && pointAboveLine(_boatCart, angledLines.second)))
+                          {
+                              _tackEvent = 0;
+                          }
+                      }
+                     }
+                  else{
+                      _sailState = MOVING_CHECK;
+                  }
+
                 }
                 else{
                     if(_upwindCount >= 3){
@@ -316,10 +413,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case TACK:
-                mvprintw(10, 2, "STATE: TACK\n");
+                mvprintw(10, 2, "STATE: TACK\n");                               // TODO: TACK CASES FOR TIMER CHANGES
 
                 /*
                 if(_initialWindRelative == 9999)
+
                     _initialWindRelative = state.windDirection;
                 if(_desiredWindRelative == 9999)
                     _desiredWindRelative = -_initialWindRelative;
@@ -330,11 +428,12 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 main = 0;
                 jib = 0;
                 */
-                
+
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
                 }
-                else{
+
+                else{                                                           // TODO: HASTACKED CHECK HERE?
                     if(_startedTack == false){
                         _tackTime = 0;
                         _initialWindRelative = state.windDirection;
@@ -787,29 +886,24 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
     return out;
 }
 
-/* a single step of the tack state                                              // REPLACE TACK TIMER WITH WIND DETECTION
+                                                                                // TODO: SET RECENT TACK CHECK
+
+// TODO: REPLACE TACK TIMER WITH WIND DETECTION                                 // TODO: Set timer point to use for 60 second determination?
+/* a single step of the tack state
 * x represents time as an integer for the rudder movement
 * windRelative is the current relative wind angle as read from the sensor
 * initialWindRelative is the relative wind angle captured at the beginning of the tack state
 * desiredWindRaltive is the relative wind angle we will stop tacking at, usually the negative of initialWindRelative
 */
-motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, int desiredWindRelative){
+motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, int desiredWindRelative, ){
     motorstate_t out;
 
     mvprintw(10, 20, "TACKING\n");
 
     uint8_t aggression = 5;                                                     // this may be learned or controlled from outside later
 
-    /*************  REPLACE TACK TIMER WITH WIND CHECK TO SEE IF TACK COMPLETED // WIND DIRECTION SHOULD BE >75 DEGREES
-    if(x > 10){                                                                 // IF TACK TIMER (10 CYCLES) NOT EXPIRED
-        _sailState = MOVING_CHECK;
-        _initialWindRelative = 9999;
-        _desiredWindRelative = 9999;
-        _tackTime = -10;                                                        // TACK TIMER
-    }*/
                                                                                 // ADD TIMER TO CHECK IF HAS TACKED WITHIN 60 SECONDS
-                                                                                // PRIVATE '_HASTACKED' VARIABLE & DELAY FUNCTION
-                                                                                //
+
     if(initialWindRelative > 0){                                                // TACK DIRECTION ONE
         float sig = sqrt(0.05f);
         float mu = 0.0f;
@@ -829,15 +923,16 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
                 _sailState = MOVING_CHECK;
                 _initialWindRelative = 9999;
                 _desiredWindRelative = 9999;
-                _tackTime = -10;                                                // _tackTime goes to zero if
+                //_tackTime = -10;
             }
         }
+
         else if(desiredWindRelative > initialWindRelative){
             if(windRelative >= desiredWindRelative){
                 _sailState = MOVING_CHECK;
                 _initialWindRelative = 9999;
                 _desiredWindRelative = 9999;
-                _tackTime = -10;
+                // _tackTime = -10;
             }
         }
     }
@@ -872,7 +967,6 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
         }
     }
     _hasTacked = true;                                                          // Has tacked recently
-                                                                                // Set timer point to use for 60 second determination?
     return out;
 }
 
@@ -965,13 +1059,13 @@ double Autonomy::distanceBetweenPoints(Point<double> p1, Point<double> p2){
     return sqrt(pow(p2.x - p1.x, 2) + (pow(p2.y - p1.y, 2)));
 }
 
-/* Generates control lines for upwind sailing                                   // OFFSET SHOULD BE 30 FT ON EACH SIDE
+/* Generates control lines for upwind sailing
 */
 std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Point<double> destPos, int offset){
     Line l1, l2;
-
-    l1.a.x = initPos.x - offset;                                                // OFFSET IS 150 BY DEFAULT
-    l1.a.y = initPos.y;                                                         // WHAT IS THIS EQUAL TOO?
+                                                                                // GPS point to create 60 deg line
+    l1.a.x = initPos.x - offset;                                                // OFFSET IS 150 (30 FT) BY DEFAULT
+    l1.a.y = initPos.y;
     l1.b.x = destPos.x - offset;
     l1.b.y = destPos.y;
 
@@ -993,6 +1087,52 @@ std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Poin
         l1.a.y = initPos.y + offset;
         l1.b.x = destPos.x;
         l1.b.y = destPos.y + offset;
+    }
+
+    return std::make_pair(l1, l2);
+}
+
+/* Generates additional angled lines for upwind sailing if close to target      // TODO: IS THIS ACCURATE?
+*/
+std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos, Point<double> destPos, int offset){
+    Line l1, l2;
+                                                                                // GPS point to create 60 deg line
+    l1.a.x = initPos.x - offset;
+    l1.a.y = initPos.y;
+    l1.b.x = destPos.x;
+    l1.b.y = destPos.y;
+
+    l2.a.x = initPos.x + offset;
+    l2.a.y = initPos.y;
+    l2.b.x = destPos.x;
+    l2.b.y = destPos.y;
+
+    double m1 = (l1.b.y - l1.a.y) / (l1.b.x - l1.a.x);
+    double m2 = (l2.b.y - l2.a.y) / (l2.b.x - l2.a.x);
+
+    if((m1 < 0.9) || (m2 < 0.9)){                                               // Are tack lines generated at 60 degrees?
+      if (m2 < 0.9) {
+        l2.a.x = initPos.x;
+        l2.a.y = initPos.y - offset;                                            // Even out the lines creation
+        l2.b.x = destPos.x;
+        l2.b.y = destPos.y;
+
+        l1.a.x = initPos.x;
+        l1.a.y = initPos.y + offset;                                            // Bring up the opposing lines offset height
+        l1.b.x = destPos.x;                                                     // Is 30 feet offset too much for this?
+        l1.b.y = destPos.y;
+      }
+      else if (m1 < 0.9){
+        l2.a.x = initPos.x;
+        l2.a.y = initPos.y + offset;                                            // Even out the lines creation
+        l2.b.x = destPos.x;
+        l2.b.y = destPos.y;
+
+        l1.a.x = initPos.x;
+        l1.a.y = initPos.y - offset;                                            ///
+        l1.b.x = destPos.x;
+        l1.b.y = destPos.y;
+      }
     }
 
     return std::make_pair(l1, l2);
