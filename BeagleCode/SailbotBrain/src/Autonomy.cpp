@@ -60,15 +60,13 @@ Autonomy::Autonomy(Timer* timer){
     _lastMain = 0;
     _lastJib = 0;
     _lastRud = 35;
-
-//  _tackTime = 0;
     _recoveryTime = 0;
     _initialWindRelative = 9999;
     _desiredWindRelative = 9999;
     _startedTack = false;
     _startedRecovery = false;
     _initialCoordsCaptured = false;
-    _hasTacked = false;                                                         // Has the boat tacked recently?
+    _recentTack = false;                                                         // Has the boat tacked recently?
 
     _downwindCount = 0;
     _upwindCount = 0;
@@ -89,8 +87,8 @@ void Autonomy::setMode(MODE m){
     _mode = m;
     if(_mode == STATION_KEEPING_STRAT1) _sailState = MOVE_TO_POINT;
     }
-                                                                                // TODO: ADD STEEPER LINES TO STATkEEP UPWIND
-// Executes a step. The frequency of these steps is determined externally.      // TODO: CHECKME: TACK AT AN EXTREME ANGLE AT CLOSE RANGE
+
+// Executes a step. The frequency of these steps is determined externally.
 void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial){
     uint8_t main, jib, rud;
     main = _lastMain;
@@ -283,7 +281,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                           fout << "Line4: " << angledLines.second.a.x << ","  << angledLines.second.a.y << "," << angledLines.second.b.x << "," << angledLines.second.b.y << std::endl;
                           uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
 
-                                                                                // TODO: CLEAN UP
                           if((pointBelowLine(_boatCart, angledLines.first) && pointBelowLine(_boatCart, angledLines.second)) ||
                           (pointAboveLine(_boatCart, angledLines.first) && pointAboveLine(_boatCart, angledLines.second)) ||
                           ((pointBelowLine(_boatCart, angledLines.first) && pointBelowLine(_boatCart, angledLines.second) &&
@@ -398,7 +395,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                     _tackEvent = 1;
                                 }
                             }
-                                                                                //TODO: THIS IS POINTLESS
+                                                                                //CHECKME: THIS IS POINTLESS
                             if((pointBelowLine(_boatCart, lines.second) && pointAboveLine(_boatCart, lines.first))
                             || (pointAboveLine(_boatCart, lines.second) && pointBelowLine(_boatCart, lines.first))){
                                 _tackEvent = 0;
@@ -428,7 +425,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case TACK:
-                mvprintw(10, 2, "STATE: TACK\n");                               // TODO: TACK CASES FOR TIMER CHANGES
+                mvprintw(10, 2, "STATE: TACK\n");
 
                 r = tack(_tackTime, state.windDirection, _initialWindRelative, _desiredWindRelative);
                 rud = r.rudder + 35; //Calculations done (-35,35), must be sent (0,70)
@@ -439,9 +436,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     _sailState = REACHED_POINT;
                 }
 
-                else{                                                           // TODO: HASTACKED CHECK HERE?
-                    if(_startedTack == false && _hasTacked == false){
-                        _tackTime = 0;
+                else if (_recentTack == false){                                 // TODO: RETURN RECE?NTTACK TO FALSE SOMEWHERE
+                    if(_startedTack == false){
+                        //_tackTime = 0;
                         _initialWindRelative = state.windDirection;
 
                         if(_initialWindRelative > 0){
@@ -453,8 +450,49 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
                         _startedTack = true;
                     }
+
                     else{
-                        if(_tackTime >= 10){                                    // TODO: WIND CHECK INSTEAD
+                      int initialWindTack = state.windDirection;
+                      if (initialWindTack > 0){
+                          if(initialWindTack >= (initialWindTack * (-1))){
+                              if(_startedRecovery == false){
+                                  _recoveryTime = 0;
+                                  if(state.windDirection > 0)
+                                      r = courseByWind(state.windDirection, 65);
+                                  else
+                                      r = courseByWind(state.windDirection, -65);
+                                  rud = r.rudder + 35;
+                                  main = r.main;
+                                  jib = r.jib;
+
+                                  _startedRecovery = true;
+                              }
+                              else{
+                                  if(_recoveryTime >= 12){
+                                      _sailState = MOVE_TO_POINT;
+
+                                      _startedTack = false;
+                                      _startedRecovery = false;
+                                      _initialWindRelative = 9999;
+                                  }
+                                  else{
+                                      if(state.windDirection > 0)
+                                          r = courseByWind(state.windDirection, 65);
+                                      else
+                                          r = courseByWind(state.windDirection, -65);
+                                      rud = r.rudder + 35;
+                                      main = r.main;
+                                      jib = r.jib;
+
+                                      _recoveryTime++;
+                                  }
+                              }
+                          }
+                          else{
+                              _recentTack == true;
+                          }
+                      else if (initialWindTack < 0){
+                        if(initialWindTack <= (initialWindTack * (-1))){
                             if(_startedRecovery == false){
                                 _recoveryTime = 0;
                                 if(state.windDirection > 0)
@@ -488,8 +526,10 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                 }
                             }
                         }
-                        else{
-                            _tackTime++;                                        // TODO: GET WINDCHECK AGAIN HERE
+                        else {
+                          _recentTack == true;
+                        }
+                      }
                         }
                     }
                 }
@@ -523,32 +563,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
         if((_timer->millis() - _skTimer) < ((1000*60)*5)){
             switch(_sailState){
-            /*case MOVING_CHECK:
-                mvprintw(10, 2, "STATE: MOVING CHECK\n");
-                if(wpDist <= 5){
-                    _sailState = REACHED_POINT;
-                }
-                else{
-                    if(state.speed >= 0.5){
-                        _sailState = MOVE_TO_POINT;
-                    }
-                    else{
-                        if(state.windDirection > -15 && state.windDirection < 15){
-                            break;
-                        }
-                        else{
-                            if(state.windDirection < 0)
-                                r = courseByWind(state.windDirection, -90);
-                            else
-                                r = courseByWind(state.windDirection, 90);
-
-                            rud = (r.rudder + 35);
-                            main = r.main;
-                            jib = r.jib;
-                        }
-                    }
-                }
-                break;*/
 
                 case MOVE_TO_POINT:
                     mvprintw(10, 2, "STATE: MOVE TO POINT\n");
@@ -902,8 +916,6 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
 
     uint8_t aggression = 5;                                                     // this may be learned or controlled from outside later
 
-                                                                                // ADD TIMER TO CHECK IF HAS TACKED WITHIN 60 SECONDS
-
     if(initialWindRelative > 0){                                                // TACK DIRECTION ONE
         float sig = sqrt(0.05f);
         float mu = 0.0f;
@@ -962,11 +974,11 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
                 _sailState = MOVING_CHECK;
                 _initialWindRelative = 9999;
                 _desiredWindRelative = 9999;
-                _tackTime = -10;
+                // _tackTime = -10;
             }
         }
     }
-    //_hasTacked= true;                                                          // Has tacked recently
+    //_recentTack= true;                                                          // Has tacked recently
     return out;
 }
 
