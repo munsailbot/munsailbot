@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
     //Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
     TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);				// WIND ANGLE		(degrees)
+	// USE WIND DIRECTION FOR CALCULATIONS
     TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);				
     TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);					// TRACK MADE GOOD	(degrees)
     TinyGPSCustom sog(*tinyGps, "GPVTG", 5);					// SPEED OVER GROUND	(unit?)
