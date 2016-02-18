@@ -9,6 +9,10 @@
 #include <fstream>
 #include <iomanip>
 
+
+// TODO: ROUND BUOY ON THE LEFT FOR NAV TEST EVENT (BOAT'S RIGHT)
+
+
 Autonomy::Autonomy(Timer* timer){
     _sailState = MOVING_CHECK;
 
@@ -90,7 +94,9 @@ void Autonomy::setMode(MODE m){
 
 // Executes a step. The frequency of these steps is determined externally.
 void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial){
-    uint8_t main, jib, rud;
+    uint8_t main;
+    //uint8_t jib;
+    uint8_t rud;
     main = _lastMain;
     //jib = _lastJib;
     rud = _lastRud;
@@ -208,7 +214,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                         r = courseByHeading(state.windDirection, state.gpsHeading, static_cast<uint32_t>(floor(wpCourse)));
                         rud = static_cast<uint8_t>(r.rudder + 35);
                         main = r.main;
-                        // jib = r.jib;
+                        jib = r.jib;
 
                         _sailState = MOVING_CHECK;
                     }
@@ -313,7 +319,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                   else
                                       r = courseByWind(state.windDirection, 65);
                                   main = r.main;
-                                  // jib = r.jib;
+                                  jib = r.jib;
                                   rud = static_cast<uint8_t>(r.rudder + 35);
                                   _sailState = MOVING_CHECK;
                               }
@@ -436,7 +442,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     _sailState = REACHED_POINT;
                 }
 
-                else if (_recentTack == false){                                 // TODO: RETURN RECENTTACK TO FALSE SOMEWHERE
+                else if (_recentTack == false){                                 // TODO: RETURN RECE?NTTACK TO FALSE SOMEWHERE
                     if(_startedTack == false){
                         //_tackTime = 0;
                         _initialWindRelative = state.windDirection;
@@ -831,9 +837,9 @@ uint8_t Autonomy::getMain(){
     return _lastMain;
 }
 
-uint8_t Autonomy::getJib(){
+/* uint8_t Autonomy::getJib(){
     return _lastJib;
-}
+} 				*/
 
 uint8_t Autonomy::getRud(){
     return _lastRud;
@@ -874,6 +880,7 @@ motorstate_t Autonomy::courseByWind(int windRelative, int angleToSail){
 
 /* attempts to sail by gps heading; needs to be verified */
 motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int courseToPoint){
+    
     motorstate_t out;
 
     int theta = courseToPoint - heading;
@@ -902,7 +909,7 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
 
                                                                                 // TODO: SET RECENT TACK CHECK
 
-// TODO: REPLACE TACK TIMER WITH WIND DETECTION                                 // TODO: Set timer point to use for 60 second determination?
+										// TODO: Set timer point to use for 60 second determination?
 /* a single step of the tack state
 * x represents time as an integer for the rudder movement
 * windRelative is the current relative wind angle as read from the sensor
@@ -978,7 +985,7 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
             }
         }
     }
-    //_recentTack= true;                                                          // Has tacked recently
+    _recentTack= true;                                                          // Has tacked recently
     return out;
 }
 
@@ -1071,8 +1078,8 @@ double Autonomy::distanceBetweenPoints(Point<double> p1, Point<double> p2){
     return sqrt(pow(p2.x - p1.x, 2) + (pow(p2.y - p1.y, 2)));
 }
 
-/* Generates control lines for upwind sailing
-*/
+// Generates control lines for upwind sailing
+
 std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Point<double> destPos, int offset){
     Line l1, l2;
                                                                                 // GPS point to create 60 deg line
