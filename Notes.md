@@ -2,8 +2,8 @@
 
 * _sog_ : "Speed Over Ground"
 > The speed of the vessel relative to the Ground
-* _tmg_ : "Travel Made Good"
-> The actual distance travelled by the vessel
+* _tmg_ : "Track Made Good"
+> The actual distance traveled by the vessel
 
 ## gpsHeading
 
@@ -15,17 +15,25 @@
 
 ## __windSpeed__ _new_
 
-> TinyGPSCustom windSpeed(*tinyGPS, 'WMIWV', 3)
+> TinyGPSCustom windSpeed(*tinyGPS, 'WIMWV', 3)
+
+* Apparent wind speed, in knots
 
 > state.windSpeed = atof(windSpeed.value)
 
 * Pass into VectorFilter.h functions to find angles
 
+> TinyGPSCustom trueWindSpeed(*tinyGPS, 'WIVWT', 3)
 
+* True wind speed in knots, 5 for meters/s
 
 ## windDirection
 
-> TinyGPSCustom windDirection(*tinyGPS, 'WMIWV', 1)
+> TinyGPSCustom trueWindDirection(*tinyGPS, 'WIVWT', 1)
+
+* True wind angle in degrees from center bow __(L or R?)__
+
+> TinyGPSCustom windDirection(*tinyGPS, 'WIMWV', 1)
 
 * Returns wind angle in degrees 0 - 359.9 from the bow's centerline
 * This is the _Apparent Wind_
@@ -54,8 +62,6 @@
 * If less than 0.5 (too steep), the y coordinates are offset in the +/- directions to widen
 * \_offset controls the width of lane (2*sqrt(2 offset))
 * should ideally be 30 feet (150)
-
-## Autonomy::Tack
 
 
 ## Tacking around buoy
