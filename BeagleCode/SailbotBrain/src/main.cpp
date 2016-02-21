@@ -152,7 +152,7 @@ int main(int argc, char* argv[])
             currentState.speed = tinyGps->speed.knots();
             std::cout << tinyGps->speed.value();*/
 
-            if(windDirection.isUpdated()){
+            if(`windDirection`.isUpdated()){
                 currentState.windDirection = windFilter.getFilteredValue(atof(windDirection.value()));
                 if(currentState.windDirection > 180)currentState.windDirection = currentState.windDirection - 360;
             }
