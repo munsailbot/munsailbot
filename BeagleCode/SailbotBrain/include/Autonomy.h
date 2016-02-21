@@ -26,6 +26,7 @@ typedef enum{
 struct Point_d{
     double x, y;
 };*/
+
 template<typename T> class Point{
 public:
     T x, y;
@@ -60,12 +61,13 @@ private:
     uint8_t _lastRud;
 
     //Tacking parameters
-    int _tackTime;
+//  int _tackTime;
     int _recoveryTime;
     int _initialWindRelative;
     int _desiredWindRelative;
     bool _startedTack;
     bool _startedRecovery;
+    bool _recentTack;
 
     //State tracking
     uint8_t _downwindCount;
@@ -80,6 +82,7 @@ private:
     Point<double> _waypointCart;
     int _offset;
     int _tackEvent;
+    int _tackTimer
 
     // Station keeping
     Timer* _timer;
