@@ -26,6 +26,8 @@ typedef struct{
     double longitude;
     int windDirection;
     int windSpeed;
+    int trueWindDirection;
+    int trueWindSpeed;
     double gpsHeading;
     int magHeading; //should be double
     double speed;
