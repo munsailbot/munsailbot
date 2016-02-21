@@ -1,20 +1,49 @@
-TinyGPS++
----
-*
-*
-*
+## Acronyms
+
+* _sog_ : "Speed Over Ground"
+> The speed of the vessel relative to the Ground
+* _tmg_ : "Travel Made Good"
+> The actual distance travelled by the vessel
+
+## gpsHeading
+
+> currentState.gpsHeading = atof(tmg.value());
+
+* Measured in degrees
+* The degree value of Travel Made Good
+* atof converts string to double
+
+## __windSpeed__ _new_
+
+> TinyGPSCustom windSpeed(*tinyGPS, 'WMIWV', 3)
+
+> state.windSpeed = atof(windSpeed.value)
+
+* Pass into VectorFilter.h functions to find angles
 
 
-Tack
----
+
+## windDirection
+
+> TinyGPSCustom windDirection(*tinyGPS, 'WMIWV', 1)
+
+* Returns wind angle in degrees 0 - 359.9 from the bow's centerline
+* This is the _Apparent Wind_
+
+> state.windDirection = windFilter.getFilteredValue(atof(windDirection.value))
+
+* Uses Bayes filter to remove noise and returns angle of wind
+
+## Tack
+
 * Timer based (should be checking wind)
 * Check speed before Tack (gps)
 * 30 ft offset on either side
 * "Did I tack in recent time?" (a minute) then don't tack
 * When attempting to navigate buoy, aim above by boat length
 
-generateControlLines
----
+## generateControlLines
+
 >If going upwind
 
 >Creates tack guidelines
@@ -23,19 +52,16 @@ generateControlLines
 * From destination point, take two points in +offset and - offset x direction
 * (dest - init) y  / (dest - init) x is measured for both sets of points
 * If less than 0.5 (too steep), the y coordinates are offset in the +/- directions to widen
-* _offset controls the width of lane (2*sqrt(2 offset))
+* \_offset controls the width of lane (2*sqrt(2 offset))
 * should ideally be 30 feet (150)
 
-Autonomy::Tack
----
+## Autonomy::Tack
 
 
+## Tacking around buoy
 
-Tacking around buoy
-----
-
-upwind count - measuring how long wind has been blowing
-basing direction based on wind_abs? angle should be relative (speed)
-should be 45 into the wind
-tack lines should be triggering WHEN to tack
-bearing is wind based
+* upwind count - measuring how long wind has been blowing
+* basing direction based on wind_abs? angle should be relative (speed)
+* should be 45 into the wind
+* tack lines should be triggering WHEN to tack
+* bearing is wind based

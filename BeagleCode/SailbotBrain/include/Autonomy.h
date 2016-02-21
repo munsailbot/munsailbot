@@ -57,7 +57,7 @@ private:
 
     state_t _lastState;
     uint8_t _lastMain;
-    uint8_t _lastJib;
+    // uint8_t _lastJib;
     uint8_t _lastRud;
 
     //Tacking parameters
@@ -97,7 +97,7 @@ public:
     void step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial);
 
     uint8_t getMain();
-    uint8_t getJib();
+    // uint8_t getJib();
     uint8_t getRud();
 
     void resetTimer();

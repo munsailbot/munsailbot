@@ -88,10 +88,11 @@ int main(int argc, char* argv[])
 
     //Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
-    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);
-    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);
-    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
-    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
+    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);				// WIND ANGLE		(degrees)
+	// USE WIND DIRECTION FOR CALCULATIONS
+    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);				
+    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);					// TRACK MADE GOOD	(degrees)
+    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);					// SPEED OVER GROUND	(unit?)
 
     //We will use a hanning filter to filter the incoming wind direction
     HanningFilter<int> windFilter;
@@ -309,7 +310,7 @@ int main(int argc, char* argv[])
 
             mvprintw(1, 25, "RUDDER: %3d, %3d, %3d, %3d\n", scaledRudInt-21, autonomy->getRud()-35, lastRud-35, desiredRud-35);
             mvprintw(2, 25, "MAIN: %3d, %3d\n", desiredSail, autonomy->getMain());
-            mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
+            // mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
 
             lerpCur++;
             if(lerpCur > lerpMax) lerpCur = lerpMax;
