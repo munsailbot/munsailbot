@@ -88,11 +88,15 @@ int main(int argc, char* argv[])
 
     //Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
-    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);				// WIND ANGLE		(degrees)
-	// USE WIND DIRECTION FOR CALCULATIONS
-    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);				
-    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);					// TRACK MADE GOOD	(degrees)
-    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);					// SPEED OVER GROUND	(unit?)
+    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  		// WIND ANGLE (degrees)
+    TinyGPSCustom windSpeed(*tinyGPS, "WIMWV", 5);                              // WIND SPEED (knots)
+    // TRUE WIND CALCULATIONS
+    TinyGPSCustom trueWindSpeed(*tinyGps, "WIMWT", 3);					                // SPEED OF TRUE WIND	(knots)
+    TinyGPSCustom trueWindDirection(*tinyGPS, "WIMWT", 1);                      // TRUE WIND ANGLE (L or R side?)
+    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);                             // Magnetic Heading
+    //  BOAT TRACKING
+    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);				                           	// TRACK MADE GOOD	(degrees)
+    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);					                          // SPEED OVER GROUND	(knots)
 
     //We will use a hanning filter to filter the incoming wind direction
     HanningFilter<int> windFilter;
@@ -153,7 +157,7 @@ int main(int argc, char* argv[])
             currentState.speed = tinyGps->speed.knots();
             std::cout << tinyGps->speed.value();*/
 
-            if(`windDirection`.isUpdated()){
+            if(windDirection.isUpdated()){
                 currentState.windDirection = windFilter.getFilteredValue(atof(windDirection.value()));
                 if(currentState.windDirection > 180)currentState.windDirection = currentState.windDirection - 360;
             }
@@ -161,6 +165,11 @@ int main(int argc, char* argv[])
             if(magHeading.isUpdated()){
                 currentState.magHeading = compassFilter.getFilteredValue(atof(magHeading.value()));
             }
+
+            if(windSpeed.isUpdated()){
+              currentState.windSpeed = windFilter.getFilteredValue(atof(windSpeed.value());
+            }
+
             if(sog.isUpdated()){
                 currentState.speed = atof(sog.value());
                 //std::cout << currentState.latitude << std::endl;
