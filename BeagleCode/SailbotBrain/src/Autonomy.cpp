@@ -177,6 +177,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                         _sailState = REACHED_POINT;
                     }
                     else{                                                       // TODO: If not, find absolute wind and set sail mode
+                                                                                // TODO: Get windspeed to find WindAbs
                         uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
                         fout << "Absolute Wind: " << windAbs << std::endl;
                         if(angleBetween(cardinalToStandard(windAbs), cardinalToStandard(wpCourse)) <= 75){
@@ -928,7 +929,7 @@ motorstate_t Autonomy::courseByWind(int windRelative, int angleToSail){
 
 /* attempts to sail by gps heading; needs to be verified */
 motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int courseToPoint){
-    
+
     motorstate_t out;
 
     int theta = courseToPoint - heading;
