@@ -9,10 +9,7 @@
 #include <fstream>
 #include <iomanip>
 
-
-// TODO: ROUND BUOY ON THE LEFT FOR NAV TEST EVENT (BOAT'S RIGHT)
-
-
+                                                                                // TODO: ROUND BUOY ON THE LEFT FOR NAV TEST EVENT (BOAT'S RIGHT)
 Autonomy::Autonomy(Timer* timer){
     _sailState = MOVING_CHECK;
 
@@ -176,10 +173,10 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     if(wpDist <= 5){                                            // Is it within distance of waypoint?
                         _sailState = REACHED_POINT;
                     }
-                    else{                                                       // TODO: If not, find absolute wind and set sail mode
-                                                                                // TODO: Get windspeed to find WindAbs
-                        uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
-                        fout << "Absolute Wind: " << windAbs << std::endl;
+                    else{
+
+                        uint32_t windAbs = state.trueWindDirection;
+                        fout << "True Wind Direction: " << windAbs << std::endl;
                         if(angleBetween(cardinalToStandard(windAbs), cardinalToStandard(wpCourse)) <= 75){
                             _sailState = UPWIND;                                // Head on is 0 degrees, P = -75, S = +75
                         }
@@ -447,7 +444,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                   else {
                       if(_startedTack == false){
                           _tackTimer = 0;
-                          _initialWindRelative = state.windDirection;
+                          _initialWindRelative = state.trueWindDirection;
 
                           if(_initialWindRelative > 0){
                               rud = 70;
@@ -537,8 +534,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                           else {
                             _recentTack == true;
                           }
-<<<<<<< HEAD
-=======
+
                       else if (initialWindTack < 0){
                         if(initialWindTack <= (initialWindTack * (-1))){
                             if(_startedRecovery == false){
@@ -576,7 +572,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                         }
                         else {
                           _recentTack == true;
->>>>>>> 75623f18f75b5cacf2c72d4980b26d8ac98cd22d
                         }
                           }
                       }
@@ -786,7 +781,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     else{
                         if(_startedTack == false){
                             _tackTime = 0;
-                            _initialWindRelative = state.windDirection;
+                            _initialWindRelative = state.trueWindDirection;
 
                             if(_initialWindRelative > 0){
                                 rud = 70;
@@ -956,20 +951,17 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
     return out;
 }
 
+
                                                                                 // TODO: SET RECENT TACK CHECK
 
-<<<<<<< HEAD
-                                                                                // TODO: Set timer point to use for 60 second determination?
-=======
-										// TODO: Set timer point to use for 60 second determination?
->>>>>>> 75623f18f75b5cacf2c72d4980b26d8ac98cd22d
+										                                                            // TODO: Set timer point to use for 60 second determination?
 /* a single step of the tack state
 * x represents time as an integer for the rudder movement
 * windRelative is the current relative wind angle as read from the sensor
 * initialWindRelative is the relative wind angle captured at the beginning of the tack state
 * desiredWindRaltive is the relative wind angle we will stop tacking at, usually the negative of initialWindRelative
 */
-motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, int desiredWindRelative, ){
+motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, int desiredWindRelative){
     motorstate_t out;
 
     mvprintw(10, 20, "TACKING\n");
@@ -1034,10 +1026,8 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
             }
         }
     }
-<<<<<<< HEAD
-=======
+
     _recentTack= true;                                                          // Has tacked recently
->>>>>>> 75623f18f75b5cacf2c72d4980b26d8ac98cd22d
     return out;
 }
 
