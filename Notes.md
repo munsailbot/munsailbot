@@ -5,6 +5,39 @@
 * _tmg_ : "Track Made Good"
 > The actual distance traveled by the vessel
 
+# STATES
+
+## Moving Check
+
+* Always checking "Am I close enough to the waypoint?"
+* Checking "Do I have enough speed/momentum?"
+* If wind is coming close to dead center front, break case
+* In the case that wind is coming at greater than 15 degrees in either direction, sail with the wind
+
+## Move to Point
+
+* Get the direction of the true wind angle
+* If wind is coming at an angle less than 75 degrees from the waypoint, switch to UPWIND
+* If not, then switch to DOWNWIND
+* This ensures the best sailing strategy to take when attempting to reach the point
+
+## Downwind
+
+* If downwind conditions have been detected for over 3 cycles, sets course using it's new heading
+* The course that it has been set on by the downwind conditions will be its course
+* Downwind tacking should be set up to use tack at 30 degree angles
+* If less than three cycles of downwind have been detected, continue moving check
+
+## Upwind
+
+* Sets up tacking lines to stay within, and approach at an angle until passed
+* Then the boat will tack until the wind felt is the opposite angle of initial
+* The width of the tack lines are controlled using the offset variable (Should be 30 ft either side)
+* Angled control lines are created at 60 angle to target when closer to waypoint
+
+## Tack
+
+
 ## gpsHeading
 
 > currentState.gpsHeading = atof(tmg.value());
