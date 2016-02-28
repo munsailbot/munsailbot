@@ -1,15 +1,10 @@
-## Acronyms
 
-* _sog_ : "Speed Over Ground"
-> The speed of the vessel relative to the Ground
-* _tmg_ : "Track Made Good"
-> The actual distance traveled by the vessel
 
-# STATES
+# _STATES_
 
 ## Moving Check
 
-* Always checking "Am I close enough to the waypoint?"
+* Always checking "Am I close enough to the waypoint?" (`wpDist`)
 * Checking "Do I have enough speed/momentum?"
 * If wind is coming close to dead center front, break case
 * In the case that wind is coming at greater than 15 degrees in either direction, sail with the wind
@@ -18,7 +13,7 @@
 
 * Get the direction of the true wind angle
 * If wind is coming at an angle less than 75 degrees from the waypoint, switch to UPWIND
-* If not, then switch to DOWNWIND
+* If not, then switch to `DOWNWIND`
 * This ensures the best sailing strategy to take when attempting to reach the point
 
 ## Downwind
@@ -33,74 +28,79 @@
 * Sets up tacking lines to stay within, and approach at an angle until passed
 * Then the boat will tack until the wind felt is the opposite angle of initial
 * The width of the tack lines are controlled using the offset variable (Should be 30 ft either side)
-* Angled control lines are created at 60 angle to target when closer to waypoint
+* Angled control lines are created at 60 angle to target when closer to way point
+* If not going upwind for 3+ seconds, keep Moving Check going
 
 ## Tack
 
+* Intending to only tack every 60 seconds, so `_tackTimer` and `_hasTacked` are used
+* Autonomy::Tack checks the direction of wind versus initial wind
+* Initial wind conditions set a desired wind condition, which is (-1.35) * `initialWindRelative`
+* The boat will cross the control lines in `UPWIND` mode and turn until desired wind
 
-## gpsHeading
 
-> currentState.gpsHeading = atof(tmg.value());
+### gpsHeading
+
+> `currentState.gpsHeading = atof(tmg.value())`;
 
 * Measured in degrees
-* The degree value of Travel Made Good
+* The degree value of "Travel Made Good"
 * atof converts string to double
 
-## __windSpeed__ _new_
+### __windSpeed__ _new_
 
-> TinyGPSCustom windSpeed(*tinyGPS, 'WIMWV', 3)
+> `TinyGPSCustom windSpeed(*tinyGPS, WIMWV, 3)`
 
 * Apparent wind speed, in knots
 
-> state.windSpeed = atof(windSpeed.value)
+> `state.windSpeed = atof(windSpeed.value)`
 
-* Pass into VectorFilter.h functions to find angles
+* Pass into `VectorFilter.h` functions to find angles
 
-> TinyGPSCustom trueWindSpeed(*tinyGPS, 'WIVWT', 3)
+> `TinyGPSCustom trueWindSpeed(*tinyGPS, 'WIVWT', 3)`
 
 * True wind speed in knots, 5 for meters/s
 
-## windDirection
+### windDirection
 
-> TinyGPSCustom trueWindDirection(*tinyGPS, 'WIVWT', 1)
+> `TinyGPSCustom trueWindDirection(*tinyGPS, 'WIVWT', 1)`
 
 * True wind angle in degrees from center bow __(L or R?)__
 
-> TinyGPSCustom windDirection(*tinyGPS, 'WIMWV', 1)
+> `TinyGPSCustom windDirection(*tinyGPS, 'WIMWV', 1)`
 
-* Returns wind angle in degrees 0 - 359.9 from the bow's centerline
+* Returns wind angle in degrees 0 - 359.9 from the bow centerline
 * This is the _Apparent Wind_
 
-> state.windDirection = windFilter.getFilteredValue(atof(windDirection.value))
+> `state.windDirection = windFilter.getFilteredValue(atof(windDirection.value))`
 
 * Uses Bayes filter to remove noise and returns angle of wind
 
-## Tack
+### generateControlLines
 
-* Timer based (should be checking wind)
-* Check speed before Tack (gps)
-* 30 ft offset on either side
-* "Did I tack in recent time?" (a minute) then don't tack
-* When attempting to navigate buoy, aim above by boat length
+> If going upwind
 
-## generateControlLines
+> Creates tack guidelines
 
->If going upwind
-
->Creates tack guidelines
-
-* From initial point, take two points in +offset and -offset x direction
-* From destination point, take two points in +offset and - offset x direction
-* (dest - init) y  / (dest - init) x is measured for both sets of points
+* From initial point, take two points in +`offset` and -`offset` x direction
+* From destination point, take two points in +`offset` and - `offset` x direction
+* `(dest - init) y  / (dest - init) x` is measured for both sets of points
 * If less than 0.5 (too steep), the y coordinates are offset in the +/- directions to widen
-* \_offset controls the width of lane (2*sqrt(2 offset))
-* should ideally be 30 feet (150)
+* \_offset controls the width of lane `(2*sqrt(2 offset))`
+* should ideally be 30 feet
 
 
-## Tacking around buoy
+### Tacking around buoy
 
 * upwind count - measuring how long wind has been blowing
-* basing direction based on wind_abs? angle should be relative (speed)
+* basing direction based on `wind_abs`? angle should be relative (speed)
 * should be 45 into the wind
 * tack lines should be triggering WHEN to tack
 * bearing is wind based
+
+#### _Acronyms_
+
+* `sog` : _"Speed Over Ground"_
+> The speed of the vessel relative to the Ground
+* `tmg` : _"Track Made Good"_
+> The actual distance traveled by the vessel
