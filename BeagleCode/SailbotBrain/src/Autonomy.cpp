@@ -18,12 +18,12 @@ Autonomy::Autonomy(Timer* timer){
 
     int randInt = rand() % 100;
 
-    string track_filename = "/Track" + toString(randInt) + ".csv";
-    string log_filename = "/Log" + toString(randInt) + ".txt";
+    std::string track_filename = "/Track" + std::to_string(randInt) + ".csv";
+    std::string log_filename = "/Log" + std::to_string(randInt) + ".txt";
 
     std::ofstream fout;
 
-    fout.open(log_filename), std::ios::out | std::ios::app);
+    fout.open((log_filename), std::ios::out | std::ios::app);
     fout << "reading autonomy settings" << std::endl;
 
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
