@@ -16,9 +16,14 @@ Autonomy::Autonomy(Timer* timer){
     _wpId = 0;
     //_waypoints = new Waypoint[13];
 
+    int randInt = rand() % 100;
+
+    string track_filename = "/Track" + toString(randInt) + ".csv";
+    string log_filename = "/Log" + toString(randInt) + ".txt";
+
     std::ofstream fout;
 
-    fout.open("/log.txt", std::ios::out | std::ios::app);
+    fout.open(log_filename), std::ios::out | std::ios::app);
     fout << "reading autonomy settings" << std::endl;
 
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
@@ -103,10 +108,10 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     rud = _lastRud;
 
     std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
+    fout.open(log_filename, std::ios::out | std::ios::app);
 
-    std::ofstream course;
-    course.open("/course.csv", std::ios::out | std::ios::app);
+    std::ofstream track;
+    track.open(track_filename, std::ios::out | std::ios::app);
 
     double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
@@ -127,11 +132,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Lon: " << state.longitude << std::endl;
     fout << "Course: " << state.gpsHeading << std::endl;
 
-    course << state.latitude << ", " << state.longitude << "\n" << std::endl;
-
     fout << "Wind: " << state.windDirection << std::endl;
     fout << "True Wind: " << state.trueWindDirection << std::endl;
     fout << "Mag Heading: " << state.magHeading << std::endl;
+
+    track << wpCourse << "," << wpDist << _"," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.trueWindDirection << "," << state.trueWindSpeed << "," << state.magHeading << "\n" << std::endl;
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl; //mvprintw(1, 40, "MODE: Long Distance\n");
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping" << std::endl; //mvprintw(1, 4, "MODE: Station Keeping (Strat 1)");
@@ -145,7 +150,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  << _initialLatLon.y << std::endl;
 
-            course << state.latitude << ", " << state.longitude << std::endl;
+            track << wpCourse << "," << wpDist << _"," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.trueWindDirection << "," << state.trueWindSpeed << "," << state.magHeading << "\n" << std::endl;
         }
     }
                                                                                 // TODO: ADD ANGLEDTACKLINES TO UPWIND CASE
@@ -181,21 +186,13 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case MOVE_TO_POINT:
-                                                                                // TODO: IMPLEMENT BUOY ROUNDING HERE
+
                 _tackTimer++;
                 mvprintw(10, 2, "STATE: MOVE TO POINT\n");
                 if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
 
                     if(wpDist <= 5){                                            // Is it within distance of waypoint?
                         _sailState = REACHED_POINT;
-                    }
-
-                    else if wdDist <= 60{
-                      // WITHIN 60 FT OF WAY POINT? ADJUST SAILING STRATEGY
-                      // Aim for the PORT SIDE OF BUOY
-                      // Get boat's GPS at point A then GPS at point B 5 seconds later
-                      // IF LON LAT CHANGING IN CERTAIN WAY/, SET WAYPOINT GPS DESTINATION TO PORT SIDE
-                      // BE SURE THAT THE WP LATLON IS ONLY ADJUSTED ONCE (flag)
                     }
 
                     else {
@@ -228,13 +225,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     _sailState = REACHED_POINT;
                 }
 
-                else if wdDist <= 60{
-                  // WITHIN 60 FT OF WAY POINT? ADJUST SAILING STRATEGY
-                  // Aim for the PORT SIDE OF BUOY
-                  // Get boat's GPS at point A then GPS at point B 5 seconds later
-                  // IF LON LAT CHANGING IN CERTAIN WAY/, SET WAYPOINT GPS DESTINATION TO PORT SIDE
-                }
-
                 else{
                     if(_downwindCount >= 3){
                         _upwindCount = 0;
@@ -263,8 +253,8 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
                 mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
-                                                                                // TODO: IS THIS SECTION CORRECT? POSSIBLY CODE A FUNCTI?ON
-                                                                                // TODO: POSSIBLY ADD PORT SIDE BUOY ROUNDING HERE
+                                                                                // CHECKME: IS THIS SECTION CORRECT? POSSIBLY CODE A FUNCTI?ON
+
                 if(wpDist <= 150){                                              // Create angled tack lines if within 30 feet
                   if(wpDist <= 5){
                       _sailState = REACHED_POINT;
@@ -1179,14 +1169,14 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                           Point<double> llw_rad;
                           Point<double> llp_rad;
 
-                          llw_rad.x = llw.x.toRadians();
-                          llw_rad.y = llw.y.toRadians();
-                          llp_rad.x = _initialLatLon.x.toRadians();
-                          llp_rad.y = _initialLatLon.y.toRadians()
+                          llw_rad.x = radians(llw.x);
+                          llw_rad.y = radians(llw.y);
+                          llp_rad.x = radians(_initialLatLon.x);
+                          llp_rad.y = radians(_initialLatLon.y)
 
                           int y = sin(llw_rad.y-llp_rad.y)*cos(llw_rad.x);
                           int x = cos(llp_rad.x)*sin(llw_rad.x)-sin(llp_rad.x)*cos(llw_rad.x)*cos(llw_rad.y - llp_rad.y);
-                          int bearing = atan2(y, x).toDegrees();
+                          int bearing = degrees(atan2(y, x));                   // CHEckME: IS degrees() a function?
                           bearing = bearing%360;
 
                           int distance = 1.0;                                   // TODO: WHAT VALUE TO USE
@@ -1487,7 +1477,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
     fout << "---------------" << std::endl;
     fout.close();``
-    course.close();
+    track.close();
 
     _lastState = state;
     _tackTimer++;
