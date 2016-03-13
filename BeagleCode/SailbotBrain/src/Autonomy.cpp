@@ -9,7 +9,7 @@
 #include <fstream>
 #include <iomanip>
 
-                                                                                // TODO: ROUND BUOY ON THE LEFT FOR NAV TEST EVENT (BOAT'S RIGHT)
+
 Autonomy::Autonomy(Timer* timer){
     _sailState = MOVING_CHECK;
 
@@ -17,6 +17,7 @@ Autonomy::Autonomy(Timer* timer){
     //_waypoints = new Waypoint[13];
 
     std::ofstream fout;
+
     fout.open("/log.txt", std::ios::out | std::ios::app);
     fout << "reading autonomy settings" << std::endl;
 
@@ -104,6 +105,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     std::ofstream fout;
     fout.open("/log.txt", std::ios::out | std::ios::app);
 
+    std::ofstream course;
+    course.open("/course.csv", std::ios::out | std::ios::app);
+
     double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
@@ -122,6 +126,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Lat: " << state.latitude << std::endl;
     fout << "Lon: " << state.longitude << std::endl;
     fout << "Course: " << state.gpsHeading << std::endl;
+
+    course << state.latitude << ", " << state.longitude << "\n" << std::endl;
+
     fout << "Wind: " << state.windDirection << std::endl;
     fout << "True Wind: " << state.trueWindDirection << std::endl;
     fout << "Mag Heading: " << state.magHeading << std::endl;
@@ -137,6 +144,8 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  << _initialLatLon.y << std::endl;
+
+            course << state.latitude << ", " << state.longitude << std::endl;
         }
     }
                                                                                 // TODO: ADD ANGLEDTACKLINES TO UPWIND CASE
@@ -1144,44 +1153,14 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                   if(_upwindCount >= 3){
                       _downwindCount = 0;
 
-                      std::cout << "Started upwind: " << _startedUpwind << std::endl;
                       if(_startedUpwind == false){
+
+                        // lat lon point
                           Point<double> llp;
                           llp.x = state.latitude;
                           llp.y = state.longitude;
 
-                          if _initialLatLon.x > llp.x {
-                            if _initialLatLon.y > llp.y {
-                              llp.x = llp.x + abs((_initialLatLon.x - llp.x));
-                              llp.y = llp.y - abs((_initialLatLon.y - llp.y));
-                              waypoints[_wpId].lat += abs((_initialLatLon.x - llp.x));
-                              waypoints[_wpId].lon -= abs((_initialLatLon.y - llp.y));
-                              // LAT TO RIGHT, LON TO DOWN
-                            }
-                            else {
-                              llp.x = llp.x - abs((_initialLatLon.x - llp.x));
-                              llp.y = llp.y + abs((_initialLatLon.y - llp.y));
-                              waypoints[_wpId].lat -= abs((_initialLatLon.x - llp.x));
-                              waypoints[_wpId].lon += abs((_initialLatLon.y - llp.y));
-                              // LAT TO LEFT, LON TO UP
-                            }
-                          }
-                          else if _initialLatLon.x < llp.x{
-                            if _initialLatLon.y > llp.y{
-                              llp.x = llp.x + abs((_initialLatLon.x - llp.x));
-                              llp.y = llp.y - abs((_initialLatLon.y - llp.y));
-                              waypoints[_wpId].lat += abs((_initialLatLon.x - llp.x));
-                              waypoints[_wpId].lon -= abs((_initialLatLon.y - llp.y));
-                              // LAT TO RIGHT, LON TO DOWN
-                            }
-                            else {
-                              llp.x = llp.x - abs((_initialLatLon.x - llp.x));
-                              llp.y = llp.y + abs((_initialLatLon.y - llp.y));
-                              waypoints[_wpId].lat -= abs((_initialLatLon.x - llp.x));
-                              waypoints[_wpId].lon += abs((_initialLatLon.y - llp.y));
-                              // LAT TO LEFT, LON TO UP
-                            }
-                          }
+                          // FIND HEADING BY COMPARING INITIALLATLON AND LLW VALUES
 
                           _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
                           _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
@@ -1192,20 +1171,63 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                           fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
                           mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
 
+                          // lat lon waypoint
                           Point<double> llw;
                           llw.x = _waypoints[_wpId].lat;
                           llw.y = _waypoints[_wpId].lon;
+
+                          Point<double> llw_rad;
+                          Point<double> llp_rad;
+
+                          llw_rad.x = llw.x.toRadians();
+                          llw_rad.y = llw.y.toRadians();
+                          llp_rad.x = _initialLatLon.x.toRadians();
+                          llp_rad.y = _initialLatLon.y.toRadians()
+
+                          int y = sin(llw_rad.y-llp_rad.y)*cos(llw_rad.x);
+                          int x = cos(llp_rad.x)*sin(llw_rad.x)-sin(llp_rad.x)*cos(llw_rad.x)*cos(llw_rad.y - llp_rad.y);
+                          int bearing = atan2(y, x).toDegrees();
+                          bearing = bearing%360;
+
+                          int distance = 1.0;                                   // TODO: WHAT VALUE TO USE
+
+                          if (bearing > 0 && bearing <= 90) {
+                            llw.x -= distance;
+                            llw.y += distance;
+                              // Point is between North West and North East
+                            }
+
+                          else if (bearing > 90 && bearing <= 180) {
+                            llw.x += distance;
+                            llw.y -= distance;
+                            // Point is at East
+                          }
+
+                          else if (bearing > 180 && bearing <= 270) {
+                            llw.x -= distance;
+                            llw.y -= distance;
+                              // LAT TO RIGHT, LON TO DOWN
+                            }
+
+                          else if (bearing > 270 && bearing <= 360){
+                            llw.x -= distance;
+                            llw.y += distance;
+                            // LAT TO LEFT, LON TO UP
+                          }
+
                           //_waypointPolar.x = distanceBetweenPoints(_initialLatLon, llw);
                           _waypointPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y);
                           _waypointPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y));
                           _waypointCart = polarToCartesian(_waypointPolar.x, _waypointPolar.y);
 
+                          std::cout << "Started upwind: " << _startedUpwind << std::endl;
+
                           _startedUpwind = true;
                       }
                       else{
-                          //Point<double> llp;
-                          //llp.x = state.latitude;
-                          //llp.y = state.longitude;
+                          Point<double> llp;
+                          llp.x = state.latitude;
+                          llp.y = state.longitude;
 
                           //_boatPolar.x = distanceBetweenPoints(_initialLatLon, llp);
                           _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
@@ -1214,6 +1236,8 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                           mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
                           mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
                           fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
+
+                          // Create an if statement here for time constraint measuring init to here
 
                           std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
                           std::pair<Line, Line> angledLines = generateAngledControlLines(_initialCart, _waypointCart, _offset);
@@ -1442,7 +1466,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
               _wpId = (_wpId + 1) % _numWaypoints;
 
-              if _wpId == 2 {
+              if _wpId == length(waypoints) {                                   // TODO: DOES THIS WORK for waypoint array?
                 _sailState = REACHED_END;
               }
               else {
@@ -1462,7 +1486,8 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Sail: " << std::dec << static_cast<int>(_lastMain) << std::endl;
     fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
     fout << "---------------" << std::endl;
-    fout.close();
+    fout.close();``
+    course.close();
 
     _lastState = state;
     _tackTimer++;
