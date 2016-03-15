@@ -18,8 +18,8 @@ Autonomy::Autonomy(Timer* timer){
 
     int randInt = rand() % 100;
 
-    string track_filename = "/Track" + toString(randInt) + ".csv";
-    string log_filename = "/Log" + toString(randInt) + ".txt";
+    string track_filename = "/Track" + to_string(randInt) + ".csv";
+    string log_filename = "/Log" + to_string(randInt) + ".txt";
 
     std::ofstream fout;
 
@@ -122,6 +122,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     mvprintw(11, 4, "Course to Point: %f (deg)\n", wpCourse);
     mvprintw(12, 4, "Distance to Point: %f (m)\n", wpDist);
+
     fout << "Course To Point: " << wpCourse << std::endl;
     fout << "Distance To Point: " << wpDist << std::endl;
 
@@ -464,7 +465,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
                                                                                 // TODO: Tack with true direction for tack check?
 
-                if (_tackTimer > 60){                                           // TODO: IS 60 == 60 SECS?
+                if (_tackTimer > 120){                                          // one cycle is 0.5 seconds
                   if(wpDist <= 5){
                       _sailState = REACHED_POINT;
                   }
