@@ -15,14 +15,16 @@
 //tmp
 #include <curses.h>
 
-#include <sys/stat.h>
+#include <string>
+
 #include <sys/sendfile.h>
+#include <sys/stat.h>
 
 state_t currentState;
 Timer* timer = new Timer(); //timer has to be global and i hate myself for it.
 
-unsigned int lerpCur = 1;
 unsigned int lerpMax = 5;
+unsigned int lerpCur = 1;
 
 uint8_t lerp(uint8_t v0, uint8_t v1, float t){
     return v0 + static_cast<uint8_t>(floorf(t*(static_cast<float>(v1) - static_cast<float>(v0))));
@@ -46,6 +48,7 @@ uint8_t bin4Count = 0;
 int main(int argc, char* argv[])
 {
     remove("/log.last.txt");
+
 
     int input, output;
     if ((input = open("/log.txt", O_RDONLY)) != -1){
@@ -85,14 +88,14 @@ int main(int argc, char* argv[])
     //Create an encoder instance and an autonomy instance
     ArduinoEncoder* encoder = new ArduinoEncoder(ard);
     Autonomy* autonomy = new Autonomy(timer);
-
+                                                                                // TODO: True wind angle - how to tell if L or R? (Extra argument)
     //Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
-    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  		// WIND ANGLE (degrees)
-    TinyGPSCustom windSpeed(*tinyGPS, "WIMWV", 5);                              // WIND SPEED (knots)
+    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  		// WIND ANGLE APPARENT (degrees)
+    TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);                              // WIND SPEED (knots)
     // TRUE WIND CALCULATIONS
     TinyGPSCustom trueWindSpeed(*tinyGps, "WIMWT", 3);					                // SPEED OF TRUE WIND	(knots)
-    TinyGPSCustom trueWindDirection(*tinyGPS, "WIMWT", 1);                      // TRUE WIND ANGLE (L or R side?)
+    TinyGPSCustom trueWindDirection(*tinyGps, "WIMWT", 1);                      // TRUE WIND ANGLE (L or R side?)
     TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);                             // Magnetic Heading
     //  BOAT TRACKING
     TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);				                           	// TRACK MADE GOOD	(degrees)
@@ -132,9 +135,21 @@ int main(int argc, char* argv[])
     //std::cout << "before" << std::endl;
 
     std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
+    int randInt = rand() % 100;
+
+    std::string track_filename = "/Track" + std::to_string(randInt) + ".csv";
+    std::string log_filename = "/Log" + std::to_string(randInt) + ".txt";
+
+
+    std::ofstream track;
+    /* track.open(track_filename, std::ios::out | std::ios::app);
+
+    fout.open(log_filename, std::ios::out | std::ios::app);
     fout << "Initialized...starting main loop!" << std::endl;
+    track << "Course to Point, Distance To Point,Sail State,Boat Speed, Lat, Lon, GPS Heading, Wind Direction, True Wind Direction, True Wind Speed, Mag Heading \n" << std::endl;
+    track << wpCourse << "," << wpDist << _"," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.trueWindDirection << "," << state.trueWindSpeed << "," << state.magHeading << "\n" << std::endl;
     fout.close();
+    track.close(); */
 
     while(1){
         //std::cout << "after" << std::endl;
@@ -162,12 +177,21 @@ int main(int argc, char* argv[])
                 if(currentState.windDirection > 180)currentState.windDirection = currentState.windDirection - 360;
             }
 
+            if(trueWindDirection.isUpdated()){
+                currentState.trueWindDirection = windFilter.getFilteredValue(atof(trueWindDirection.value()));
+                if(currentState.trueWindDirection > 180)currentState.trueWindDirection = currentState.trueWindDirection - 360;
+            }
+
             if(magHeading.isUpdated()){
                 currentState.magHeading = compassFilter.getFilteredValue(atof(magHeading.value()));
             }
 
             if(windSpeed.isUpdated()){
-              currentState.windSpeed = windFilter.getFilteredValue(atof(windSpeed.value());
+              currentState.windSpeed = windFilter.getFilteredValue(atof(windSpeed.value()));
+            }
+
+            if(windSpeed.isUpdated()){
+              currentState.trueWindSpeed = windFilter.getFilteredValue(atof(trueWindSpeed.value()));
             }
 
             if(sog.isUpdated()){
@@ -176,7 +200,7 @@ int main(int argc, char* argv[])
                 //std::cout << currentState.speed << std::endl;
             }
             if(tmg.isUpdated()){
-                currentState.gpsHeading = atof(tmg.value());
+                currentState.gpsHeading = atof(tmg.value());                    // atof = string to double
             }
         }
         //std::cout << magHeading.value() << std::endl;
@@ -309,7 +333,6 @@ int main(int argc, char* argv[])
                 }
             }
 
-            //TODO: if the rudder is scaled, the -35 conversion on the arduino side must be scaled as well
             float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f;
             uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
