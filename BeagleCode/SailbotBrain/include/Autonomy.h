@@ -4,10 +4,12 @@
 #include <BeagleUtil.h>
 #include <vector>
 #include "SailbotBrain.h"
+#include <string>
 
 typedef enum{
     LONG_DISTANCE,
-    STATION_KEEPING_STRAT1
+    STATION_KEEPING_STRAT1,
+    NAVIGATION_TEST
 } MODE;
 
 typedef enum{
@@ -16,18 +18,12 @@ typedef enum{
     DOWNWIND,
     UPWIND,
     TACK,
-    REACHED_POINT
+    REACHED_POINT,
+    REACHED_END
 } SAIL_STATE;
 
-/*struct Point{
-    int32_t x, y;
-};
-
-struct Point_d{
-    double x, y;
-};*/
-
 template<typename T> class Point{
+
 public:
     T x, y;
 };
@@ -61,13 +57,16 @@ private:
     uint8_t _lastRud;
 
     //Tacking parameters
-//  int _tackTime;
-    int _recoveryTime;
+    uint8_t _tackTime;
+    uint8_t _recoveryTime;
     int _initialWindRelative;
     int _desiredWindRelative;
     bool _startedTack;
     bool _startedRecovery;
     bool _recentTack;
+
+    std::string track_filename;
+    std::string log_filename;
 
     //State tracking
     uint8_t _downwindCount;
@@ -80,9 +79,9 @@ private:
     Point<double> _initialCart;
     Point<double> _waypointPolar;
     Point<double> _waypointCart;
-    int _offset;
-    int _tackEvent;
-    int _tackTimer
+    uint8_t _offset;
+    uint8_t _tackEvent;
+    uint8_t _tackTimer;
 
     // Station keeping
     Timer* _timer;
@@ -120,6 +119,8 @@ private:
 
     double distanceBetweenPoints(Point<double> p1, Point<double> p2);
     std::pair<Line, Line> generateControlLines(Point<double> initPos, Point<double> destPos, int offset);
+    std::pair<Line, Line> generateAngledControlLines(Point<double> initPos, Point<double> destPos, int offset);
+
 };
 
 #endif
