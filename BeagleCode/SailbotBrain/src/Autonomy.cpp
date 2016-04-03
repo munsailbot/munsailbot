@@ -24,7 +24,11 @@ Autonomy::Autonomy(Timer* timer){
 
     std::ofstream fout;
 
+<<<<<<< HEAD
     fout.open(log_filename, std::ios::out | std::ios::app);
+=======
+    fout.open((log_filename), std::ios::out | std::ios::app);
+>>>>>>> 8bfb52256a0446b34fb3ecc22e661b564a065267
     fout << "reading autonomy settings" << std::endl;
 
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
