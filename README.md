@@ -59,13 +59,13 @@ $> make
 For arduino-based projects, this will generate a .hex file which can be uploaded with the upload.sh script found
 in the root directory of the project (*nix only). Depending on your system this script may need to be adjusted.
 
-For the BBB, an executable targeting ARM will be compiled. This must be copied to the BBB via SSHFS.
-The makefile for the BBB will look for the compiler arm-linux-gnueabihf-gcc-4.7. This is GCC 4.7 targeting ARM with hard-float.
+For the BBB, an executable targeting ARM will be compiled. This must be copied to the BBB via SSHFS or rsync.
+The makefile for the BBB will look for the compilers arm-linux-gnueabihf-gcc-4.7 and arm-linux-gnueabihf-g++-4.7. This is GCC 4.7 targeting ARM with hard-float.
 Your system likely doesn't ship with this compiler, it can be installed with most package managers on Linux easily.
 
 On Ubuntu, for example
 ```
-sudo apt-get install gcc-4.7-arm-linux-gnueabihf
+sudo apt-get install gcc-4.7-arm-linux-gnueabihf g++-4.7-arm-linux-gnueabihf
 ```
 
 ## BBB Uploading
