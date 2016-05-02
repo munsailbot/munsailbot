@@ -12,9 +12,6 @@
 #include "VectorFilter.h"
 #include "AverageAngle.h"
 
-//tmp
-#include <curses.h>
-
 #include <sys/stat.h>
 #include <sys/sendfile.h>
 
@@ -64,7 +61,6 @@ int main(int argc, char* argv[])
         close(input);
     }
 
-    //initscr();
     remove("/log.txt");
 
     //Enable tx/rx pins
@@ -202,8 +198,6 @@ int main(int argc, char* argv[])
                 lastAutonomy = enableAutonomy;
             }
 
-            clear();
-
             //bayesWindFilter->addMeasurement(static_cast<int8_t>(currentState.windDirection));
             //currentState.windDirection = bayesWindFilter->getWindDirection();
 
@@ -223,17 +217,6 @@ int main(int argc, char* argv[])
             //std::cout << "SPEED: " << std::dec << currentState.speed << std::endl;
             //std::cout << "C.O.G: " << std::dec << currentState.gpsHeading << std::endl;
 
-
-            mvprintw(1, 1, "LAT: %f\n", currentState.latitude);
-            mvprintw(2, 1, "LON: %f\n", currentState.longitude);
-            mvprintw(3, 1, "C.O.G: %f\n", currentState.gpsHeading);
-            mvprintw(4, 1, "SPEED: %f\n", currentState.speed);
-            mvprintw(5, 1, "WIND: %4d\n", currentState.windDirection);
-            mvprintw(6, 1, "MAG: %4d\n", currentState.magHeading);
-            mvprintw(7, 1, "GPS: %4d\n", tinyGps->goodSentences());
-            mvprintw(7, 25, "GPS CHARS: %4d\n", tinyGps->charsProcessed());
-            mvprintw(6, 25, "AUT: %4d\n", enableAutonomy);
-            mvprintw(8, 1, "RAW WIND: %s\n", windDirection.value());
 
             //uint8_t lastMain = autonomy->getMain();
             //uint8_t lastJib = autonomy->getJib();
@@ -307,14 +290,8 @@ int main(int argc, char* argv[])
                 Utility::sendMotorValues(ard, desiredSail, desiredSail, scaledRudInt); //Send motor values back to the Arduino
             }
 
-            mvprintw(1, 25, "RUDDER: %3d, %3d, %3d, %3d\n", scaledRudInt-21, autonomy->getRud()-35, lastRud-35, desiredRud-35);
-            mvprintw(2, 25, "MAIN: %3d, %3d\n", desiredSail, autonomy->getMain());
-            mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
-
             lerpCur++;
             if(lerpCur > lerpMax) lerpCur = lerpMax;
-
-            refresh();
         }
         //Utility::sendMotorValues(ard, autonomy->getMain(), autonomy->getJib(), autonomy->getRud()); //Send motor values back to the Arduino
     }
@@ -330,8 +307,6 @@ int main(int argc, char* argv[])
     delete uart4;
 
     delete timer;
-
-    endwin();
 
     return 0;
 }

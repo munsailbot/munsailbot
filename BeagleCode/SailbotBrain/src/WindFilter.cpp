@@ -1,5 +1,4 @@
 #include "WindFilter.h"
-#include <curses.h>
 
 WindFilter::WindFilter(){
     for(int i=0; i<10; i++){
@@ -32,7 +31,6 @@ int8_t WindFilter::getWindDirection(){
         belief[i] /= sum;
     }
 
-    //mvprintw(11, 1, "%d %d %d %d\n", stateVector[0],stateVector[1],stateVector[2],stateVector[3]);
     return stateVector[bestStateIdx()];
 
 }
