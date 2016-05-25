@@ -17,14 +17,14 @@
 
 #include <string>
 
-#include <sys/sendfile.h>
 #include <sys/stat.h>
+#include <sys/sendfile.h>
 
 state_t currentState;
 Timer* timer = new Timer(); //timer has to be global and i hate myself for it.
 
-unsigned int lerpMax = 5;
 unsigned int lerpCur = 1;
+unsigned int lerpMax = 5;
 
 uint8_t lerp(uint8_t v0, uint8_t v1, float t){
     return v0 + static_cast<uint8_t>(floorf(t*(static_cast<float>(v1) - static_cast<float>(v0))));
@@ -49,13 +49,17 @@ int main(int argc, char* argv[])
 {
     remove("/log.last.txt");
 
-
     int input, output;
     if ((input = open("/log.txt", O_RDONLY)) != -1){
         if ((output = open("/log.last.txt", O_RDWR | O_CREAT, S_IRWXU)) == -1){
             close(input);
         }
     }
+
+    std::ofstream tout;
+    tout.open("/track.csv", std::ios::out | std::ios::app);
+    tout << "Course to Point,Distance To Point,Sail State,Boat Speed,Lat,Lon,GPS Heading,Wind Direction,True Wind Direction,True Wind Speed,Mag Heading \n" << std::endl;
+    tout.close();
 
     if(input != -1 && output != -1){
         off_t bytesCopied = 0;
@@ -88,8 +92,8 @@ int main(int argc, char* argv[])
     //Create an encoder instance and an autonomy instance
     ArduinoEncoder* encoder = new ArduinoEncoder(ard);
     Autonomy* autonomy = new Autonomy(timer);
-                                                                                // TODO: True wind angle - how to tell if L or R? (Extra argument)
-    //Initialize TinyGPS
+
+    ///Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
     TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  		// WIND ANGLE APPARENT (degrees)
     TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);                              // WIND SPEED (knots)
@@ -99,7 +103,7 @@ int main(int argc, char* argv[])
     TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);                             // Magnetic Heading
     //  BOAT TRACKING
     TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);				                           	// TRACK MADE GOOD	(degrees)
-    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);					                          // SPEED OVER GROUND	(knots)
+    TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
 
     //We will use a hanning filter to filter the incoming wind direction
     HanningFilter<int> windFilter;
@@ -135,21 +139,9 @@ int main(int argc, char* argv[])
     //std::cout << "before" << std::endl;
 
     std::ofstream fout;
-    int randInt = rand() % 100;
-
-    std::string track_filename = "/Track" + std::to_string(randInt) + ".csv";
-    std::string log_filename = "/Log" + std::to_string(randInt) + ".txt";
-
-
-    std::ofstream track;
-    /* track.open(track_filename, std::ios::out | std::ios::app);
-
-    fout.open(log_filename, std::ios::out | std::ios::app);
+    fout.open("/log.txt", std::ios::out | std::ios::app);
     fout << "Initialized...starting main loop!" << std::endl;
-    track << "Course to Point, Distance To Point,Sail State,Boat Speed, Lat, Lon, GPS Heading, Wind Direction, True Wind Direction, True Wind Speed, Mag Heading \n" << std::endl;
-    track << wpCourse << "," << wpDist << _"," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.trueWindDirection << "," << state.trueWindSpeed << "," << state.magHeading << "\n" << std::endl;
     fout.close();
-    track.close(); */
 
     while(1){
         //std::cout << "after" << std::endl;
@@ -182,25 +174,24 @@ int main(int argc, char* argv[])
                 if(currentState.trueWindDirection > 180)currentState.trueWindDirection = currentState.trueWindDirection - 360;
             }
 
-            if(magHeading.isUpdated()){
-                currentState.magHeading = compassFilter.getFilteredValue(atof(magHeading.value()));
-            }
-
             if(windSpeed.isUpdated()){
               currentState.windSpeed = windFilter.getFilteredValue(atof(windSpeed.value()));
             }
 
-            if(windSpeed.isUpdated()){
+            if(trueWindSpeed.isUpdated()){
               currentState.trueWindSpeed = windFilter.getFilteredValue(atof(trueWindSpeed.value()));
             }
 
+            if(magHeading.isUpdated()){
+                currentState.magHeading = compassFilter.getFilteredValue(atof(magHeading.value()));
+            }
             if(sog.isUpdated()){
                 currentState.speed = atof(sog.value());
                 //std::cout << currentState.latitude << std::endl;
                 //std::cout << currentState.speed << std::endl;
             }
             if(tmg.isUpdated()){
-                currentState.gpsHeading = atof(tmg.value());                    // atof = string to double
+                currentState.gpsHeading = atof(tmg.value());
             }
         }
         //std::cout << magHeading.value() << std::endl;
@@ -272,7 +263,7 @@ int main(int argc, char* argv[])
             //uint8_t lastMain = autonomy->getMain();
             //uint8_t lastJib = autonomy->getJib();
             uint8_t lastRud = autonomy->getRud();
-
+            //TODO: REENABLE !!!
             if(enableAutonomy){
                 autonomy->step(currentState, tinyGps, ard); //execute a single step of autonomous decision
             }
@@ -333,6 +324,7 @@ int main(int argc, char* argv[])
                 }
             }
 
+            //TODO: if the rudder is scaled, the -35 conversion on the arduino side must be scaled as well
             float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f;
             uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
@@ -342,7 +334,7 @@ int main(int argc, char* argv[])
 
             mvprintw(1, 25, "RUDDER: %3d, %3d, %3d, %3d\n", scaledRudInt-21, autonomy->getRud()-35, lastRud-35, desiredRud-35);
             mvprintw(2, 25, "MAIN: %3d, %3d\n", desiredSail, autonomy->getMain());
-            // mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
+            mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
 
             lerpCur++;
             if(lerpCur > lerpMax) lerpCur = lerpMax;
