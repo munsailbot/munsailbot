@@ -1,4 +1,4 @@
-# Install script for directory: /home/bryan/mun-sailbot/BeagleCode/BeagleUtil
+# Install script for directory: /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

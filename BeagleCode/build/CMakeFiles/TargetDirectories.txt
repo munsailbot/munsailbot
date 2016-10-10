@@ -1,2 +1,2 @@
-/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir
-/home/bryan/mun-sailbot/BeagleCode/build/SailbotBrain/CMakeFiles/SailbotBrain.dir
+/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir
+/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain/CMakeFiles/SailbotBrain.dir

@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/Analog.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/GPIO.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/I2C.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/PWM.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/UART.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/UARTInterface.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.o"
-  "/home/bryan/mun-sailbot/BeagleCode/BeagleUtil/src/main.cpp" "/home/bryan/mun-sailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/Analog.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/GPIO.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/I2C.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/PWM.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/UART.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/UARTInterface.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.o"
+  "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/main.cpp" "/home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

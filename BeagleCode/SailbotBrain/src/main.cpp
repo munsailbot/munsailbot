@@ -5,6 +5,7 @@
 #include "Autonomy.h"
 #include "Utility.h"
 #include "HanningFilter.h"
+#include "ConstKalmanFilter.h"
 #include "WindFilter.h"
 #include "WindStatFilter.h"
 #include "Timer.h"
@@ -58,7 +59,7 @@ int main(int argc, char* argv[])
 
     std::ofstream tout;
     tout.open("/track.csv", std::ios::out | std::ios::app);
-    tout << "Course to Point,Distance To Point,Sail State,Boat Speed,Lat,Lon,GPS Heading,Wind Direction,True Wind Direction,True Wind Speed,Mag Heading \n" << std::endl;
+    tout << "Course to Point,Distance To Point,Sail State,Boat Speed,Lat,Lon,GPS Heading,Wind Direction,Mag Heading \n`" << std::endl;
     tout.close();
 
     if(input != -1 && output != -1){
@@ -97,9 +98,6 @@ int main(int argc, char* argv[])
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
     TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  		// WIND ANGLE APPARENT (degrees)
     TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);                              // WIND SPEED (knots)
-    // TRUE WIND CALCULATIONS
-    TinyGPSCustom trueWindSpeed(*tinyGps, "WIMWT", 3);					                // SPEED OF TRUE WIND	(knots)
-    TinyGPSCustom trueWindDirection(*tinyGps, "WIMWT", 1);                      // TRUE WIND ANGLE (L or R side?)
     TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);                             // Magnetic Heading
     //  BOAT TRACKING
     TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);				                           	// TRACK MADE GOOD	(degrees)
@@ -119,9 +117,6 @@ int main(int argc, char* argv[])
     VectorFilter vecFilter;
     AverageAngle windAverage;
 
-    //Set the decision mode; changes per competition
-    //autonomy->setMode(LONG_DISTANCE);
-
     //Initialize motors
     Utility::sendMotorValues(ard, 90, 90, 35);
 
@@ -136,7 +131,6 @@ int main(int argc, char* argv[])
 
     int8_t enableAutonomy = 0;
     int8_t lastAutonomy = 0;
-    //std::cout << "before" << std::endl;
 
     std::ofstream fout;
     fout.open("/log.txt", std::ios::out | std::ios::app);
@@ -144,42 +138,25 @@ int main(int argc, char* argv[])
     fout.close();
 
     while(1){
-        //std::cout << "after" << std::endl;
         //Read from the GPS
         char c = gps->readByte();
-        //std::cout << c;
         if(tinyGps->encode(c)){
             if(tinyGps->location.isValid()){
                 currentState.latitude = tinyGps->location.lat();
                 currentState.longitude = tinyGps->location.lng();
-                //if(tinyGps->location.lng() < -50.0){
-                //    currentState.longitude = tinyGps->location.lng();
-                //}
             }
             else{
                 currentState.latitude = 99.99;
                 currentState.longitude = 99.99;
             }
-            /*currentState.gpsHeading = tinyGps->course.deg();
-            currentState.speed = tinyGps->speed.knots();
-            std::cout << tinyGps->speed.value();*/
 
             if(windDirection.isUpdated()){
                 currentState.windDirection = windFilter.getFilteredValue(atof(windDirection.value()));
                 if(currentState.windDirection > 180)currentState.windDirection = currentState.windDirection - 360;
             }
 
-            if(trueWindDirection.isUpdated()){
-                currentState.trueWindDirection = windFilter.getFilteredValue(atof(trueWindDirection.value()));
-                if(currentState.trueWindDirection > 180)currentState.trueWindDirection = currentState.trueWindDirection - 360;
-            }
-
             if(windSpeed.isUpdated()){
               currentState.windSpeed = windFilter.getFilteredValue(atof(windSpeed.value()));
-            }
-
-            if(trueWindSpeed.isUpdated()){
-              currentState.trueWindSpeed = windFilter.getFilteredValue(atof(trueWindSpeed.value()));
             }
 
             if(magHeading.isUpdated()){
@@ -187,33 +164,21 @@ int main(int argc, char* argv[])
             }
             if(sog.isUpdated()){
                 currentState.speed = atof(sog.value());
-                //std::cout << currentState.latitude << std::endl;
-                //std::cout << currentState.speed << std::endl;
             }
             if(tmg.isUpdated()){
                 currentState.gpsHeading = atof(tmg.value());
             }
         }
-        //std::cout << magHeading.value() << std::endl;
-        //std::cout << "after gps" << std::endl;
 
-        //Read in a byte from the serial port (the Arduino), and feed it to the encoder
-        //When encode returns 'true', we have a new sentence to parse
-        //std::cout << "run " << std::endl;
         char c2 = ard->readByte();
-        //std::cout << c2;
         if(encoder->encode(c2))
             encoder->parse();
-
-        //::cout << "after ard" << std::endl;
 
         if((timer->millis() - lastTime) >= 500){ //running at 2hz for now
             lastTime = timer->millis();
 
             //Update the boat's current state
             StringMap params = encoder->getParams();
-            //currentState.latitude = Utility::strToDouble(params["LAT"])/1000000.0;
-            //currentState.longitude = Utility::strToDouble(params["LON"])/1000000.0;
 
             currentState.main = Utility::strToInt(params["MAIN"]);
             currentState.jib = Utility::strToInt(params["JIB"]);
@@ -229,26 +194,6 @@ int main(int argc, char* argv[])
 
             clear();
 
-            //bayesWindFilter->addMeasurement(static_cast<int8_t>(currentState.windDirection));
-            //currentState.windDirection = bayesWindFilter->getWindDirection();
-
-            //dummy values
-            /*currentState.latitude = 47.567842 + lx;
-            currentState.longitude = -52.707067 + ly;
-            currentState.speed = 1.5;
-            currentState.gpsHeading = 45;
-
-            lx+=0.000003; ly+=0.000003;*/
-
-
-            //std::cout << "WIND: " << params["WIND"] << std::endl;
-            //std::cout << "WIND: " << std::dec << currentState.windDirection << std::endl;
-            //std::cout << "LAT: " << std::dec << currentState.latitude << std::endl;
-            //std::cout << "LON: " << std::dec << currentState.longitude << std::endl;
-            //std::cout << "SPEED: " << std::dec << currentState.speed << std::endl;
-            //std::cout << "C.O.G: " << std::dec << currentState.gpsHeading << std::endl;
-
-
             mvprintw(1, 1, "LAT: %f\n", currentState.latitude);
             mvprintw(2, 1, "LON: %f\n", currentState.longitude);
             mvprintw(3, 1, "C.O.G: %f\n", currentState.gpsHeading);
@@ -260,23 +205,18 @@ int main(int argc, char* argv[])
             mvprintw(6, 25, "AUT: %4d\n", enableAutonomy);
             mvprintw(8, 1, "RAW WIND: %s\n", windDirection.value());
 
-            //uint8_t lastMain = autonomy->getMain();
-            //uint8_t lastJib = autonomy->getJib();
             uint8_t lastRud = autonomy->getRud();
-            //TODO: REENABLE !!!
+
             if(enableAutonomy){
                 autonomy->step(currentState, tinyGps, ard); //execute a single step of autonomous decision
             }
 
-            if(/*(autonomy->getMain() != lastMain) || (autonomy->getJib() != lastJib) || */(autonomy->getRud() != lastRud)){
+            if((autonomy->getRud() != lastRud)){
                 lerpCur = 1;
 
-                //desiredMain = autonomy->getMain();
-                //desiredJib = autonomy->getJib();
                 desiredRud = autonomy->getRud();
             }
-            //uint8_t lerpMain = lerp(lastMain, desiredMain, static_cast<float>(lerpCur)/static_cast<float>(lerpMax));
-            //uint8_t lerpJib = lerp(lastJib, desiredJib, static_cast<float>(lerpCur)/static_cast<float>(lerpMax));
+
             uint8_t lerpRud = lerp(lastRud, desiredRud, static_cast<float>(lerpCur)/static_cast<float>(lerpMax));
 
             if(abs(currentState.windDirection) < 55){
@@ -341,7 +281,6 @@ int main(int argc, char* argv[])
 
             refresh();
         }
-        //Utility::sendMotorValues(ard, autonomy->getMain(), autonomy->getJib(), autonomy->getRud()); //Send motor values back to the Arduino
     }
 
     //Clean up

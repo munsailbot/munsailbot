@@ -9,7 +9,7 @@
 typedef enum{
     LONG_DISTANCE,
     STATION_KEEPING_STRAT1,
-    NAVIGATION_TEST
+    NAVIGATION_TRIAL
 } MODE;
 
 typedef enum{
@@ -22,8 +22,14 @@ typedef enum{
     REACHED_END
 } SAIL_STATE;
 
-template<typename T> class Point{
+typedef enum{
+    TOP_LEFT,
+    TOP_RIGHT,
+    BOT_RIGHT,
+    BOT_LEFT
+} BUOY_QUAD;
 
+template<typename T> class Point{
 public:
     T x, y;
 };
@@ -43,30 +49,30 @@ private:
     MODE _mode;
 
     SAIL_STATE _sailState;
-    //Waypoint* _waypoints;
+    BUOY_QUAD _buoyPoint;
     std::vector<Waypoint> _waypoints;
     size_t _numWaypoints;
     uint8_t _wpId;
+    uint8_t _roundDir;
 
     Point<double> _initialLatLon;
     bool _initialCoordsCaptured;
 
     state_t _lastState;
     uint8_t _lastMain;
-    // uint8_t _lastJib;
+    uint8_t _lastJib;
     uint8_t _lastRud;
 
     //Tacking parameters
-    uint8_t _tackTime;
-    uint8_t _recoveryTime;
+    int _tackTime;
+    int _recoveryTime;
     int _initialWindRelative;
     int _desiredWindRelative;
     bool _startedTack;
     bool _startedRecovery;
     bool _recentTack;
-
-    std::string track_filename;
-    std::string log_filename;
+    bool _setRound;
+    bool _secondRound;
 
     //State tracking
     uint8_t _downwindCount;
@@ -79,8 +85,8 @@ private:
     Point<double> _initialCart;
     Point<double> _waypointPolar;
     Point<double> _waypointCart;
-    uint8_t _offset;
-    uint8_t _tackEvent;
+    int _offset;
+    int _tackEvent;
     uint8_t _tackTimer;
 
     // Station keeping
@@ -96,7 +102,7 @@ public:
     void step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial);
 
     uint8_t getMain();
-    // uint8_t getJib();
+    uint8_t getJib();
     uint8_t getRud();
 
     void resetTimer();
@@ -120,7 +126,6 @@ private:
     double distanceBetweenPoints(Point<double> p1, Point<double> p2);
     std::pair<Line, Line> generateControlLines(Point<double> initPos, Point<double> destPos, int offset);
     std::pair<Line, Line> generateAngledControlLines(Point<double> initPos, Point<double> destPos, int offset);
-
 };
 
 #endif
