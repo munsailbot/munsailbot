@@ -1,20 +1,19 @@
 #include "TinyGPSPlus/TinyGPS++.h"
 #include "Autonomy.h"
 #include "Utility.h"
-
 #include <curses.h>
-
 #include <string>
+#include <vector>
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+
 
 Autonomy::Autonomy(Timer* timer){
     _sailState = MOVING_CHECK;
 
     //For now, declare waypoints here
     _wpId = 0;
-    //_waypoints = new Waypoint[13];
 
     std::ofstream fout;
     fout.open("/log.txt", std::ios::out | std::ios::app);
@@ -32,10 +31,20 @@ Autonomy::Autonomy(Timer* timer){
     else if(mode == "sk"){
         this->setMode(STATION_KEEPING_STRAT1);
     }
+    else if(mode == "ntp"){
+        this->setMode(NAVIGATION_TRIAL);
+          _roundDir = -1;
+    }
+    else if(mode == "ntsb"){
+      this->setMode(NAVIGATION_TRIAL);
+      _roundDir = 1;
+    }
+    /*else if(mode == "mv"){
+      this->setMode(MACHINE_VISION);
+    }*/
     else{
         fout << "Invalid autonomy mode" << std::endl;
     }
-
 
     for(std::string line; std::getline(fin, line); ){
         std::istringstream in(line);      //make a stream for the line itself
@@ -51,6 +60,7 @@ Autonomy::Autonomy(Timer* timer){
 
         _waypoints.push_back(point);
     }
+
     fin.close();
 
     _numWaypoints = _waypoints.size();
@@ -61,7 +71,6 @@ Autonomy::Autonomy(Timer* timer){
     _lastJib = 0;
     _lastRud = 35;
 
-    //_tackTime = -10;
     _tackTime = 0;
     _recoveryTime = 0;
     _initialWindRelative = 9999;
@@ -69,6 +78,9 @@ Autonomy::Autonomy(Timer* timer){
     _startedTack = false;
     _startedRecovery = false;
     _initialCoordsCaptured = false;
+    _recentTack = false;
+    _setRound = false;
+    _secondRound = false;
 
     _downwindCount = 0;
     _upwindCount = 0;
@@ -76,18 +88,18 @@ Autonomy::Autonomy(Timer* timer){
 
     _offset = 30;
     _tackEvent = 0;
-
+    _tackTimer = 60;
     _timer = timer;
     _skTimerSet = false;
+
 }
 
 Autonomy::~Autonomy(){
-    //delete [] _waypoints;
 }
 
 void Autonomy::setMode(MODE m){
     _mode = m;
-    if(_mode == STATION_KEEPING_STRAT1) _sailState = MOVE_TO_POINT;
+    if(_mode == STATION_KEEPING_STRAT1 || _mode == NAVIGATION_TRIAL) _sailState = MOVE_TO_POINT;
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
@@ -109,11 +121,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     mvprintw(11, 4, "Course to Point: %f (deg)\n", wpCourse);
     mvprintw(12, 4, "Distance to Point: %f (m)\n", wpDist);
+
     fout << "Course To Point: " << wpCourse << std::endl;
     fout << "Distance To Point: " << wpDist << std::endl;
 
     fout << "Sail State: " << _sailState << std::endl;
-
     fout << "Speed: " << state.speed << std::endl;
     fout << "Lat: " << state.latitude << std::endl;
     fout << "Lon: " << state.longitude << std::endl;
@@ -121,8 +133,14 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Wind: " << state.windDirection << std::endl;
     fout << "Mag Heading: " << state.magHeading << std::endl;
 
-    if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl; //mvprintw(1, 40, "MODE: Long Distance\n");
-    if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl; //mvprintw(1, 4, "MODE: Station Keeping (Strat 1)");
+    std::ofstream tout;
+    tout.open("/track.csv", std::ios::out | std::ios::app);
+    tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.magHeading << std::endl;
+
+    if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
+    if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
+    if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
+//    if(_mode == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
 
     if(_initialCoordsCaptured == false){
         if(state.latitude != 99.99 && state.longitude != 99.99){
@@ -131,7 +149,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             _initialCoordsCaptured = true;
 
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
-            fout << "Initial Lon: "  << _initialLatLon.y << std::endl;
+            fout << "Initial Lon: "  <<_initialLatLon.y << std::endl;
+
+            tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection <<  "," << state.magHeading << std::endl;
         }
     }
 
@@ -168,11 +188,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             case MOVE_TO_POINT:
                 mvprintw(10, 2, "STATE: MOVE TO POINT\n");
                 if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
-                    //wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
-                    //double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
-                    //mvprintw(11, 4, "Course to Point: %f (deg)\n", wpCourse);
-                    //mvprintw(12, 4, "Distance to Point: %f (m)\n", wpDist);
-                    //fout << "Distance to Point: " << wpDist << std::endl;
 
                     if(wpDist <= 5){
                         _sailState = REACHED_POINT;
@@ -198,10 +213,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
                 mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
-                //TODO: we need to check if we need to tack through the wind to face our point
-
-
-                //TODO: course and heading are raw values, should compute track and true heading
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
                 }
@@ -324,20 +335,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             case TACK:
                 mvprintw(10, 2, "STATE: TACK\n");
 
-                /*
-                if(_initialWindRelative == 9999)
-                    _initialWindRelative = state.windDirection;
-                if(_desiredWindRelative == 9999)
-                    _desiredWindRelative = -_initialWindRelative;
-
-                //motorstate_t r;
-                r = tack(_tackTime, state.windDirection, _initialWindRelative, _desiredWindRelative);
-                rud = r.rudder + 35; //Calculations done (-35,35), must be sent (0,70)
-                main = 0;
-                jib = 0;
-
-                _tackTime++; //TODO: increment this as a function of how far we are from initial to desired
-                */
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
                 }
@@ -413,24 +410,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
         }
 
-        //if((main != _lastMain) || (jib != _lastJib) || (rud != _lastRud))
-        //    Utility::sendMotorValues(serial, main, jib, rud);
-
-        //_lastMain = main;
-        //_lastJib = jib;
-        //_lastRud = rud;
-
-        //_lastMain *= 3;
-        //_lastJib *= 3;
-        //_lastRud *= 3;
-        //if(_lastMain > 90) _lastMain = 90;
-        //if(_lastJib > 90) _lastJib = 90;
-        //if(_lastRud > 70) _lastRud = 70;
-
-        //fout << "Sail: " << std::dec << static_cast<int>(_lastMain) << std::endl;
-        //fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
-        //fout << "---------------" << std::endl;
-        //fout.close();
     }
     else if(STATION_KEEPING_STRAT1){
         motorstate_t r;
@@ -444,32 +423,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
         if((_timer->millis() - _skTimer) < ((1000*60)*5)){
             switch(_sailState){
-            /*case MOVING_CHECK:
-                mvprintw(10, 2, "STATE: MOVING CHECK\n");
-                if(wpDist <= 5){
-                    _sailState = REACHED_POINT;
-                }
-                else{
-                    if(state.speed >= 0.5){
-                        _sailState = MOVE_TO_POINT;
-                    }
-                    else{
-                        if(state.windDirection > -15 && state.windDirection < 15){
-                            break;
-                        }
-                        else{
-                            if(state.windDirection < 0)
-                                r = courseByWind(state.windDirection, -90);
-                            else
-                                r = courseByWind(state.windDirection, 90);
-
-                            rud = (r.rudder + 35);
-                            main = r.main;
-                            jib = r.jib;
-                        }
-                    }
-                }
-                break;*/
 
                 case MOVE_TO_POINT:
                     mvprintw(10, 2, "STATE: MOVE TO POINT\n");
@@ -554,7 +507,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                 Point<double> llw;
                                 llw.x = _waypoints[_wpId].lat;
                                 llw.y = _waypoints[_wpId].lon;
-                                //_waypointPolar.x = distanceBetweenPoints(_initialLatLon, llw);
                                 _waypointPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y);
                                 _waypointPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y));
                                 _waypointCart = polarToCartesian(_waypointPolar.x, _waypointPolar.y);
@@ -566,7 +518,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                 llp.x = state.latitude;
                                 llp.y = state.longitude;
 
-                                //_boatPolar.x = distanceBetweenPoints(_initialLatLon, llp);
                                 _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
                                 _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
                                 _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
@@ -586,7 +537,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                     _sailState = TACK;
 
                                     if(_tackEvent == 0){
-                                        //_offset -= 3;
                                         _tackEvent = 1;
                                     }
                                 }
@@ -695,19 +645,382 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
         }
         else{
             fout << "SK Exit: " << _timer->millis() << std::endl;
-
-            //motorstate_t r;
-
+            /*
             if(state.windDirection >= 0)
                 r = courseByWind(state.windDirection, 90);
             else
                 r = courseByWind(state.windDirection, -90);
 
-            rud = r.rudder + 35;
-            main = r.main;
-            jib = r.jib;
+                */
+            _mode = LONG_DISTANCE;
+            outpoint.lat = 44.22369;
+            outpoint.lon = -76.483736;
+            _waypoints.push_back(outpoint);
+            _wpId++;
+
         }
     }
+    else if(NAVIGATION_TRIAL){
+
+      // CHANGED: CREATED BUOY ROUNDING WAYPOINT
+
+      double lat,lon;
+      Waypoint point, point1, point2, point3, point4;
+
+      point.lat = _waypoints[_wpId].lat;
+      point.lon = _waypoints[_wpId].lat;
+      point3.lat = _initialLatLon.x;
+      point3.lon = _initialLatLon.y;
+
+      if(_initialLatLon.x > _waypoints[_wpId].lat){
+          if(_initialLatLon.y > _waypoints[_wpId].lon){
+            _buoyPoint = BOT_LEFT;
+          }
+          else {_buoyPoint = BOT_RIGHT;};
+        }
+      else if (_initialLatLon.x < _waypoints[_wpId].lat){
+          if(_initialLatLon.y > _waypoints[_wpId].lon){
+            _buoyPoint = TOP_LEFT;
+          }
+          else {_buoyPoint = TOP_RIGHT;}
+        }
+
+      if (_setRound == false){
+        int roundDist = 0.0001;
+
+        switch (_buoyPoint) {
+          case TOP_LEFT:
+
+              point.lat = _waypoints[_wpId].lat;
+              point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+              point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
+              point1.lon = _waypoints[_wpId].lon;
+              point2.lat = _waypoints[_wpId].lat;
+              point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+              _waypoints.push_back(point);
+              _waypoints.push_back(point1);
+              _waypoints.push_back(point2);
+              _setRound = true;
+
+          case TOP_RIGHT:
+
+              point.lat = _waypoints[_wpId].lat;
+              point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+              point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
+              point1.lon = _waypoints[_wpId].lon;
+              point2.lat = _waypoints[_wpId].lat;
+              point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+              _waypoints.push_back(point);
+              _waypoints.push_back(point1);
+              _waypoints.push_back(point2);
+              _setRound = true;
+
+          case BOT_RIGHT:
+
+              point.lat = _waypoints[_wpId].lat;
+              point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+              point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
+              point1.lon = _waypoints[_wpId].lon;
+              point2.lat = _waypoints[_wpId].lat;
+              point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+              _waypoints.push_back(point);
+              _waypoints.push_back(point1);
+              _waypoints.push_back(point2);
+              _setRound = true;
+
+          case BOT_LEFT:
+
+              point.lat = _waypoints[_wpId].lat;
+              point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+              point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
+              point1.lon = _waypoints[_wpId].lon;
+              point2.lat = _waypoints[_wpId].lat;
+              point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+              _waypoints.push_back(point);
+              _waypoints.push_back(point1);
+              _waypoints.push_back(point2);
+              _setRound = true;
+
+          }
+      }
+
+      motorstate_t r;
+
+      switch(_sailState){
+        case MOVING_CHECK:
+            mvprintw(10, 2, "STATE: MOVING CHECK\n");
+            _tackTimer++;
+            if(wpDist <= 5){                                                // Within range of waypoint
+                _sailState = REACHED_POINT;
+            }
+            else{
+                if(state.speed >= 0.5){                                     // Does it have momentum
+                    _sailState = MOVE_TO_POINT;
+                }
+                else{                                                       // Sailing against the wind?
+                    if(state.windDirection > -15 && state.windDirection < 15){
+                        break;
+                    }
+                    else{
+                        if(state.windDirection < 0)                         // Adjust sails for wind direction
+                            r = courseByWind(state.windDirection, -90);
+                        else
+                            r = courseByWind(state.windDirection, 90);
+
+                        rud = (r.rudder + 35);                              // Rudder + 35??
+                        main = r.main;
+                        // jib = r.jib;
+                    }
+                }
+            }
+            break;
+
+        case MOVE_TO_POINT:
+
+            _tackTimer++;
+            mvprintw(10, 2, "STATE: MOVE TO POINT\n");
+            if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
+
+                if(wpDist <= 5){                                              // Is it within distance of waypoint?
+                    _sailState = REACHED_POINT;
+                }
+
+                else{
+                    uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
+                    fout << "Absolute Wind: " << windAbs << std::endl;
+                    if(angleBetween(cardinalToStandard(windAbs), cardinalToStandard(wpCourse)) <= 75){
+                        _sailState = UPWIND;
+                    }
+                    else{
+                        _sailState = DOWNWIND;
+                    }
+                }
+            }
+
+            break;
+
+        case DOWNWIND:
+            mvprintw(10, 2, "STATE: DOWNWIND\n");
+            _downwindCount++;
+
+            mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
+            mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
+
+            if(wpDist <= 5){
+                _sailState = REACHED_POINT;
+            }
+            else{
+                if(_downwindCount >= 3){
+                    _upwindCount = 0;
+                    _startedUpwind = false;
+
+                    r = courseByHeading(state.windDirection, state.gpsHeading, static_cast<uint32_t>(floor(wpCourse)));
+                    rud = static_cast<uint8_t>(r.rudder + 35);
+                    main = r.main;
+                    jib = r.jib;
+
+                    _sailState = MOVING_CHECK;
+                }
+                else{
+                    _sailState = MOVING_CHECK;
+                }
+            }
+
+            break;
+
+        case UPWIND:
+            mvprintw(10, 2, "STATE: UPWIND\n");
+            _upwindCount++;
+
+            mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
+            mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
+
+            if(wpDist <= 5){
+                _sailState = REACHED_POINT;
+            }
+            else{
+                if(_upwindCount >= 3){
+                    _downwindCount = 0;
+
+                    std::cout << "Started upwind: " << _startedUpwind << std::endl;
+                    if(_startedUpwind == false){
+                        Point<double> llp;
+                        llp.x = state.latitude;
+                        llp.y = state.longitude;
+
+                        _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
+                        _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
+                        _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
+                        _initialCart.x = _boatCart.x;
+                        _initialCart.y = _boatCart.y;
+                        fout << "Initial Boat XY: " << _initialCart.x << ", " << _initialCart.y << std::endl;
+                        fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
+                        mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
+
+                        Point<double> llw;
+                        llw.x = _waypoints[_wpId].lat;
+                        llw.y = _waypoints[_wpId].lon;
+                        _waypointPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y);
+                        _waypointPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, llw.x, llw.y));
+                        _waypointCart = polarToCartesian(_waypointPolar.x, _waypointPolar.y);
+
+                        _startedUpwind = true;
+                    }
+                    else{
+                        Point<double> llp;
+                        llp.x = state.latitude;
+                        llp.y = state.longitude;
+
+                        _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
+                        _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
+                        _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
+                        mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
+                        mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
+                        fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
+
+                        std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
+                        mvprintw(18, 1, "Line 1: %f, %f, %f, %f", lines.first.a.x, lines.first.a.y, lines.first.b.x, lines.first.b.y);
+                        mvprintw(19, 1, "Line 2: %f, %f, %f, %f", lines.second.a.x, lines.second.a.y, lines.second.b.x, lines.second.b.y);
+                        fout << "Line1: " << lines.first.a.x << ","  << lines.first.a.y << "," << lines.first.b.x << "," << lines.first.b.y << std::endl;
+                        fout << "Line2: " << lines.second.a.x << ","  << lines.second.a.y << "," << lines.second.b.x << "," << lines.second.b.y << std::endl;
+
+                        uint32_t windAbs = (state.windDirection + static_cast<uint32_t>(floor(state.gpsHeading))) % 360;
+
+                        if((pointBelowLine(_boatCart, lines.second) && pointBelowLine(_boatCart, lines.first)) || (pointAboveLine(_boatCart, lines.second) && pointAboveLine(_boatCart, lines.first))){
+                            _sailState = TACK;
+
+                            if(_tackEvent == 0){
+                                //_offset -= 3;
+                                _tackEvent = 1;
+                            }
+                        }
+                        else{
+                            if(state.windDirection > -15 && state.windDirection < 15 && state.speed < 0.5){
+                                break;
+                            }
+                            else{
+                                if(state.windDirection < 0)
+                                    r = courseByWind(state.windDirection, -65);
+                                else
+                                    r = courseByWind(state.windDirection, 65);
+                                main = r.main;
+                                jib = r.jib;
+                                rud = static_cast<uint8_t>(r.rudder + 35);
+                                _sailState = MOVING_CHECK;
+                            }
+                        }
+
+                        if((pointBelowLine(_boatCart, lines.second) && pointAboveLine(_boatCart, lines.first)) || (pointAboveLine(_boatCart, lines.second) && pointBelowLine(_boatCart, lines.first))){
+                            _tackEvent = 0;
+                        }
+                    }
+                }
+                else{
+                    _sailState = MOVING_CHECK;
+                }
+            }
+            break;
+
+        case TACK:
+            mvprintw(10, 2, "STATE: TACK\n");
+
+            if(wpDist <= 1){
+                _sailState = REACHED_POINT;
+            }
+            else{
+                if(_startedTack == false){
+                    _tackTime = 0;
+                    _initialWindRelative = state.windDirection;
+
+                    if(_initialWindRelative > 0){
+                        rud = 70;
+                    }
+                    if(_initialWindRelative < 0){
+                        rud = 0;
+                    }
+
+                    _startedTack = true;
+                }
+                else{
+                      if(_tackTime >= 10){
+                        if(_startedRecovery == false){
+                            _recoveryTime = 0;
+                            if(state.windDirection > 0)
+                                r = courseByWind(state.windDirection, 65);
+                            else
+                                r = courseByWind(state.windDirection, -65);
+                            rud = r.rudder + 35;
+                            main = r.main;
+                            jib = r.jib;
+
+                            _startedRecovery = true;
+                        }
+                        else{
+                            if(_recoveryTime >= 12){
+                                _sailState = MOVE_TO_POINT;
+
+                                _startedTack = false;
+                                _startedRecovery = false;
+                                _initialWindRelative = 9999;
+                            }
+                            else{
+                                if(state.windDirection > 0)
+                                    r = courseByWind(state.windDirection, 65);
+                                else
+                                    r = courseByWind(state.windDirection, -65);
+                                rud = r.rudder + 35;
+                                main = r.main;
+                                jib = r.jib;
+
+                                _recoveryTime++;
+                            }
+                        }
+                    }
+                    else{
+                        _tackTime++;
+                    }
+                }
+            }
+            break;
+
+        case REACHED_POINT:
+            _startedUpwind = false;
+            _startedTack = false;
+            _downwindCount = 0;
+            _upwindCount = 0;
+
+            _wpId = (_wpId + 1) % _numWaypoints;
+
+            _sailState = MOVING_CHECK;
+            break;
+
+        default:
+              //Skipper's drunk, don't do anything.
+              break;
+      }
+
+      _lastMain = main;
+      _lastRud = rud;
+
+      fout << "Sail: " << std::dec << static_cast<int>(_lastMain) << std::endl;
+      fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
+      fout << "---------------" << std::endl;
+      fout.close();
+      tout.close();
+
+      _lastState = state;
+      _tackTimer++;
+    };
+
+<<<<<<< HEAD
+   // else if(MACHINE_VISION){
+      //TODO: Python TempFS Shared Memory
+   // }
+=======
+//    else if(MACHINE_VISION){
+      //TODO: Python TempFS Shared Memory
+  //  }
+>>>>>>> origin/master
 
     _lastMain = main;
     _lastJib = jib;
@@ -717,8 +1030,10 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
     fout << "---------------" << std::endl;
     fout.close();
+    tout.close();
 
     _lastState = state;
+    _tackTimer++;
 }
 
 uint8_t Autonomy::getMain(){
@@ -741,13 +1056,9 @@ void Autonomy::resetTimer(){
  * windRelative is the current relative angle of the wind to the boat
  * angleToSail is the desired angle of the wind to the boat
  * Assumes windRelative and angleToSail both have the same sign!
- */
+*/
 motorstate_t Autonomy::courseByWind(int windRelative, int angleToSail){
     motorstate_t out;
-
-    //int side = -1;
-    //if(windRelative < 0)
-    //    side = -side;
 
     int32_t theta = static_cast<uint32_t>(angleToSail - windRelative);
     out.rudder = static_cast<int>(floorf((35.0f/180.0f)*static_cast<float>(theta)));
@@ -770,32 +1081,6 @@ motorstate_t Autonomy::courseByWind(int windRelative, int angleToSail){
 motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int courseToPoint){
     motorstate_t out;
 
-    /*int8_t side = 0;
-    if((angleQuadrant(cardinalToStandard(heading)) == 1 || angleQuadrant(cardinalToStandard(heading)) == 4) && (angleQuadrant(cardinalToStandard(courseToPoint)) == 1 || angleQuadrant(cardinalToStandard(courseToPoint)) == 4)){
-        if(angleQuadrant(cardinalToStandard(heading)) == 1 && angleQuadrant(cardinalToStandard(courseToPoint)) == 4){
-            side = 1;
-        }
-        if(angleQuadrant(cardinalToStandard(courseToPoint)) == 1 && angleQuadrant(cardinalToStandard(heading)) == 4){
-            side = -1;
-        }
-    }
-
-    if(angleQuadrant(cardinalToStandard(heading)) != angleQuadrant(cardinalToStandard(courseToPoint))){
-        if((360-cardinalToStandard(heading)) < (360-cardinalToStandard(courseToPoint))){
-            side = -1;
-        }
-        else{
-            side = 1;
-        }
-    }
-    else{
-        if(cardinalToStandard(courseToPoint) > cardinalToStandard(heading)){
-            side = -1;
-        }
-        else{
-            side = 1;
-        }
-    }*/
     int theta = courseToPoint - heading;
     if(theta > 180){
         theta -= 360;
@@ -803,12 +1088,8 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
     if(theta < -180){
         theta += 360;
     }
-    //mvprintw(4, 25, "SIDE: %3d\n", side);
 
-    //uint32_t theta = static_cast<uint32_t>(abs(courseToPoint) - abs(heading));
-    //uint32_t theta = angleBetween(cardinalToStandard(courseToPoint), cardinalToStandard(heading));
     out.rudder = static_cast<int>(floor((35.0f/180.0f)*static_cast<float>(theta)));
-    //out.rudder *= side;
 
     if(abs(windRelative) < 45){
         out.main = 0;
@@ -854,9 +1135,6 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
         if(out.rudder > 30)
             out.rudder = 30;
 
-        //uint64_t now = timer->millis();
-        //while((timer->millis() - now) < 200);
-
         if(desiredWindRelative < initialWindRelative){
             if(windRelative <= desiredWindRelative){
                 _sailState = MOVING_CHECK;
@@ -883,9 +1161,6 @@ motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, in
         out.rudder = static_cast<int>(gauss)*aggression;
         if(out.rudder < -30)
             out.rudder = -30;
-
-        //uint64_t now = timer->millis();
-        //while((timer->millis() - now) < 200);
 
         if(desiredWindRelative < initialWindRelative){
             if(windRelative <= desiredWindRelative){
@@ -1024,6 +1299,51 @@ std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Poin
         l1.a.y = initPos.y + offset;
         l1.b.x = destPos.x;
         l1.b.y = destPos.y + offset;
+    }
+
+    return std::make_pair(l1, l2);
+}
+
+std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos, Point<double> destPos, int offset){
+    Line l1, l2;
+                                                                                // GPS point to create 60 deg line to destination
+    l1.a.x = initPos.x - offset;
+    l1.a.y = initPos.y;
+    l1.b.x = destPos.x;
+    l1.b.y = destPos.y;
+
+    l2.a.x = initPos.x + offset;
+    l2.a.y = initPos.y;
+    l2.b.x = destPos.x;
+    l2.b.y = destPos.y;
+
+    double m1 = (l1.b.y - l1.a.y) / (l1.b.x - l1.a.x);
+    double m2 = (l2.b.y - l2.a.y) / (l2.b.x - l2.a.x);
+
+    if((m1 < 0.9) || (m2 < 0.9)){
+      if (m2 < 0.9) {
+        l2.a.x = initPos.x;
+        l2.a.y = initPos.y - offset;                                            // Even out the lines creation
+        l2.b.x = destPos.x;
+        l2.b.y = destPos.y;
+
+        l1.a.x = initPos.x;
+        l1.a.y = initPos.y + offset;                                            // Bring up the opposing lines offset height
+        l1.b.x = destPos.x;                                                     // Is 30 feet offset too much for this?
+        l1.b.y = destPos.y;
+      }
+
+      else if (m1 < 0.9){
+        l2.a.x = initPos.x;
+        l2.a.y = initPos.y + offset;                                            // Even out the lines creation
+        l2.b.x = destPos.x;
+        l2.b.y = destPos.y;
+
+        l1.a.x = initPos.x;
+        l1.a.y = initPos.y - offset;
+        l1.b.x = destPos.x;
+        l1.b.y = destPos.y;
+      }
     }
 
     return std::make_pair(l1, l2);
