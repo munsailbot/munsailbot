@@ -67,6 +67,17 @@ On Ubuntu, for example
 ```
 sudo apt-get install gcc-4.7-arm-linux-gnueabihf
 ```
+## VM Build
 
-## BBB Uploading
-TODO
+On OSX or Windows, download and install Vagrant and Virtualbox
+
+https://www.vagrantup.com/
+https://www.virtualbox.org/wiki/Downloads
+
+```
+vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
+```
+
+This will install and launch a headless minimal build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ~/vagrant of the Ubuntu VM is mirrored in the host OS.
+
+## BBB Upload
