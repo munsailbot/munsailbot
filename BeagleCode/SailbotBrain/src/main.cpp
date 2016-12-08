@@ -96,11 +96,11 @@ int main(int argc, char* argv[])
 
     ///Initialize TinyGPS
     TinyGPSPlus* tinyGps = new TinyGPSPlus();
-    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);		                  	
-    TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);                              
-    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);                             
+    TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);
+    TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);
+    TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);
 
-    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);				                           
+    TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
     TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
 
     //We will use a hanning filter to filter the incoming wind direction
@@ -194,17 +194,6 @@ int main(int argc, char* argv[])
 
             clear();
 
-            //mvprintw(1, 1, "LAT: %f\n", currentState.latitude);
-            //mvprintw(2, 1, "LON: %f\n", currentState.longitude);
-            //mvprintw(3, 1, "C.O.G: %f\n", currentState.gpsHeading);
-            //mvprintw(4, 1, "SPEED: %f\n", currentState.speed);
-            //mvprintw(5, 1, "WIND: %4d\n", currentState.windDirection);
-            //mvprintw(6, 1, "MAG: %4d\n", currentState.magHeading);
-            //mvprintw(7, 1, "GPS: %4d\n", tinyGps->goodSentences());
-            //mvprintw(7, 25, "GPS CHARS: %4d\n", tinyGps->charsProcessed());
-            //mvprintw(6, 25, "AUT: %4d\n", enableAutonomy);
-            //mvprintw(8, 1, "RAW WIND: %s\n", windDirection.value());
-
             uint8_t lastRud = autonomy->getRud();
 
             if(enableAutonomy){
@@ -271,10 +260,6 @@ int main(int argc, char* argv[])
             if(enableAutonomy == true){
                 Utility::sendMotorValues(ard, desiredSail, desiredSail, scaledRudInt); //Send motor values back to the Arduino
             }
-
-            //mvprintw(1, 25, "RUDDER: %3d, %3d, %3d, %3d\n", scaledRudInt-21, autonomy->getRud()-35, lastRud-35, desiredRud-35);
-            //mvprintw(2, 25, "MAIN: %3d, %3d\n", desiredSail, autonomy->getMain());
-            //mvprintw(3, 25, "JIB: %3d, %3d\n", desiredSail, autonomy->getJib());
 
             lerpCur++;
             if(lerpCur > lerpMax) lerpCur = lerpMax;
