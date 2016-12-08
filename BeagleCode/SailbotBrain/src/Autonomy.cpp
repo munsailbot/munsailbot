@@ -116,11 +116,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
     //Log some 'tings
-    mvprintw(8, 2, "Current Waypoint: %f, %f\n", _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
-
-    mvprintw(11, 4, "Course to Point: %f (deg)\n", wpCourse);
-    mvprintw(12, 4, "Distance to Point: %f (m)\n", wpDist);
 
     fout << "Course To Point: " << wpCourse << std::endl;
     fout << "Distance To Point: " << wpDist << std::endl;
@@ -159,7 +155,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
         motorstate_t r;
         switch(_sailState){
             case MOVING_CHECK:
-                mvprintw(10, 2, "STATE: MOVING CHECK\n");
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
                 }
@@ -186,7 +181,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case MOVE_TO_POINT:
-                mvprintw(10, 2, "STATE: MOVE TO POINT\n");
                 if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
 
                     if(wpDist <= 5){
@@ -207,11 +201,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case DOWNWIND:
-                mvprintw(10, 2, "STATE: DOWNWIND\n");
                 _downwindCount++;
-
-                mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-                mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
@@ -237,11 +227,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case UPWIND:
-                mvprintw(10, 2, "STATE: UPWIND\n");
                 _upwindCount++;
-
-                mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-                mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
@@ -264,7 +250,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                             _initialCart.y = _boatCart.y;
                             fout << "Initial Boat XY: " << _initialCart.x << ", " << _initialCart.y << std::endl;
                             fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
-                            mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
 
                             Point<double> llw;
                             llw.x = _waypoints[_wpId].lat;
@@ -285,13 +270,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                             _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
                             _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
                             _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
-                            mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
-                            mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
                             fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
 
                             std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
-                            mvprintw(18, 1, "Line 1: %f, %f, %f, %f", lines.first.a.x, lines.first.a.y, lines.first.b.x, lines.first.b.y);
-                            mvprintw(19, 1, "Line 2: %f, %f, %f, %f", lines.second.a.x, lines.second.a.y, lines.second.b.x, lines.second.b.y);
                             fout << "Line1: " << lines.first.a.x << ","  << lines.first.a.y << "," << lines.first.b.x << "," << lines.first.b.y << std::endl;
                             fout << "Line2: " << lines.second.a.x << ","  << lines.second.a.y << "," << lines.second.b.x << "," << lines.second.b.y << std::endl;
 
@@ -333,7 +314,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                 break;
 
             case TACK:
-                mvprintw(10, 2, "STATE: TACK\n");
 
                 if(wpDist <= 5){
                     _sailState = REACHED_POINT;
@@ -425,7 +405,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             switch(_sailState){
 
                 case MOVE_TO_POINT:
-                    mvprintw(10, 2, "STATE: MOVE TO POINT\n");
                     if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
                         if(wpDist <= 1){
                             _sailState = REACHED_POINT;
@@ -445,11 +424,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     break;
 
                 case DOWNWIND:
-                    mvprintw(10, 2, "STATE: DOWNWIND\n");
                     _downwindCount++;
-
-                    mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-                    mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
                     if(wpDist <= 1){
                         _sailState = REACHED_POINT;
@@ -475,11 +450,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     break;
 
                 case UPWIND:
-                    mvprintw(10, 2, "STATE: UPWIND\n");
                     _upwindCount++;
-
-                    mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-                    mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
                     if(wpDist <= 1){
                         _sailState = REACHED_POINT;
@@ -502,7 +473,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                 _initialCart.y = _boatCart.y;
                                 fout << "Initial Boat XY: " << _initialCart.x << ", " << _initialCart.y << std::endl;
                                 fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
-                                mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
 
                                 Point<double> llw;
                                 llw.x = _waypoints[_wpId].lat;
@@ -521,13 +491,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                                 _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
                                 _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
                                 _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
-                                mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
-                                mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
                                 fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
 
                                 std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
-                                mvprintw(18, 1, "Line 1: %f, %f, %f, %f", lines.first.a.x, lines.first.a.y, lines.first.b.x, lines.first.b.y);
-                                mvprintw(19, 1, "Line 2: %f, %f, %f, %f", lines.second.a.x, lines.second.a.y, lines.second.b.x, lines.second.b.y);
                                 fout << "Line1: " << lines.first.a.x << ","  << lines.first.a.y << "," << lines.first.b.x << "," << lines.first.b.y << std::endl;
                                 fout << "Line2: " << lines.second.a.x << ","  << lines.second.a.y << "," << lines.second.b.x << "," << lines.second.b.y << std::endl;
 
@@ -568,7 +534,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                     break;
 
                 case TACK:
-                    mvprintw(10, 2, "STATE: TACK\n");
 
                     if(wpDist <= 1){
                         _sailState = REACHED_POINT;
@@ -748,7 +713,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
       switch(_sailState){
         case MOVING_CHECK:
-            mvprintw(10, 2, "STATE: MOVING CHECK\n");
             _tackTimer++;
             if(wpDist <= 5){                                                // Within range of waypoint
                 _sailState = REACHED_POINT;
@@ -778,7 +742,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
         case MOVE_TO_POINT:
 
             _tackTimer++;
-            mvprintw(10, 2, "STATE: MOVE TO POINT\n");
             if((state.latitude != 0.0) && (state.longitude != 0.0) && (state.latitude != 99.99) && (state.longitude != 99.99)){
 
                 if(wpDist <= 5){                                              // Is it within distance of waypoint?
@@ -800,11 +763,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             break;
 
         case DOWNWIND:
-            mvprintw(10, 2, "STATE: DOWNWIND\n");
             _downwindCount++;
-
-            mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-            mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
             if(wpDist <= 5){
                 _sailState = REACHED_POINT;
@@ -829,11 +788,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             break;
 
         case UPWIND:
-            mvprintw(10, 2, "STATE: UPWIND\n");
             _upwindCount++;
-
-            mvprintw(15, 1, "Upwind Count: %d", _upwindCount);
-            mvprintw(16, 1, "Downwind Count: %d", _downwindCount);
 
             if(wpDist <= 5){
                 _sailState = REACHED_POINT;
@@ -855,7 +810,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                         _initialCart.y = _boatCart.y;
                         fout << "Initial Boat XY: " << _initialCart.x << ", " << _initialCart.y << std::endl;
                         fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
-                        mvprintw(17, 1, "Initial XY: %d, %d", _initialCart.x, _initialCart.y);
 
                         Point<double> llw;
                         llw.x = _waypoints[_wpId].lat;
@@ -874,13 +828,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
                         _boatPolar.x = tinyGps->distanceBetween(_initialLatLon.x, _initialLatLon.y, llp.x, llp.y);
                         _boatPolar.y = cardinalToStandard(tinyGps->courseTo(_initialLatLon.x, _initialLatLon.y, state.latitude, state.longitude));
                         _boatCart = polarToCartesian(_boatPolar.x, _boatPolar.y);
-                        mvprintw(17, 1, "Boat XY: %f, %f", _boatCart.x, _boatCart.y);
-                        mvprintw(20, 1, "Boat r, a: %f, %f", _boatPolar.x, _boatPolar.y);
                         fout << "Boat XY: " << _boatCart.x << " , " << _boatCart.y << std::endl;
 
                         std::pair<Line, Line> lines = generateControlLines(_initialCart, _waypointCart, _offset);
-                        mvprintw(18, 1, "Line 1: %f, %f, %f, %f", lines.first.a.x, lines.first.a.y, lines.first.b.x, lines.first.b.y);
-                        mvprintw(19, 1, "Line 2: %f, %f, %f, %f", lines.second.a.x, lines.second.a.y, lines.second.b.x, lines.second.b.y);
                         fout << "Line1: " << lines.first.a.x << ","  << lines.first.a.y << "," << lines.first.b.x << "," << lines.first.b.y << std::endl;
                         fout << "Line2: " << lines.second.a.x << ","  << lines.second.a.y << "," << lines.second.b.x << "," << lines.second.b.y << std::endl;
 
@@ -922,7 +872,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             break;
 
         case TACK:
-            mvprintw(10, 2, "STATE: TACK\n");
 
             if(wpDist <= 1){
                 _sailState = REACHED_POINT;
@@ -1112,8 +1061,6 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
 */
 motorstate_t Autonomy::tack(int x, int windRelative, int initialWindRelative, int desiredWindRelative){
     motorstate_t out;
-
-    mvprintw(10, 20, "TACKING\n");
 
     uint8_t aggression = 5; //this may be learned or controlled from outside later
 
