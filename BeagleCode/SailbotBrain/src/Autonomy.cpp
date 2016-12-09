@@ -961,15 +961,10 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       _tackTimer++;
     };
 
-<<<<<<< HEAD
-   // else if(MACHINE_VISION){
-      //TODO: Python TempFS Shared Memory
-   // }
-=======
-//    else if(MACHINE_VISION){
-      //TODO: Python TempFS Shared Memory
-  //  }
->>>>>>> origin/master
+    else if(MACHINE_VISION){
+      TODO: Python TempFS Shared Memory
+    }
+
 
     _lastMain = main;
     _lastJib = jib;
