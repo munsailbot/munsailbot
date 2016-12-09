@@ -1,11 +1,13 @@
 # Greater precision required for mapping
+library(ggplot2)
 setwd("/Users/bryan/Git/munsailbot")
 
 # Import CSV and delete empty/NA rows
 data <- read.table('track.csv', header = TRUE, sep =',')
 data <- subset(data, Lat!=c("99.99",""),select = c(Lon,Lat))
+data1 <- matrix(c(47.57531,47.57530,47.57533,47.57534,47.57535,-52.73621,-52.73622,-52.73623,-52.73624,-52.73623), ncol=2)
 tab <- table(data$Lon,data$Lat)
-plot(data,type="o")
+plot(data1,type="o",ylab="Lon",xlab="Lat")
 
 # Extrema
 X1 <- min(data["Lon"])
