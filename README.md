@@ -80,4 +80,8 @@ vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
 
 This will install and launch a headless minimal build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ~/vagrant of the Ubuntu VM is mirrored in the host OS.
 
-## BBB Upload
+## SSH
+
+__Windows & OSX Users__ Follow steps 1 & 2 seen here http://beagleboard.org/getting-started and then navigate to 192.168.7.2 in your browser. If a Beaglebone starter page appears, you can SSH to the Beaglebone by entering ```ssh root@192.168.7.2``` in your terminal, or using an SSH-ready software like Cyberduck or WinSCP.
+
+__Linux Users__ ```ssh root@192.168.7.2``` with Beaglebone connected via USB.
