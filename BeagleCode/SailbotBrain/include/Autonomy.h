@@ -99,7 +99,7 @@ public:
     ~Autonomy();
 
     void setMode(MODE m);
-    void step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial);
+    void step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
 
     uint8_t getMain();
     uint8_t getJib();

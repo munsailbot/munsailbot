@@ -15,9 +15,11 @@ Autonomy::Autonomy(Timer* timer){
     //For now, declare waypoints here
     _wpId = 0;
 
+    /*
     std::ofstream fout;
     fout.open("/log.txt", std::ios::out | std::ios::app);
     fout << "reading autonomy settings" << std::endl;
+    */
 
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
 
@@ -94,8 +96,7 @@ Autonomy::Autonomy(Timer* timer){
 
 }
 
-Autonomy::~Autonomy(){
-}
+Autonomy::~Autonomy(){}
 
 void Autonomy::setMode(MODE m){
     _mode = m;
@@ -103,14 +104,15 @@ void Autonomy::setMode(MODE m){
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial){
+void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp){
     uint8_t main, jib, rud;
     main = _lastMain;
     jib = _lastJib;
     rud = _lastRud;
 
+    filename = "/Log-" + timestamp + ".csv";
     std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
+    fout.open(filename, std::ios::out | std::ios::app);
 
     double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
@@ -120,7 +122,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     fout << "Course To Point: " << wpCourse << std::endl;
     fout << "Distance To Point: " << wpDist << std::endl;
-
     fout << "Sail State: " << _sailState << std::endl;
     fout << "Speed: " << state.speed << std::endl;
     fout << "Lat: " << state.latitude << std::endl;
@@ -130,13 +131,14 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     fout << "Mag Heading: " << state.magHeading << std::endl;
 
     std::ofstream tout;
-    tout.open("/track.csv", std::ios::out | std::ios::app);
+    filename = "/Track-" + timestamp + ".csv";
+    tout.open(filename, std::ios::out | std::ios::app);
     tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.magHeading << std::endl;
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
-//    if(_mode == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
+    // if(_mode == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
 
     if(_initialCoordsCaptured == false){
         if(state.latitude != 99.99 && state.longitude != 99.99){
