@@ -47,6 +47,7 @@ class TinyGPSPlus;
 class Autonomy{
 private:
     MODE _mode;
+    std::string filename;
 
     SAIL_STATE _sailState;
     BUOY_QUAD _buoyPoint;
