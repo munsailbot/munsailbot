@@ -114,7 +114,6 @@ def angle_quadrant(angle):
         return 4
 
 
-
 def angle_direction(a1, a2):
     side = 0
 
@@ -396,7 +395,7 @@ def autonomous():
         except:
             print "Timeout"
 
-        if(got_init == False):
+        if not got_init:
             if(init_lat == -1 and init_lon == -1):
                 if(latitude > 0 and latitude < 99):
                     init_lat = latitude
@@ -421,7 +420,8 @@ def autonomous():
 
             wind_abs = (winddirection + math.floor(cog)) % 360
             print "Abs Wind:" + str(wind_abs)
-            if(angle_between(cardinal_to_standard(wind_abs), cardinal_to_standard(wpCourse)) < 45):
+            if(angle_between(cardinal_to_standard(wind_abs),
+            cardinal_to_standard(wpCourse)) < 45):
                 sail_state = SailState.UPWIND
             else:
                 sail_state = SailState.DOWNWIND
@@ -621,7 +621,8 @@ if __name__ == "__main__":
     manual_control_cmd = '$R,' + str(0.0) + ',' + str(0.0) + '\n'
     auto_control_cmd = '$C,' + str(0.0) + ',' + str(0.0) + '\n'
 
-    port = serial.Serial("/dev/tty.usbmodem1A1213", baudrate=115200, timeout=1.0)
+    port = serial.Serial("/dev/tty.usbmodem1423",
+                         baudrate=115200, timeout=1.0)
 
     # Initial values
     autonomous_mode = 0
