@@ -1,4 +1,4 @@
-#include "../include/BeagleUtil.h"
+#include "../../BeagleUtil/include/BeagleUtil.h"
 #include "TinyGPSPlus/TinyGPS++.h"
 #include "SailbotBrain.h"
 #include "ArduinoEncoder.h"
