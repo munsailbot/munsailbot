@@ -29,7 +29,24 @@ void Logger::LogStep(std::string timestamp) {
   std::ofstream fout;
   name = "/Log-" + timestamp + ".csv";
   fout.open(name, std::ios::out | std::ios::app);
-  fout << "Initialized...starting main loop!" << std::endl;
+  filename = "/Log-" + timestamp + ".csv";
+  std::ofstream fout;
+  fout.open(filename, std::ios::out | std::ios::app);
+  // TODO: pass state/waypoints into function
+  // TODO: should state contain wpCourse and wpDist?
+
+  /*fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
+  fout << "Course To Point: " << wpCourse << std::endl;
+  fout << "Distance To Point: " << wpDist << std::endl;
+  fout << "Sail State: " << _sailState << std::endl;
+  fout << "Speed: " << state.speed << std::endl;
+  fout << "Lat: " << state.latitude << std::endl;
+  fout << "Lon: " << state.longitude << std::endl;
+  fout << "Course: " << state.gpsHeading << std::endl;
+  fout << "Wind: " << state.windDirection << std::endl;
+  fout << "Mag Heading: " << state.magHeading << std::endl;
+  */
+  
   fout.close();
 }
 

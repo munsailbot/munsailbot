@@ -46,7 +46,8 @@ uint8_t bin4Count = 0;
 
 int main(int argc, char* argv[])
 {
-        // TODO: Make a logging utility
+        // Logger* log = new Logger();
+        // std::string timestamp = log->Timestamp();
         time_t t = time(0);   // get time now
         struct tm * now = localtime( & t );
         char * datetime = new char();

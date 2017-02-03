@@ -119,7 +119,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     //Log some 'tings
     fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
-
     fout << "Course To Point: " << wpCourse << std::endl;
     fout << "Distance To Point: " << wpDist << std::endl;
     fout << "Sail State: " << _sailState << std::endl;
