@@ -25,17 +25,16 @@ void Logger::TrackInit(std::string timestamp) {
   tout.close();
 }
 
-void Logger::LogStep(std::string timestamp) {
+void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+  SAIL_STATE _sailState, double wpCourse, double wpDist)) {
   std::ofstream fout;
   name = "/Log-" + timestamp + ".csv";
-  fout.open(name, std::ios::out | std::ios::app);
+  fout.open(name, std::ios::out | std::ios::app);s
   filename = "/Log-" + timestamp + ".csv";
   std::ofstream fout;
   fout.open(filename, std::ios::out | std::ios::app);
-  // TODO: pass state/waypoints into function
-  // TODO: should state contain wpCourse and wpDist?
 
-  /*fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
+  fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
   fout << "Course To Point: " << wpCourse << std::endl;
   fout << "Distance To Point: " << wpDist << std::endl;
   fout << "Sail State: " << _sailState << std::endl;
@@ -45,15 +44,18 @@ void Logger::LogStep(std::string timestamp) {
   fout << "Course: " << state.gpsHeading << std::endl;
   fout << "Wind: " << state.windDirection << std::endl;
   fout << "Mag Heading: " << state.magHeading << std::endl;
-  */
-  
+
   fout.close();
 }
 
-void Logger::TrackStep(std::string timestamp) {
+void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+  SAIL_STATE _sailState, double wpCourse, double wpDist) {
   std::string name = "/Track-" + timestamp + ".csv";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
-  tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,GPSHeading,WindDirection,MagHeading" << std::endl;
+  tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
+  << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading
+  << "," << state.windDirection << "," << state.magHeading << std::endl;
+
   tout.close();
 }

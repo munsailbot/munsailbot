@@ -15,12 +15,6 @@ Autonomy::Autonomy(Timer* timer){
     //For now, declare waypoints here
     _wpId = 0;
 
-    /*
-    std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
-    fout << "reading autonomy settings" << std::endl;
-    */
-
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
 
     std::string mode;
@@ -41,15 +35,14 @@ Autonomy::Autonomy(Timer* timer){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
-    /*else if(mode == "mv"){
-      this->setMode(MACHINE_VISION);
-    }*/
+
     else{
         fout << "Invalid autonomy mode" << std::endl;
     }
 
     for(std::string line; std::getline(fin, line); ){
-        std::istringstream in(line);      //make a stream for the line itself
+        //make a stream for the line itself
+        std::istringstream in(line);
 
         double lat,lon;
 
@@ -110,29 +103,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     jib = _lastJib;
     rud = _lastRud;
 
-    filename = "/Log-" + timestamp + ".csv";
-    std::ofstream fout;
-    fout.open(filename, std::ios::out | std::ios::app);
-
     double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
-    //Log some 'tings
-    fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
-    fout << "Course To Point: " << wpCourse << std::endl;
-    fout << "Distance To Point: " << wpDist << std::endl;
-    fout << "Sail State: " << _sailState << std::endl;
-    fout << "Speed: " << state.speed << std::endl;
-    fout << "Lat: " << state.latitude << std::endl;
-    fout << "Lon: " << state.longitude << std::endl;
-    fout << "Course: " << state.gpsHeading << std::endl;
-    fout << "Wind: " << state.windDirection << std::endl;
-    fout << "Mag Heading: " << state.magHeading << std::endl;
-
-    std::ofstream tout;
-    filename = "/Track-" + timestamp + ".csv";
-    tout.open(filename, std::ios::out | std::ios::app);
-    tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.magHeading << std::endl;
+    log->LogStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
+    log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);;
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
@@ -611,13 +586,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
         }
         else{
             fout << "SK Exit: " << _timer->millis() << std::endl;
-            /*
-            if(state.windDirection >= 0)
-                r = courseByWind(state.windDirection, 90);
-            else
-                r = courseByWind(state.windDirection, -90);
-
-                */
             _mode = LONG_DISTANCE;
             outpoint.lat = 44.22369;
             outpoint.lon = -76.483736;
@@ -961,11 +929,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       _lastState = state;
       _tackTimer++;
     };
-
     else if(MACHINE_VISION){
       TODO: Python TempFS Shared Memory
     }
-
 
     _lastMain = main;
     _lastJib = jib;
