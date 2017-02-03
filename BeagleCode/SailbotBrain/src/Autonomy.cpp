@@ -107,12 +107,11 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
     log->LogStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
-    log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);;
+    log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
-    // if(_mode == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
 
     if(_initialCoordsCaptured == false){
         if(state.latitude != 99.99 && state.longitude != 99.99){
@@ -123,7 +122,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  <<_initialLatLon.y << std::endl;
 
-            tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection <<  "," << state.magHeading << std::endl;
+            log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
         }
     }
 
@@ -929,7 +928,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       _lastState = state;
       _tackTimer++;
     };
-    else if(MACHINE_VISION){
+    /* else if(MACHINE_VISION){
       TODO: Python TempFS Shared Memory
     }
 
@@ -945,7 +944,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     _lastState = state;
     _tackTimer++;
-}
+} */
 
 uint8_t Autonomy::getMain(){
     return _lastMain;
