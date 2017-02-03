@@ -15,10 +15,6 @@ Autonomy::Autonomy(Timer* timer){
     //For now, declare waypoints here
     _wpId = 0;
 
-    std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
-    fout << "reading autonomy settings" << std::endl;
-
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
 
     std::string mode;
@@ -39,15 +35,14 @@ Autonomy::Autonomy(Timer* timer){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
-    /*else if(mode == "mv"){
-      this->setMode(MACHINE_VISION);
-    }*/
+
     else{
         fout << "Invalid autonomy mode" << std::endl;
     }
 
     for(std::string line; std::getline(fin, line); ){
-        std::istringstream in(line);      //make a stream for the line itself
+        //make a stream for the line itself
+        std::istringstream in(line);
 
         double lat,lon;
 
@@ -94,8 +89,7 @@ Autonomy::Autonomy(Timer* timer){
 
 }
 
-Autonomy::~Autonomy(){
-}
+Autonomy::~Autonomy(){}
 
 void Autonomy::setMode(MODE m){
     _mode = m;
@@ -103,40 +97,21 @@ void Autonomy::setMode(MODE m){
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial){
+void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp){
     uint8_t main, jib, rud;
     main = _lastMain;
     jib = _lastJib;
     rud = _lastRud;
 
-    std::ofstream fout;
-    fout.open("/log.txt", std::ios::out | std::ios::app);
-
     double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
-    //Log some 'tings
-    fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
-
-    fout << "Course To Point: " << wpCourse << std::endl;
-    fout << "Distance To Point: " << wpDist << std::endl;
-
-    fout << "Sail State: " << _sailState << std::endl;
-    fout << "Speed: " << state.speed << std::endl;
-    fout << "Lat: " << state.latitude << std::endl;
-    fout << "Lon: " << state.longitude << std::endl;
-    fout << "Course: " << state.gpsHeading << std::endl;
-    fout << "Wind: " << state.windDirection << std::endl;
-    fout << "Mag Heading: " << state.magHeading << std::endl;
-
-    std::ofstream tout;
-    tout.open("/track.csv", std::ios::out | std::ios::app);
-    tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection << "," << state.magHeading << std::endl;
+    log->LogStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
+    log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
-//    if(_mode == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
 
     if(_initialCoordsCaptured == false){
         if(state.latitude != 99.99 && state.longitude != 99.99){
@@ -147,7 +122,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  <<_initialLatLon.y << std::endl;
 
-            tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading << "," << state.windDirection <<  "," << state.magHeading << std::endl;
+            log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
         }
     }
 
@@ -610,13 +585,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
         }
         else{
             fout << "SK Exit: " << _timer->millis() << std::endl;
-            /*
-            if(state.windDirection >= 0)
-                r = courseByWind(state.windDirection, 90);
-            else
-                r = courseByWind(state.windDirection, -90);
-
-                */
             _mode = LONG_DISTANCE;
             outpoint.lat = 44.22369;
             outpoint.lon = -76.483736;
@@ -960,11 +928,9 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       _lastState = state;
       _tackTimer++;
     };
-
-    else if(MACHINE_VISION){
+    /* else if(MACHINE_VISION){
       TODO: Python TempFS Shared Memory
     }
-
 
     _lastMain = main;
     _lastJib = jib;
@@ -978,7 +944,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     _lastState = state;
     _tackTimer++;
-}
+} */
 
 uint8_t Autonomy::getMain(){
     return _lastMain;
