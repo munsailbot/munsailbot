@@ -928,9 +928,6 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       _lastState = state;
       _tackTimer++;
     };
-    /* else if(MACHINE_VISION){
-      TODO: Python TempFS Shared Memory
-    }
 
     _lastMain = main;
     _lastJib = jib;
@@ -944,7 +941,7 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
 
     _lastState = state;
     _tackTimer++;
-} */
+}
 
 uint8_t Autonomy::getMain(){
     return _lastMain;
