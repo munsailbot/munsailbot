@@ -103,7 +103,6 @@ public:
     void step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
 
     uint8_t getMain();
-    uint8_t getJib();
     uint8_t getRud();
 
     void resetTimer();
