@@ -35,7 +35,6 @@ Autonomy::Autonomy(Timer* timer){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
-
     else{
         fout << "Invalid autonomy mode" << std::endl;
     }
@@ -43,7 +42,6 @@ Autonomy::Autonomy(Timer* timer){
     for(std::string line; std::getline(fin, line); ){
         //make a stream for the line itself
         std::istringstream in(line);
-
         double lat,lon;
 
         in >> lat >> lon;
@@ -51,7 +49,7 @@ Autonomy::Autonomy(Timer* timer){
         Waypoint point;
         point.lat = lat;
         point.lon = lon;
-        fout << std::setiosflags(std::ios::fixed) << std::setprecision(11) << point.lat << " " << point.lon << std::endl;
+        fout << std::setiosflags(std::ios::fixed) << std::setprecision(6) << point.lat << " " << point.lon << std::endl;
 
         _waypoints.push_back(point);
     }
@@ -671,24 +669,29 @@ void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterfa
       switch(_sailState){
         case MOVING_CHECK:
             _tackTimer++;
-            if(wpDist <= 5){                                                // Within range of waypoint
+            if(wpDist <= 5){
+              // Within range of waypoint
                 _sailState = REACHED_POINT;
             }
             else{
-                if(state.speed >= 0.5){                                     // Does it have momentum
+                if(state.speed >= 0.5){
+                  // Does it have momentum
                     _sailState = MOVE_TO_POINT;
                 }
-                else{                                                       // Sailing against the wind?
+                else{
+                  // Sailing against the wind?
                     if(state.windDirection > -15 && state.windDirection < 15){
                         break;
                     }
                     else{
-                        if(state.windDirection < 0)                         // Adjust sails for wind direction
+                        if(state.windDirection < 0)
+                        // Adjust sails for wind direction
                             r = courseByWind(state.windDirection, -90);
                         else
                             r = courseByWind(state.windDirection, 90);
 
-                        rud = (r.rudder + 35);                              // Rudder + 35??
+                        rud = (r.rudder + 35);
+                        // Rudder + 35??
                         main = r.main;
                     }
                 }
@@ -986,6 +989,7 @@ motorstate_t Autonomy::courseByHeading(int windRelative, int heading, int course
     return out;
 }
 
+
 /* a single step of the tack state
 * x represents time as an integer for the rudder movement
 * windRelative is the current relative wind angle as read from the sensor
@@ -1186,7 +1190,8 @@ std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Poin
 
 std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos, Point<double> destPos, int offset){
     Line l1, l2;
-                                                                                // GPS point to create 60 deg line to destination
+
+    // GPS point to create 60 deg line to destination
     l1.a.x = initPos.x - offset;
     l1.a.y = initPos.y;
     l1.b.x = destPos.x;
@@ -1203,19 +1208,23 @@ std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos
     if((m1 < 0.9) || (m2 < 0.9)){
       if (m2 < 0.9) {
         l2.a.x = initPos.x;
-        l2.a.y = initPos.y - offset;                                            // Even out the lines creation
+        l2.a.y = initPos.y - offset;
+        // Even out the lines creation
         l2.b.x = destPos.x;
         l2.b.y = destPos.y;
 
         l1.a.x = initPos.x;
-        l1.a.y = initPos.y + offset;                                            // Bring up the opposing lines offset height
-        l1.b.x = destPos.x;                                                     // Is 30 feet offset too much for this?
+        l1.a.y = initPos.y + offset;
+        // Bring up the opposing lines offset height
+        l1.b.x = destPos.x;
+        // Is 30 feet offset too much for this?
         l1.b.y = destPos.y;
       }
 
       else if (m1 < 0.9){
         l2.a.x = initPos.x;
-        l2.a.y = initPos.y + offset;                                            // Even out the lines creation
+        l2.a.y = initPos.y + offset;
+        // Even out the lines creation
         l2.b.x = destPos.x;
         l2.b.y = destPos.y;
 

@@ -21,7 +21,8 @@ void Logger::TrackInit(std::string timestamp) {
   std::string name = "/Track-" + timestamp + ".csv";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
-  tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,GPSHeading,WindDirection,MagHeading" << std::endl;
+  tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
+  GPSHeading,WindDirection,MagHeading" << std::endl;
   tout.close();
 }
 
@@ -39,8 +40,10 @@ void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   fout << "Distance To Point: " << wpDist << std::endl;
   fout << "Sail State: " << _sailState << std::endl;
   fout << "Speed: " << state.speed << std::endl;
-  fout << "Lat: " << state.latitude << std::endl;
-  fout << "Lon: " << state.longitude << std::endl;
+  fout << "Lat: " << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.latitude << std::endl;
+  fout << "Lon: " << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.longitude << std::endl;
   fout << "Course: " << state.gpsHeading << std::endl;
   fout << "Wind: " << state.windDirection << std::endl;
   fout << "Mag Heading: " << state.magHeading << std::endl;
@@ -54,8 +57,9 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
-  << "," << state.latitude << "," << state.longitude << "," << state.gpsHeading
-  << "," << state.windDirection << "," << state.magHeading << std::endl;
-
+  << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.latitude << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.longitude << "," << state.gpsHeading << "," << state.windDirection
+    << "," << state.magHeading << std::endl;
   tout.close();
 }
