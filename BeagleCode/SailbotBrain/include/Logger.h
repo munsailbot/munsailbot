@@ -8,6 +8,7 @@ class Logger{
 public:
   std::string Timestamp();
 private:
+  char buffer [30];
   LogInit(std::string timestamp);
   TrackInit(std::string timestamp);
   LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
