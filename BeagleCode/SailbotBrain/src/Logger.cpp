@@ -11,14 +11,14 @@ std::string Logger::Timestamp(){
 
 void Logger::LogInit(std::string timestamp) {
   std::ofstream fout;
-  name = "/Log-" + timestamp + ".csv";
+  name = "/" + timestamp + ".txt";
   fout.open(name, std::ios::out | std::ios::app);
   fout << "Initialized...starting main loop!" << std::endl;
   fout.close();
 }
 
 void Logger::TrackInit(std::string timestamp) {
-  std::string name = "/Track-" + timestamp + ".csv";
+  std::string name = "/" + timestamp + ".csv";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
@@ -29,10 +29,7 @@ void Logger::TrackInit(std::string timestamp) {
 void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist)) {
   std::ofstream fout;
-  name = "/Log-" + timestamp + ".csv";
-  fout.open(name, std::ios::out | std::ios::app);s
-  filename = "/Log-" + timestamp + ".csv";
-  std::ofstream fout;
+  name = "/" + timestamp + ".txt";
   fout.open(filename, std::ios::out | std::ios::app);
 
   fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
@@ -53,7 +50,7 @@ void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
 
 void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/Track-" + timestamp + ".csv";
+  std::string name = "/" + timestamp + ".txt";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
