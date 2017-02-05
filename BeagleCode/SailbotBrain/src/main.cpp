@@ -46,25 +46,11 @@ uint8_t bin4Count = 0;
 
 int main(int argc, char* argv[])
 {
-        // Logger* log = new Logger();
-        // std::string timestamp = log->Timestamp();
-        time_t t = time(0);   // get time now
-        struct tm * now = localtime( & t );
-        char * datetime = new char();
-        strftime (buffer,80,"%Y%m%d_%H%M%S.",now);
-        std::string timestamp = std::string(datetime);
-
-        std::string name = "/Track-" + timestamp + ".csv";
-        std::ofstream tout;
-        tout.open (name, std::ios::out | std::ios::app);
-        tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,GPSHeading,WindDirection,MagHeading" << std::endl;
-        tout.close();
-
-        std::ofstream fout;
-        name = "/Log-" + timestamp + ".csv";
-        fout.open(name, std::ios::out | std::ios::app);
-        fout << "Initialized...starting main loop!" << std::endl;
-        fout.close();
+        //CHANGED: New Logger class
+        Logger* log = new Logger();
+        std::string timestamp = log->Timestamp();
+        log->TrackInit(timestamp);
+        log->LogInit(timestamp);
 
         // TODO: If more than 5 log files, delete one
 
@@ -261,6 +247,6 @@ int main(int argc, char* argv[])
         delete uart5;
         delete uart4;
         delete timer;
-
+        delete log;
         return 0;
 }

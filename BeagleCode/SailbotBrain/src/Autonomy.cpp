@@ -49,7 +49,8 @@ Autonomy::Autonomy(Timer* timer){
         Waypoint point;
         point.lat = lat;
         point.lon = lon;
-        fout << std::setiosflags(std::ios::fixed) << std::setprecision(6) << point.lat << " " << point.lon << std::endl;
+        fout << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+        << point.lat << " " << point.lon << std::endl;
 
         _waypoints.push_back(point);
     }
@@ -90,17 +91,21 @@ Autonomy::~Autonomy(){}
 
 void Autonomy::setMode(MODE m){
     _mode = m;
-    if(_mode == STATION_KEEPING_STRAT1 || _mode == NAVIGATION_TRIAL) _sailState = MOVE_TO_POINT;
+    if(_mode == STATION_KEEPING_STRAT1 || _mode == NAVIGATION_TRIAL)
+      _sailState = MOVE_TO_POINT;
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp){
+void Autonomy::step(state_t state, TinyGPSPlus* tinyGps,
+  BeagleUtil::UARTInterface* serial, std::string timestamp){
     uint8_t main, rud;
     main = _lastMain;
     rud = _lastRud;
 
-    double wpCourse = tinyGps->courseTo(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
-    double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude, _waypoints[_wpId].lat, _waypoints[_wpId].lon);
+    double wpCourse = tinyGps->courseTo(state.latitude, state.longitude,
+      _waypoints[_wpId].lat, _waypoints[_wpId].lon);
+    double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude,
+      _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
     log->LogStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
     log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
@@ -1160,29 +1165,21 @@ double Autonomy::distanceBetweenPoints(Point<double> p1, Point<double> p2){
 std::pair<Line, Line> Autonomy::generateControlLines(Point<double> initPos, Point<double> destPos, int offset){
     Line l1, l2;
 
-    l1.a.x = initPos.x - offset;
-    l1.a.y = initPos.y;
-    l1.b.x = destPos.x - offset;
-    l1.b.y = destPos.y;
+    l1.a.x = initPos.x - offset; l1.a.y = initPos.y;
+    l1.b.x = destPos.x - offset; l1.b.y = destPos.y;
 
-    l2.a.x = initPos.x + offset;
-    l2.a.y = initPos.y;
-    l2.b.x = destPos.x + offset;
-    l2.b.y = destPos.y;
+    l2.a.x = initPos.x + offset; l2.a.y = initPos.y;
+    l2.b.x = destPos.x + offset; l2.b.y = destPos.y;
 
     double m1 = (l1.b.y - l1.a.y) / (l1.b.x - l1.a.x);
     double m2 = (l2.b.y - l2.a.y) / (l2.b.x - l2.a.x);
 
     if((m1 < 0.5) || (m2 < 0.5)){
-        l2.a.x = initPos.x;
-        l2.a.y = initPos.y - offset;
-        l2.b.x = destPos.x;
-        l2.b.y = destPos.y - offset;
+        l2.a.x = initPos.x; l2.a.y = initPos.y - offset;
+        l2.b.x = destPos.x; l2.b.y = destPos.y - offset;
 
-        l1.a.x = initPos.x;
-        l1.a.y = initPos.y + offset;
-        l1.b.x = destPos.x;
-        l1.b.y = destPos.y + offset;
+        l1.a.x = initPos.x; l1.a.y = initPos.y + offset;
+        l1.b.x = destPos.x; l1.b.y = destPos.y + offset;
     }
 
     return std::make_pair(l1, l2);
@@ -1192,33 +1189,25 @@ std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos
     Line l1, l2;
 
     // GPS point to create 60 deg line to destination
-    l1.a.x = initPos.x - offset;
-    l1.a.y = initPos.y;
-    l1.b.x = destPos.x;
-    l1.b.y = destPos.y;
+    l1.a.x = initPos.x - offset; l1.a.y = initPos.y;
+    l1.b.x = destPos.x; l1.b.y = destPos.y;
 
-    l2.a.x = initPos.x + offset;
-    l2.a.y = initPos.y;
-    l2.b.x = destPos.x;
-    l2.b.y = destPos.y;
+    l2.a.x = initPos.x + offset; l2.a.y = initPos.y;
+    l2.b.x = destPos.x; l2.b.y = destPos.y;
 
     double m1 = (l1.b.y - l1.a.y) / (l1.b.x - l1.a.x);
     double m2 = (l2.b.y - l2.a.y) / (l2.b.x - l2.a.x);
 
     if((m1 < 0.9) || (m2 < 0.9)){
       if (m2 < 0.9) {
-        l2.a.x = initPos.x;
-        l2.a.y = initPos.y - offset;
+        l2.a.x = initPos.x; l2.a.y = initPos.y - offset;
         // Even out the lines creation
-        l2.b.x = destPos.x;
-        l2.b.y = destPos.y;
+        l2.b.x = destPos.x; l2.b.y = destPos.y;
 
-        l1.a.x = initPos.x;
-        l1.a.y = initPos.y + offset;
+        l1.a.x = initPos.x; l1.a.y = initPos.y + offset;
         // Bring up the opposing lines offset height
-        l1.b.x = destPos.x;
+        l1.b.x = destPos.x; l1.b.y = destPos.y;
         // Is 30 feet offset too much for this?
-        l1.b.y = destPos.y;
       }
 
       else if (m1 < 0.9){
