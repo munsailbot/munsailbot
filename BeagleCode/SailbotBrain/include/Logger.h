@@ -7,7 +7,6 @@
 class Logger{
 public:
   std::string Timestamp();
-private:
   char buffer [30];
   LogInit(std::string timestamp);
   TrackInit(std::string timestamp);

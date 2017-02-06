@@ -1,4 +1,4 @@
-#include "../../BeagleUtil/include/BeagleUtil.h"
+#include <BeagleUtil.h>
 #include "TinyGPSPlus/TinyGPS++.h"
 #include "SailbotBrain.h"
 #include "ArduinoEncoder.h"
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 
         //Create an encoder instance and an autonomy instance
         ArduinoEncoder* encoder = new ArduinoEncoder(ard);
-        Autonomy* autonomy = new Autonomy(timer);
+        Autonomy* autonomy = new Autonomy(timer, timestamp, log);
 
         // Initialize TinyGPS
         // TODO: Increase precision of Lat/Lon readings

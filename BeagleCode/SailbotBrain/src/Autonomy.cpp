@@ -9,17 +9,22 @@
 #include <iomanip>
 
 
-Autonomy::Autonomy(Timer* timer){
+Autonomy::Autonomy(Timer* timer, std::string timestamp){
     _sailState = MOVING_CHECK;
-
     //For now, declare waypoints here
     _wpId = 0;
 
+    // Take the waypoints input via txt file in the root folder and create
+    // a vector of waypoints and strategies by parsing the text
+    //TODO: Check if there is a text file
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
-
     std::string mode;
     std::getline(fin, mode);
-    fout << "Mode: " << mode << std::endl;
+
+    std::string name = "/" + timestamp + ".txt";
+  	std::ofstream fout;
+  	fout.open (name, std::ios::out | std::ios::app);
+  	fout << "Mode: " << mode << std::endl;
 
     if(mode == "ld"){
         this->setMode(LONG_DISTANCE);
@@ -28,15 +33,15 @@ Autonomy::Autonomy(Timer* timer){
         this->setMode(STATION_KEEPING_STRAT1);
     }
     else if(mode == "ntp"){
-        this->setMode(NAVIGATION_TRIAL);
-          _roundDir = -1;
+      this->setMode(NAVIGATION_TRIAL);
+      _roundDir = -1;
     }
     else if(mode == "ntsb"){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
     else{
-        fout << "Invalid autonomy mode" << std::endl;
+      fout << "Invalid autonomy mode" << std::endl;
     }
 
     for(std::string line; std::getline(fin, line); ){
@@ -96,7 +101,7 @@ void Autonomy::setMode(MODE m){
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, TinyGPSPlus* tinyGps,
+void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps,
   BeagleUtil::UARTInterface* serial, std::string timestamp){
     uint8_t main, rud;
     main = _lastMain;
