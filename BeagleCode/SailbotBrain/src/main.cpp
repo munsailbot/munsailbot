@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
         TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);
         TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
         TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
-
+        // TODO: TrueWindSpeed value from TinyGPS
         //We will use a hanning filter to filter the incoming wind direction
         //TODO: Kalman filter instead
         HanningFilter<int> windFilter;
@@ -222,6 +222,7 @@ int main(int argc, char* argv[])
 
                         //TODO: if the rudder is scaled, the -35 conversion
                         // on the arduino side must be scaled as well
+                        // TODO: Is scaled rudder giving 35 for our design?
                         float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f;
                         uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
@@ -232,8 +233,8 @@ int main(int argc, char* argv[])
 
                         lerpCur++;
                         if(lerpCur > lerpMax) lerpCur = lerpMax;
-
-                        refresh();
+                        // CHANGED: Commented out refresh() - LCD screen?
+                        // refresh();
                 }
         }
 
