@@ -6,9 +6,6 @@ import math
 import sys
 import random
 
-# this can probably be replaced with modular math
-# (a1-a2) % 180
-
 
 def angle_between(a1, a2):
     """Compute the theta between two angles."""
