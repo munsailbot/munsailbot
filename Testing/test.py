@@ -1,4 +1,6 @@
-#! /usr/bin/env python
+"""Test."""
+
+# ! /usr/bin/env python
 
 import Tkinter as tk
 import serial
@@ -8,6 +10,8 @@ import time
 
 
 class SailState:
+    """Different sailing strategies."""
+
     MOVING_CHECK = 0
     MOVE_TO_POINT = 1
     DOWNWIND = 2
@@ -17,37 +21,46 @@ class SailState:
 
 
 class Filter:
+    """Filtering values."""
 
     def __init__(self):
+        """Init."""
         self.values = [0 for i in range(3)]
         self.sample_count = 0
 
-    def get_filtered_value(self, val):
+    def get_filtered_value(self, val, sample_count):
+        """Return the filtered value."""
         idx = sample_count % 3
         self.values[idx] = val
         self.sample_count = sample_count + 1
 
-        return ((1 / 4) * (self.values[0] + (2 * self.values[1]) + self.values[2]))
+        return ((1 / 4) * (self.values[0] + (2 *
+                self.values[1]) + self.values[2]))
 
 
 class RunningAverage:
+    """Calculate the average."""
 
     def __init__(self):
+        """Initialize."""
         self.total = 0
         self.sample_count = 0
 
     def get_running_average(self, val):
+        """Calculate the average."""
         self.total = self.total + val
         self.sample_count = self.sample_count + 1
 
         return self.total / self.sample_count
 
-    def reset():
+    def reset(self):
+        """Reset the self values."""
         self.total = 0
         self.sample_count = 0
 
 
 def distance_between(coord1, coord2):
+    """Determined distance between two coordinates."""
     delta = math.radians(coord1[1] - coord2[1])
     sdlong = math.sin(delta)
     cdlong = math.cos(delta)
@@ -68,6 +81,7 @@ def distance_between(coord1, coord2):
 
 
 def course_to_point(coord1, coord2):
+    """Determine course to point."""
     dlon = math.radians(coord2[1] - coord1[1])
     lat1 = math.radians(coord1[0])
     lat2 = math.radians(coord2[0])
@@ -82,6 +96,7 @@ def course_to_point(coord1, coord2):
 
 
 def angle_between(a1, a2):
+    """Determine angle between two angles."""
     theta = a1 - a2
 
     if(math.fabs(theta) > 180):
@@ -96,12 +111,14 @@ def angle_between(a1, a2):
 
 
 def cardinal_to_standard(angle):
+    """Convert cardinal value to standard value."""
     standard_angle = math.fabs(angle - 450) % 360
 
     return standard_angle
 
 
 def angle_quadrant(angle):
+    """Determine which quadrant angle is in."""
     a = angle % 360
 
     if((a >= 0) and (a < 90)):
@@ -115,9 +132,11 @@ def angle_quadrant(angle):
 
 
 def angle_direction(a1, a2):
+    """Determine the angle direction."""
     side = 0
 
-    if((angle_quadrant(a1) == 1 or angle_quadrant(a1) == 4) and (angle_quadrant(a2) == 1 or angle_quadrant(a2) == 4)):
+    if((angle_quadrant(a1) == 1 or angle_quadrant(a1) == 4)
+       and (angle_quadrant(a2) == 1 or angle_quadrant(a2) == 4)):
         if(angle_quadrant(a1) == 1 and angle_quadrant(a2) == 4):
             side = 1
         if(angle_quadrant(a2) == 1 and angle_quadrant(a1) == 4):
@@ -138,10 +157,8 @@ def angle_direction(a1, a2):
 
 
 def course_by_wind(windRel, angle):
+    """Determine direction by relative angle to boat."""
     rudder = 99
-    main = 99
-    jib = 99
-
     side = 1
     if(angle < 0):
         side = -side
@@ -160,6 +177,7 @@ def course_by_wind(windRel, angle):
 
 
 def course_by_heading(windRel, heading, course):
+    """Determine direction by orientation to destination."""
     side = angle_direction(cardinal_to_standard(
         heading), cardinal_to_standard(course))
 
@@ -178,17 +196,17 @@ def course_by_heading(windRel, heading, course):
 
 
 def tack(x, windRel, initialWind, desiredWindRel):
+    """Tack function."""
     global sail_state
     global started_tack
-    # state = 0 # tack initially
-    # rudder = 0 # rudder at center position initially
-    aggression = 3.0  # controls the peak rudder position
+
+    aggression = 3.0
+    # controls the peak rudder position
 
     if(x > 10):
         sail_state = SailState.MOVING_CHECK
         started_tack = False
 
-    # x = -10 #controls peak position
     if initialWind > 0:
         sig = math.sqrt(0.05)
         mu = 0.0
@@ -217,7 +235,8 @@ def tack(x, windRel, initialWind, desiredWindRel):
         mu = 0.0
 
         gauss = -math.floor((1.0 / sig) *
-                            math.exp(-((x - mu)**2.0) / 2.0 * (sig**2.0)) * 2.0)
+                            math.exp(-((x - mu)**2.0)
+                                     / 2.0 * (sig**2.0)) * 2.0)
 
         rudder = gauss * aggression
 
@@ -241,19 +260,17 @@ def tack(x, windRel, initialWind, desiredWindRel):
 # Upwind Stuff #
 ################
 
-# converts polar coordinates to cartesian coordinates
-
 
 def polar_to_cartesian(r, a):
+    """Convert polar coordinates to cartesian coordinates."""
     x = int(r * math.cos(a))
     y = int(r * math.sin(a))
 
     return (x, y)
 
-# reflects a cartesian angle about the y axis
-
 
 def reflect_angle_y(a):
+    """Reflect a cartesian angle about the y axis."""
     if(a <= 180):
         return int(math.fabs(a - 180))
     else:
@@ -261,46 +278,43 @@ def reflect_angle_y(a):
 
 
 def add_angle(a, b):
+    """Sum value of two angles."""
     return (a + b) % 360
 
 
 def subtract_angle(a, b):
+    """Subtract value of two angles."""
     if ((a - b) < 0):
         return (a - b) + 360
     else:
         return (a - b)
 
-# returns True if a point is above a line segment
-
 
 def point_above_line(point, line):
+    """Return True if a point is above a line segment."""
     m = float(line[1][1] - line[0][1]) / float(line[1][0] - line[0][0])
     b = float(line[1][1]) - m * float(line[1][0])
 
     if (float(point[1]) > (m * float(point[0]) + b)):
         return True
 
-# returns True if a point is below a line segment
-
 
 def point_below_line(point, line):
+    """Return True if a point is below a line segment."""
     m = float(line[1][1] - line[0][1]) / float(line[1][0] - line[0][0])
     b = float(line[1][1]) - m * float(line[1][0])
 
     if (float(point[1]) < (m * float(point[0]) + b)):
         return True
 
-# returns the distance between two points
-
 
 def distance_between_points(p1, p2):
+    """Return the distance between two points."""
     return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
-
-# generates control lines using the boat's initial position, the
-# destination position, and an offset value
 
 
 def generate_control_lines(init_pos, dst_pos, offset):
+    """Generate control lines using the boat's initial position."""
     l1 = ((init_pos[0] - offset, init_pos[1]),
           (dst_pos[0] - offset, dst_pos[1]))
     l2 = ((init_pos[0] + offset, init_pos[1]),
@@ -317,6 +331,7 @@ def generate_control_lines(init_pos, dst_pos, offset):
 
 
 def autonomous():
+    """Autonomy."""
     global wind_filter
     global spd_filter
     global filter_count
@@ -477,14 +492,18 @@ def autonomous():
                             (init_lat, init_lon), (latitude, longitude)))
 
                         boat_xy = polar_to_cartesian(boat_r, boat_a)
-                        print "boat_xy: " + str(boat_xy[0]) + "," + str(boat_xy[1])
+                        print "boat_xy: " + str(boat_xy[0]) + ","
+                        + str(boat_xy[1])
 
                         lines = generate_control_lines(
                             init_pos, way_xy, offset)
 
                         wind_abs = (winddirection + math.floor(cog)) % 360
 
-                        if((point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])) or (point_above_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0]))):
+                        if((point_below_line(boat_xy, lines[1]) and
+                            point_below_line(boat_xy, lines[0])) or
+                           (point_above_line(boat_xy, lines[1]) and
+                                point_above_line(boat_xy, lines[0]))):
                             sail_state = SailState.TACK
 
                             if(event == 0):
@@ -495,7 +514,10 @@ def autonomous():
                                 winddirection, 50)
                             sail_state = SailState.MOVING_CHECK
 
-                        if((point_below_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])) or (point_above_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0]))):
+                        if((point_below_line(boat_xy, lines[1]) and
+                            point_above_line(boat_xy, lines[0])) or
+                                (point_above_line(boat_xy, lines[1]) and
+                                 point_below_line(boat_xy, lines[0]))):
                             event = 0
                 else:
                     sail_state = SailState.MOVING_CHECK
@@ -523,12 +545,12 @@ def autonomous():
 
 
 def key(event):
+    """Show key or tk code for the key."""
     global autonomous_mode, sail_adjust, rudder_adjust
     global port
     global set_sail, set_rudder
     global manual_control_cmd, auto_control_cmd
 
-    """shows key or tk code for the key"""
     if event.keysym == 'Escape':
         root.destroy()
     if event.char == event.keysym:

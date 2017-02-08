@@ -1,15 +1,6 @@
-#!/usr/bin/env python
+"""Test case for the upwind algorithm."""
 
-"""
-Test case for the upwind algorithm
-Not 100% accurate, but gives a visual
-idea of how the algorithm would behave on the real boat
-
-For this demo, the origin is the bottom left corner of the screen.
-All other points are initially set in polar coordinates based on this origin.
-In reality, the origin would be a GPS coordinate captured at bootup.
-All other necessary points would be calculated polar coordinates from this origin.
-"""
+# !/usr/bin/env python
 
 import sys
 import math
