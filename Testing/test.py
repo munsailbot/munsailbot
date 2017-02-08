@@ -421,7 +421,7 @@ def autonomous():
             wind_abs = (winddirection + math.floor(cog)) % 360
             print "Abs Wind:" + str(wind_abs)
             if(angle_between(cardinal_to_standard(wind_abs),
-            cardinal_to_standard(wpCourse)) < 45):
+                             cardinal_to_standard(wpCourse)) < 45):
                 sail_state = SailState.UPWIND
             else:
                 sail_state = SailState.DOWNWIND
