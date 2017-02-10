@@ -1,4 +1,7 @@
 #include "Logger.h"
+#include <stdio.h>
+#include <dirent.h>
+#include <cstdlib>
 
 std::string Logger::Timestamp(){
 	time_t t = time(0);   // get time now
@@ -59,4 +62,37 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
     << "," << state.magHeading << std::endl;
 
   tout.close();
+}
+
+void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+  SAIL_STATE _sailState, double wpCourse, double wpDist) {
+  std::string name = "/" + timestamp + ".txt";
+  std::ofstream tout;
+  tout.open (name, std::ios::out | std::ios::app);
+  tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
+    << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.latitude << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
+    << state.longitude << "," << state.gpsHeading << "," << state.windDirection
+    << "," << state.magHeading << std::endl;
+
+  tout.close();
+}
+
+void Logger::CheckFiles() {
+  DIR *theFolder = opendir("/Users/bryan/log");
+    struct dirent *next_file;
+    if(!theFolder) { system("exec mkdir -p /Users/bryan/log/"); }
+    char filepath[256];
+    int i = 0;
+    while ( (next_file = readdir(theFolder)) != NULL )
+    {
+        // build the path for each file in the folder
+        sprintf(filepath, "%s/%s", "/Users/bryan/log", next_file->d_name);
+        std::cout << filepath << std::endl;
+        i++;
+        if (i > 10){
+        	remove(filepath);
+        }
+    }
+    closedir(theFolder);
 }
