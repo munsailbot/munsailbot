@@ -51,8 +51,7 @@ int main(int argc, char* argv[])
         std::string timestamp = log->Timestamp();
         log->TrackInit(timestamp);
         log->LogInit(timestamp);
-
-        // TODO: If more than 5 log files, delete one
+        log->CheckFiles();
 
         BeagleUtil::UART* uart4 = new BeagleUtil::UART(BeagleUtil::UART4, BeagleUtil::UART_USE_PIN, B4800);
         BeagleUtil::UART* uart5 = new BeagleUtil::UART(BeagleUtil::UART5, BeagleUtil::UART_USE_PIN, B4800);
