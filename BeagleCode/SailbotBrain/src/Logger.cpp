@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <cstdlib>
+#include <sys/stat.h>
 
 std::string Logger::Timestamp(){
 	time_t t = time(0);   // get time now
@@ -11,16 +12,16 @@ std::string Logger::Timestamp(){
   return datetime;
 }
 
-void Logger::LogInit(std::string timestamp) {
+void Logger::LogInit(std::string timestamp, char logdir[]) {
   std::ofstream fout;
-  name = "/" + timestamp + ".txt";
+  name = "/log/" + timestamp + ".txt";
   fout.open(name, std::ios::out | std::ios::app);
   fout << "Initialized...starting main loop!" << std::endl;
   fout.close();
 }
 
-void Logger::TrackInit(std::string timestamp) {
-  std::string name = "/" + timestamp + ".csv";
+void Logger::TrackInit(std::string timestamp, char logdir[]) {
+  std::string name = "/log/" + timestamp + ".csv";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
@@ -31,7 +32,7 @@ void Logger::TrackInit(std::string timestamp) {
 void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist)) {
   std::ofstream fout;
-  name = "/" + timestamp + ".txt";
+  name = "/log/" + timestamp + ".txt";
   fout.open(filename, std::ios::out | std::ios::app);
 
   fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
@@ -52,7 +53,7 @@ void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
 
 void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/" + timestamp + ".txt";
+  std::string name = "/log/" + timestamp + ".txt";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
@@ -66,7 +67,7 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
 
 void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/" + timestamp + ".txt";
+  std::string name = "/log/" + timestamp + ".txt";
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
@@ -78,21 +79,26 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   tout.close();
 }
 
-void Logger::CheckFiles() {
-  DIR *theFolder = opendir("/Users/bryan/log");
-    struct dirent *next_file;
-    if(!theFolder) { system("exec mkdir -p /Users/bryan/log/"); }
-    char filepath[256];
-    int i = 0;
-    while ( (next_file = readdir(theFolder)) != NULL )
-    {
-        // build the path for each file in the folder
-        sprintf(filepath, "%s/%s", "/Users/bryan/log", next_file->d_name);
-        std::cout << filepath << std::endl;
-        i++;
-        if (i > 10){
-        	remove(filepath);
-        }
-    }
-    closedir(theFolder);
+// Delete all files older than n days in log folder
+void Logger::CheckFiles(uint8_t n, char logdir[]) {
+	char* buffer;
+	DIR *dir = opendir(logdir);
+	if(!dir) {
+		asprintf(&buffer,"exec mkdir -p %s", logdir);
+		system(buffer);
+	}
+	struct stat t_stat;
+	struct dirent *next_file;
+	char filepath[256];
+	int n = 1;
+	time_t now = time(&now);
+	while ( (next_file = readdir(dir)) != NULL )
+	{
+		stat(filepath, &t_stat);
+		sprintf(filepath, "%s/%s", logdir, next_file->d_name);
+		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
+		std::cout << (now-t_stat.st_mtime) << std::endl;
+	}
+	closedir(dir);
+	delete buffer;
 }

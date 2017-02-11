@@ -1,4 +1,4 @@
-#include <BeagleUtil.h>
+#include "../../BeagleUtil/include/BeagleUtil.h"
 #include "TinyGPSPlus/TinyGPS++.h"
 #include "SailbotBrain.h"
 #include "ArduinoEncoder.h"
@@ -49,9 +49,10 @@ int main(int argc, char* argv[])
         //CHANGED: New Logger class
         Logger* log = new Logger();
         std::string timestamp = log->Timestamp();
+        char logdir[25] = "/log";
+        log->CheckFiles(logdir,1);
         log->TrackInit(timestamp);
         log->LogInit(timestamp);
-        log->CheckFiles();
 
         BeagleUtil::UART* uart4 = new BeagleUtil::UART(BeagleUtil::UART4, BeagleUtil::UART_USE_PIN, B4800);
         BeagleUtil::UART* uart5 = new BeagleUtil::UART(BeagleUtil::UART5, BeagleUtil::UART_USE_PIN, B4800);
@@ -65,7 +66,6 @@ int main(int argc, char* argv[])
         Autonomy* autonomy = new Autonomy(timer, timestamp, log);
 
         // Initialize TinyGPS
-        // TODO: Increase precision of Lat/Lon readings
         TinyGPSPlus* tinyGps = new TinyGPSPlus();
         TinyGPSCustom windDirection(*tinyGps, "WIMWV", 1);
         TinyGPSCustom windSpeed(*tinyGps, "WIMWV", 5);
@@ -73,7 +73,6 @@ int main(int argc, char* argv[])
         TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
         TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
         // TODO: TrueWindSpeed value from TinyGPS
-        //We will use a hanning filter to filter the incoming wind direction
         //TODO: Kalman filter instead
         HanningFilter<int> windFilter;
         HanningFilter<double> compassFilter;
