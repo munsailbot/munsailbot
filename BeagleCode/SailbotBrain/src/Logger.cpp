@@ -9,24 +9,26 @@
 using namespace std;
 using namespace std::tr2::sys;
 
-std::string Logger::Timestamp(){
+void Logger::Timestamp(){
 	time_t t = time(0);   // get time now
 	struct tm * now = localtime( & t );
-	strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S.",now);
-	std::string datetime = std::string(buffer);
-  return datetime;
+	strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
 }
 
-void Logger::LogInit(std::string timestamp, char logdir[]) {
+void Logger::SetDir(char dir[30]){
+	sprintf(logdir, "%s", dir);
+}
+
+void Logger::LogInit() {
   std::ofstream fout;
-  name = "/log/" + timestamp + ".txt";
+  sprintf(name, "%s/%s.txt", logdir, buffer);
   fout.open(name, std::ios::out | std::ios::app);
   fout << "Initialized...starting main loop!" << std::endl;
   fout.close();
 }
 
-void Logger::TrackInit(std::string timestamp, char logdir[]) {
-  std::string name = "/log/" + timestamp + ".csv";
+void Logger::TrackInit() {
+  sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
@@ -34,11 +36,11 @@ void Logger::TrackInit(std::string timestamp, char logdir[]) {
   tout.close();
 }
 
-void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+void Logger::LogStep(std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist)) {
-  std::ofstream fout;
-  name = "/log/" + timestamp + ".txt";
-  fout.open(filename, std::ios::out | std::ios::app);
+		std::ofstream fout;
+	  sprintf(name, "%s/%s.txt", logdir, buffer);
+	  fout.open(name, std::ios::out | std::ios::app);
 
   fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
   fout << "Course To Point: " << wpCourse << std::endl;
@@ -56,23 +58,10 @@ void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   fout.close();
 }
 
-void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
-  SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/log/" + timestamp + ".txt";
-  std::ofstream tout;
-  tout.open (name, std::ios::out | std::ios::app);
-  tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
-    << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
-    << state.latitude << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
-    << state.longitude << "," << state.gpsHeading << "," << state.windDirection
-    << "," << state.magHeading << std::endl;
 
-  tout.close();
-}
-
-void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+void Logger::TrackStep(std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/log/" + timestamp + ".txt";
+	sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
@@ -85,7 +74,7 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
 }
 
 // Delete all files older than n days in log folder
-void Logger::CheckFiles(uint8_t n, char logdir[]) {
+void Logger::CheckFiles(uint8_t n) {
 	char* buffer;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
@@ -95,7 +84,6 @@ void Logger::CheckFiles(uint8_t n, char logdir[]) {
 	struct stat t_stat;
 	struct dirent *next_file;
 	char filepath[256];
-	int n = 1;
 	time_t now = time(&now);
 	while ( (next_file = readdir(dir)) != NULL )
 	{
@@ -106,25 +94,3 @@ void Logger::CheckFiles(uint8_t n, char logdir[]) {
 	closedir(dir);
 	delete buffer;
 }
-
-void Logger::GetFolderSize(char logdir[],unsigned long long & f_size)
-{
-   path folderPath(logdir);
-   if (exists(folderPath))
-   {
-        directory_iterator end_itr;
-        for (directory_iterator dirIte(logdir); dirIte != end_itr; ++dirIte )
-        {
-            path filePath(complete (dirIte->path(), folderPath));
-           try{
-                  if (!is_directory(dirIte->status()) )
-                  {
-                      f_size = f_size + file_size(filePath);
-                  }else
-                  {
-                      GetFolderSize(filePath,f_size);
-                  }
-              }catch(exception& e){  cout << e.what() << endl; }
-         }
-      }
-    }

@@ -48,11 +48,11 @@ int main(int argc, char* argv[])
 {
         //CHANGED: New Logger class
         Logger* log = new Logger();
-        std::string timestamp = log->Timestamp();
-        char logdir[25] = "/log";
-        log->CheckFiles(logdir,1);
-        log->TrackInit(timestamp);
-        log->LogInit(timestamp);
+        log->Timestamp();
+        log->SetDir("/log");
+        log->CheckFiles(1);
+        log->TrackInit();
+        log->LogInit();
 
         BeagleUtil::UART* uart4 = new BeagleUtil::UART(BeagleUtil::UART4, BeagleUtil::UART_USE_PIN, B4800);
         BeagleUtil::UART* uart5 = new BeagleUtil::UART(BeagleUtil::UART5, BeagleUtil::UART_USE_PIN, B4800);

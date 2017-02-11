@@ -6,15 +6,19 @@
 
 class Logger{
 public:
-  std::string Timestamp();
+  void Timestamp();
+  void SetDir(char dir[30]);
+  char name[256];
   char buffer [30];
   char logdir [30];
-  LogInit(std::string timestamp);
-  TrackInit(std::string timestamp);
-  LogStep(std::string timestamp, vector<Waypoint> _waypoints, SAIL_STATE _sailState, double wpCourse, double wpDist);
-  TrackStep(std::string timestamp, vector<Waypoint> _waypoints, SAIL_STATE _sailState, double wpCourse, double wpDist);
-  CheckFiles(uint8_t n, char logdir[]);
-  GetFolderSize(char logdir[],unsigned long long & f_size);
+  void LogInit();
+  void TrackInit();
+  void LogStep(std::vector<Waypoint> _waypoints,
+    SAIL_STATE _sailState, double wpCourse, double wpDist);
+  void TrackStep(std::vector<Waypoint> _waypoints,
+    SAIL_STATE _sailState, double wpCourse, double wpDist);
+  void CheckFiles(uint8_t n);
+  // GetFolderSize(char logdir[],unsigned long long & f_size);
 };
 
 #endif // __LOGGER_H
