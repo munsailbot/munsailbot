@@ -38,9 +38,9 @@ void Logger::TrackInit() {
 
 void Logger::LogStep(std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist)) {
-		std::ofstream fout;
-	  sprintf(name, "%s/%s.txt", logdir, buffer);
-	  fout.open(name, std::ios::out | std::ios::app);
+	std::ofstream fout;
+  sprintf(name, "%s/%s.txt", logdir, buffer);
+  fout.open(name, std::ios::out | std::ios::app);
 
   fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
   fout << "Course To Point: " << wpCourse << std::endl;
@@ -74,23 +74,35 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints,
 }
 
 // Delete all files older than n days in log folder
-void Logger::CheckFiles(uint8_t n) {
-	char* buffer;
+void Logger::CheckFiles(uint8_t n, uint8_t m) {
+	char* buf;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
-		asprintf(&buffer,"exec mkdir -p %s", logdir);
-		system(buffer);
+		asprintf(&buf,"exec mkdir -p %s", logdir);
+		system(buf);
+		delete buf;
 	}
+	long size = 0;
 	struct stat t_stat;
 	struct dirent *next_file;
 	char filepath[256];
 	time_t now = time(&now);
 	while ( (next_file = readdir(dir)) != NULL )
 	{
-		stat(filepath, &t_stat);
 		sprintf(filepath, "%s/%s", logdir, next_file->d_name);
+		stat(filepath, &t_stat);
+		size += t_stat.st_size;
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
 	}
+	if (size > (m*1000000000)) {
+		while (size > (m*10000000000))
+			{
+				next_file = readdir(dir);
+				sprintf(filepath, "%s/%s", logdir, next_file->d_name);
+				stat(filepath, &t_stat);
+				remove(filepath);
+				size -= t_stat.st_size;
+			}
+	}
 	closedir(dir);
-	delete buffer;
 }
