@@ -1,8 +1,13 @@
 #include "Logger.h"
+#include <iostream>
+#include <string>
 #include <stdio.h>
 #include <dirent.h>
 #include <cstdlib>
 #include <sys/stat.h>
+#include <filesystem>
+using namespace std;
+using namespace std::tr2::sys;
 
 std::string Logger::Timestamp(){
 	time_t t = time(0);   // get time now
@@ -97,8 +102,29 @@ void Logger::CheckFiles(uint8_t n, char logdir[]) {
 		stat(filepath, &t_stat);
 		sprintf(filepath, "%s/%s", logdir, next_file->d_name);
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
-		std::cout << (now-t_stat.st_mtime) << std::endl;
 	}
 	closedir(dir);
 	delete buffer;
 }
+
+void Logger::GetFolderSize(char logdir[],unsigned long long & f_size)
+{
+   path folderPath(logdir);
+   if (exists(folderPath))
+   {
+        directory_iterator end_itr;
+        for (directory_iterator dirIte(logdir); dirIte != end_itr; ++dirIte )
+        {
+            path filePath(complete (dirIte->path(), folderPath));
+           try{
+                  if (!is_directory(dirIte->status()) )
+                  {
+                      f_size = f_size + file_size(filePath);
+                  }else
+                  {
+                      GetFolderSize(filePath,f_size);
+                  }
+              }catch(exception& e){  cout << e.what() << endl; }
+         }
+      }
+    }
