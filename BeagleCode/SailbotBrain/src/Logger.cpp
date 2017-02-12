@@ -1,27 +1,34 @@
 #include "Logger.h"
+#include <iostream>
+#include <string>
 #include <stdio.h>
 #include <dirent.h>
 #include <cstdlib>
 #include <sys/stat.h>
+#include <filesystem>
+using namespace std;
+using namespace std::tr2::sys;
 
-std::string Logger::Timestamp(){
+void Logger::Timestamp(){
 	time_t t = time(0);   // get time now
 	struct tm * now = localtime( & t );
-	strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S.",now);
-	std::string datetime = std::string(buffer);
-  return datetime;
+	strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
 }
 
-void Logger::LogInit(std::string timestamp, char logdir[]) {
+void Logger::SetDir(char dir[30]){
+	sprintf(logdir, "%s", dir);
+}
+
+void Logger::LogInit() {
   std::ofstream fout;
-  name = "/log/" + timestamp + ".txt";
+  sprintf(name, "%s/%s.txt", logdir, buffer);
   fout.open(name, std::ios::out | std::ios::app);
   fout << "Initialized...starting main loop!" << std::endl;
   fout.close();
 }
 
-void Logger::TrackInit(std::string timestamp, char logdir[]) {
-  std::string name = "/log/" + timestamp + ".csv";
+void Logger::TrackInit() {
+  sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
@@ -29,11 +36,11 @@ void Logger::TrackInit(std::string timestamp, char logdir[]) {
   tout.close();
 }
 
-void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+void Logger::LogStep(std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist)) {
-  std::ofstream fout;
-  name = "/log/" + timestamp + ".txt";
-  fout.open(filename, std::ios::out | std::ios::app);
+	std::ofstream fout;
+  sprintf(name, "%s/%s.txt", logdir, buffer);
+  fout.open(name, std::ios::out | std::ios::app);
 
   fout << "Waypoint: " << _waypoints[_wpId].lat << ", " << _waypoints[_wpId].lon << std::endl;
   fout << "Course To Point: " << wpCourse << std::endl;
@@ -51,9 +58,10 @@ void Logger::LogStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   fout.close();
 }
 
-void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
+
+void Logger::TrackStep(std::vector<Waypoint> _waypoints,
   SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/log/" + timestamp + ".txt";
+	sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
   tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
@@ -65,40 +73,36 @@ void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
   tout.close();
 }
 
-void Logger::TrackStep(std::string timestamp, std::vector<Waypoint> _waypoints,
-  SAIL_STATE _sailState, double wpCourse, double wpDist) {
-  std::string name = "/log/" + timestamp + ".txt";
-  std::ofstream tout;
-  tout.open (name, std::ios::out | std::ios::app);
-  tout << wpCourse << "," << wpDist << "," << _sailState << "," << state.speed
-    << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
-    << state.latitude << "," << std::setiosflags(std::ios::fixed) << std::setprecision(6)
-    << state.longitude << "," << state.gpsHeading << "," << state.windDirection
-    << "," << state.magHeading << std::endl;
-
-  tout.close();
-}
-
-// Delete all files older than n days in log folder
-void Logger::CheckFiles(uint8_t n, char logdir[]) {
-	char* buffer;
+// Delete all files older than n days or files are larger than m MB
+void Logger::CheckFiles(uint8_t n, uint8_t mb) {
+	char* buf;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
-		asprintf(&buffer,"exec mkdir -p %s", logdir);
-		system(buffer);
+		asprintf(&buf,"exec mkdir -p %s", logdir);
+		system(buf);
+		delete buf;
 	}
+	long size = 0;
 	struct stat t_stat;
 	struct dirent *next_file;
 	char filepath[256];
-	int n = 1;
 	time_t now = time(&now);
 	while ( (next_file = readdir(dir)) != NULL )
 	{
-		stat(filepath, &t_stat);
 		sprintf(filepath, "%s/%s", logdir, next_file->d_name);
+		stat(filepath, &t_stat);
+		size += t_stat.st_size;
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
-		std::cout << (now-t_stat.st_mtime) << std::endl;
+	}
+	if (size > (mb*1000000000)) {
+		while (size > (mb*10000000000))
+			{
+				next_file = readdir(dir);
+				sprintf(filepath, "%s/%s", logdir, next_file->d_name);
+				stat(filepath, &t_stat);
+				remove(filepath);
+				size -= t_stat.st_size;
+			}
 	}
 	closedir(dir);
-	delete buffer;
 }

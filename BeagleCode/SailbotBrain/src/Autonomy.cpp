@@ -112,8 +112,8 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps,
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude,
       _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
-    log->LogStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
-    log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
+    log->LogStep(_waypoints, _sailState, wpCourse, wpDist);
+    log->TrackStep(_waypoints, _sailState, wpCourse, wpDist);
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
@@ -128,7 +128,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps,
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  <<_initialLatLon.y << std::endl;
 
-            log->TrackStep(timestamp, _waypoints, _sailState, wpCourse, wpDist);
+            log->TrackStep(_waypoints, _sailState, wpCourse, wpDist);
         }
     }
 
