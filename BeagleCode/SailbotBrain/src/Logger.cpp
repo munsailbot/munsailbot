@@ -73,8 +73,8 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints,
   tout.close();
 }
 
-// Delete all files older than n days in log folder
-void Logger::CheckFiles(uint8_t n, uint8_t m) {
+// Delete all files older than n days or files are larger than m MB
+void Logger::CheckFiles(uint8_t n, uint8_t mb) {
 	char* buf;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
@@ -94,8 +94,8 @@ void Logger::CheckFiles(uint8_t n, uint8_t m) {
 		size += t_stat.st_size;
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
 	}
-	if (size > (m*1000000000)) {
-		while (size > (m*10000000000))
+	if (size > (mb*1000000000)) {
+		while (size > (mb*10000000000))
 			{
 				next_file = readdir(dir);
 				sprintf(filepath, "%s/%s", logdir, next_file->d_name);

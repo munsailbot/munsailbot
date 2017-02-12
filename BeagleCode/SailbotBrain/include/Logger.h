@@ -17,7 +17,7 @@ public:
     SAIL_STATE _sailState, double wpCourse, double wpDist);
   void TrackStep(std::vector<Waypoint> _waypoints,
     SAIL_STATE _sailState, double wpCourse, double wpDist);
-  void CheckFiles(uint8_t n,uint8_t m);
+  void CheckFiles(uint8_t n,uint8_t mb);
 };
 
 #endif // __LOGGER_H
