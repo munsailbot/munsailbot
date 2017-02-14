@@ -96,7 +96,7 @@ private:
     bool _skTimerSet;
 
 public:
-    Autonomy(Timer* timer, std::string timestamp);
+    Autonomy(Timer* timer, std::string timestamp, Logger* log);
     ~Autonomy();
 
     void setMode(MODE m);

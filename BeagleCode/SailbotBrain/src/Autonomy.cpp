@@ -9,7 +9,7 @@
 #include <iomanip>
 
 
-Autonomy::Autonomy(Timer* timer, std::string timestamp){
+Autonomy::Autonomy(Timer* timer, std::string timestamp, Logger* log){
     _sailState = MOVING_CHECK;
     //For now, declare waypoints here
     _wpId = 0;
@@ -21,9 +21,10 @@ Autonomy::Autonomy(Timer* timer, std::string timestamp){
     std::string mode;
     std::getline(fin, mode);
 
-    std::string name = "/" + timestamp + ".txt";
+    char filename[256];
+	  std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
   	std::ofstream fout;
-  	fout.open (name, std::ios::out | std::ios::app);
+  	fout.open (filename, std::ios::out | std::ios::app);
   	fout << "Mode: " << mode << std::endl;
 
     if(mode == "ld"){
