@@ -90,6 +90,22 @@ def generate_control_lines(init_pos, dst_pos, offset):
 
     return (l1, l2)
 
+def generate_angled_control_lines(init_pos, dst_pos, offset):
+    """Generate control lines using the boat's initial position."""
+    l1 = ((init_pos[0] - offset, init_pos[1]),
+          (dst_pos[0], dst_pos[1]))
+    l2 = ((init_pos[0] + offset, init_pos[1]),
+          (dst_pos[0], dst_pos[1]))
+
+    m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
+    m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
+
+    pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
+        l1[0]), cartesian_to_screen(l1[1]), 2)
+    pygame.draw.line(screen, (0, 0, 255), cartesian_to_screen(
+        l2[0]), cartesian_to_screen(l2[1]), 2)
+
+    return (l1, l2)
 
 if __name__ == '__main__':
 
@@ -103,7 +119,7 @@ if __name__ == '__main__':
     # both values are absolute
     wind = math.radians(245)
     boat = math.radians(subtract_angle(math.degrees(wind), 45))
-    sail_angle = 55
+    sail_angle = 35
 
     # set the initial boat and waypoint position in polar coordinates
     boat_r = 600
@@ -155,6 +171,8 @@ if __name__ == '__main__':
                 (boat_xy[0] + (32 * math.cos(wind)), boat_xy[1]
                  + (32 * math.sin(wind)))), 2)
 
+            # Make list of line types to check
+            angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
             lines = generate_control_lines(init_pos, way_xy, offset)
 
             # determine which control line we should check
