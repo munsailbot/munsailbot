@@ -109,9 +109,12 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
 
 if __name__ == '__main__':
 
+
     global screen
     global init_pos
     # captured boat position from when it first starts travelling upwind
+    pygame.init();
+    myfont = pygame.font.SysFont("monospace", 50)
 
     screen = pygame.display.set_mode((640, 480))
 
@@ -139,13 +142,21 @@ if __name__ == '__main__':
     event = 0
 
     offset = 64
+    start_ticks=pygame.time.get_ticks() #starter tick
+    timer = 1
 
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+        if timer == 1:
+            seconds=float((pygame.time.get_ticks()-start_ticks)/10) #calculate how many seconds
 
         screen.fill((255, 255, 255))
+
+        time = '{0:.2f}'.format(seconds/100)
+        label = myfont.render(time, 1, (0,0,0))
+        screen.blit(label, (10, 10))
 
         if(distance_between_points(boat_xy, way_xy) > 20):
             # update boat position
@@ -176,7 +187,8 @@ if __name__ == '__main__':
             lines = generate_control_lines(init_pos, way_xy, offset)
 
             # determine which control line we should check
-            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
+            #if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
+            if (point_below_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(
                         add_angle(math.degrees(wind), sail_angle))
@@ -207,6 +219,9 @@ if __name__ == '__main__':
         else:
             pygame.draw.circle(screen, (255, 0, 0),
                                cartesian_to_screen(boat_xy), 16, 2)
+
+            # render text
+            timer = 0
 
         pygame.time.delay(50)
         pygame.display.flip()
