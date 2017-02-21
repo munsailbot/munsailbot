@@ -100,6 +100,12 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
     m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
     m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
 
+    if(m1 < 0.75 or m2 < 0.75):
+        l2 = ((init_pos[0], init_pos[1] - offset),
+              (dst_pos[0], dst_pos[1] - offset))
+        l1 = ((init_pos[0], init_pos[1] + offset),
+              (dst_pos[0], dst_pos[1] + offset))
+
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
     pygame.draw.line(screen, (0, 0, 255), cartesian_to_screen(
@@ -120,7 +126,7 @@ if __name__ == '__main__':
 
     # set the wind and initial sailing angle
     # both values are absolute
-    wind = math.radians(245)
+    wind = math.radians(250)
     boat = math.radians(subtract_angle(math.degrees(wind), 45))
     sail_angle = 35
 
@@ -128,7 +134,7 @@ if __name__ == '__main__':
     boat_r = 600
     boat_a = math.radians(45)
 
-    way_r = 100
+    way_r = 300
     way_a = math.radians(45)
 
     # convert polar to cartesian
