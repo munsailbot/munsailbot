@@ -171,13 +171,12 @@ if __name__ == '__main__':
                 (boat_xy[0] + (32 * math.cos(wind)), boat_xy[1]
                  + (32 * math.sin(wind)))), 2)
 
-            # Make list of line types to check
+            # Make list of lines to check
             angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
             lines = generate_control_lines(init_pos, way_xy, offset)
 
             # determine which control line we should check
-            if(point_below_line(boat_xy, lines[1]) and
-               point_below_line(boat_xy, lines[0])):
+            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(
                         add_angle(math.degrees(wind), sail_angle))
@@ -186,7 +185,6 @@ if __name__ == '__main__':
                         math.degrees(wind), sail_angle))
 
                 if(event == 0):
-                    offset -= 8
                     event = 1
             elif(point_above_line(boat_xy, lines[1]) and
                  point_above_line(boat_xy, lines[0])):
@@ -198,7 +196,6 @@ if __name__ == '__main__':
                         add_angle(math.degrees(wind), sail_angle))
 
                 if(event == 0):
-                    offset -= 8
                     event = 1
 
             if((point_below_line(boat_xy, lines[1]) and
