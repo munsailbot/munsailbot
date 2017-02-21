@@ -128,13 +128,12 @@ if __name__ == '__main__':
     boat_r = 600
     boat_a = math.radians(45)
 
-    way_r = 400
+    way_r = 100
     way_a = math.radians(45)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
     init_pos = boat_xy
-
     way_xy = polar_to_cartesian(way_r, way_a)
 
     # initial control state and offset
@@ -150,7 +149,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 sys.exit()
         if timer == 1:
-            seconds=float((pygame.time.get_ticks()-start_ticks)/10) #calculate how many seconds
+            seconds=float((pygame.time.get_ticks()-start_ticks)/10)
 
         screen.fill((255, 255, 255))
 
@@ -183,10 +182,9 @@ if __name__ == '__main__':
                  + (32 * math.sin(wind)))), 2)
 
             # Make list of lines to check
-            angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
             lines = generate_control_lines(init_pos, way_xy, offset)
+            angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
 
-            # determine which control line we should check
             #if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
             if (point_below_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
                 if((wind > 90) and (wind < 270)):
@@ -198,8 +196,8 @@ if __name__ == '__main__':
 
                 if(event == 0):
                     event = 1
-            elif(point_above_line(boat_xy, lines[1]) and
-                 point_above_line(boat_xy, lines[0])):
+            elif(point_above_line(boat_xy, angled_lines[1]) and
+                 point_above_line(boat_xy, angled_lines[0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(subtract_angle(
                         math.degrees(wind), sail_angle))
@@ -210,17 +208,15 @@ if __name__ == '__main__':
                 if(event == 0):
                     event = 1
 
-            if((point_below_line(boat_xy, lines[1]) and
-                point_above_line(boat_xy, lines[0])) or
-               (point_above_line(boat_xy, lines[1]) and
-                    point_below_line(boat_xy, lines[0]))):
+            if((point_below_line(boat_xy, angled_lines[1]) and
+                point_above_line(boat_xy, angled_lines[0])) or
+               (point_above_line(boat_xy, angled_lines[1]) and
+                    point_below_line(boat_xy, angled_lines[0]))):
                 event = 0
 
         else:
             pygame.draw.circle(screen, (255, 0, 0),
                                cartesian_to_screen(boat_xy), 16, 2)
-
-            # render text
             timer = 0
 
         pygame.time.delay(50)
