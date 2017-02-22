@@ -97,14 +97,8 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
     l2 = ((init_pos[0] + offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
 
-    m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
-    m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
-
-    if(m1 < 0.75 or m2 < 0.75):
-        l2 = ((init_pos[0], init_pos[1] - offset),
-              (dst_pos[0], dst_pos[1] - offset))
-        l1 = ((init_pos[0], init_pos[1] + offset),
-              (dst_pos[0], dst_pos[1] + offset))
+    #m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
+    #m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
@@ -112,6 +106,35 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
         l2[0]), cartesian_to_screen(l2[1]), 2)
 
     return (l1, l2)
+
+def generate_angled_control_lines2(init_pos, dst_pos, offset):
+    """Generate control lines using the boat's initial position."""
+    l1 = ((init_pos[0], init_pos[1]),
+          (dst_pos[0], dst_pos[1]))
+    l2 = ((init_pos[0], init_pos[1]),
+          (dst_pos[0], dst_pos[1]))
+
+    m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
+    m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
+
+    print m1, m2
+
+    if(m1 < 0.1 or m2 < 0.1):
+        if (m2 < 0.1):
+            l2 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
+            l1 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
+
+        if (m1 < 0.1):
+            l2 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
+            l1 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
+
+    pygame.draw.line(screen, (0, 0, 0), cartesian_to_screen(
+        l1[0]), cartesian_to_screen(l1[1]), 2)
+    pygame.draw.line(screen, (0, 0, 0), cartesian_to_screen(
+        l2[0]), cartesian_to_screen(l2[1]), 2)
+
+    return (l1, l2)
+
 
 if __name__ == '__main__':
 
@@ -126,15 +149,15 @@ if __name__ == '__main__':
 
     # set the wind and initial sailing angle
     # both values are absolute
-    wind = math.radians(250)
+    wind = math.radians(200)
     boat = math.radians(subtract_angle(math.degrees(wind), 45))
-    sail_angle = 35
+    sail_angle = 55
 
     # set the initial boat and waypoint position in polar coordinates
     boat_r = 600
-    boat_a = math.radians(45)
+    boat_a = math.radians(15)
 
-    way_r = 300
+    way_r = 100
     way_a = math.radians(45)
 
     # convert polar to cartesian
@@ -188,11 +211,11 @@ if __name__ == '__main__':
                  + (32 * math.sin(wind)))), 2)
 
             # Make list of lines to check
-            lines = generate_control_lines(init_pos, way_xy, offset)
-            angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
-
+            lines2 = generate_control_lines(init_pos, way_xy, offset)
+            #lines1 = generate_angled_control_lines(init_pos, way_xy, offset)
+            lines = generate_angled_control_lines2(init_pos, way_xy, offset)
             #if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
-            if (point_below_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
+            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(
                         add_angle(math.degrees(wind), sail_angle))
@@ -202,8 +225,8 @@ if __name__ == '__main__':
 
                 if(event == 0):
                     event = 1
-            elif(point_above_line(boat_xy, angled_lines[1]) and
-                 point_above_line(boat_xy, angled_lines[0])):
+            elif(point_above_line(boat_xy, lines[1]) and
+                 point_above_line(boat_xy, lines[0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(subtract_angle(
                         math.degrees(wind), sail_angle))
@@ -214,10 +237,10 @@ if __name__ == '__main__':
                 if(event == 0):
                     event = 1
 
-            if((point_below_line(boat_xy, angled_lines[1]) and
-                point_above_line(boat_xy, angled_lines[0])) or
-               (point_above_line(boat_xy, angled_lines[1]) and
-                    point_below_line(boat_xy, angled_lines[0]))):
+            if((point_below_line(boat_xy, lines[1]) and
+                point_above_line(boat_xy, lines[0])) or
+               (point_above_line(boat_xy, lines[1]) and
+                    point_below_line(boat_xy, lines[0]))):
                 event = 0
 
         else:
