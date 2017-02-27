@@ -135,16 +135,16 @@ if __name__ == '__main__':
 
     # set the wind and initial sailing angle
     # both values are absolute
-    wind = math.radians(200)
+    wind = math.radians(90)
     boat = math.radians(subtract_angle(math.degrees(wind), 45))
     sail_angle = 55
 
     # set the initial boat and waypoint position in polar coordinates
     boat_r = 300
-    boat_a = math.radians(45)
+    boat_a = math.radians(35)
 
     way_r = 500
-    way_a = math.radians(45)
+    way_a = math.radians(55)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
@@ -199,26 +199,22 @@ if __name__ == '__main__':
             angled_lines = generate_angled_control_lines(
                 init_pos, way_xy, offset)
             lines = generate_control_lines(init_pos, way_xy, offset)
-            # if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
             # TODO: Check the above/below add/sub logic
-            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])) or (point_below_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
-                if((wind > 90) and (wind < 270)):
+            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])) or (point_above_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
+                if((math.degrees(wind) >= 90) and (math.degrees(wind) < 270)):
                     boat = math.radians(
                         add_angle(math.degrees(wind), sail_angle))
                 else:
-                    boat = math.radians(subtract_angle(
-                        math.degrees(wind), sail_angle))
-
-                if(event == 0):
+                    boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
+                if (event == 0):
                     event = 1
-            elif (point_above_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])) or (point_above_line(boat_xy, angled_lines[1]) and point_above_line(boat_xy, angled_lines[0])):
-                if((wind > 90) and (wind < 270)):
+            elif (point_above_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])) or (point_below_line(boat_xy, angled_lines[1]) and point_above_line(boat_xy, angled_lines[0])):
+                if((wind >= 90) and (wind < 270)):
                     boat = math.radians(subtract_angle(
                         math.degrees(wind), sail_angle))
                 else:
                     boat = math.radians(
-                        add_angle(math.degrees(wind), sail_angle))
-
+                        subtract_angle(math.degrees(wind), sail_angle))
                 if(event == 0):
                     event = 1
 
