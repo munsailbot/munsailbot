@@ -165,10 +165,10 @@ if __name__ == '__main__':
     sail_angle = 55
 
     # set the initial boat and waypoint position in polar coordinates
-    boat_r = 600
-    boat_a = math.radians(15)
+    boat_r = 300
+    boat_a = math.radians(45)
 
-    way_r = 100
+    way_r = 500
     way_a = math.radians(45)
 
     # convert polar to cartesian
@@ -179,7 +179,7 @@ if __name__ == '__main__':
     # initial control state and offset
     state = 0
     event = 0
-
+    lines = []
     offset = 64
     start_ticks=pygame.time.get_ticks() #starter tick
     timer = 1
@@ -222,11 +222,11 @@ if __name__ == '__main__':
                  + (32 * math.sin(wind)))), 2)
 
             # Make list of lines to check
-            lines2 = generate_control_lines(init_pos, way_xy, offset)
-            #lines1 = generate_angled_control_lines(init_pos, way_xy, offset)
-            lines = generate_angled_control_lines2(init_pos, way_xy, offset)
+            lines = [generate_control_lines(init_pos, way_xy, offset),generate_angled_control_lines(init_pos, way_xy, offset)]
             #if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
-            if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
+            # TODO: Lines to array object then check all
+            # TODO: Check the above/below add/sub logic
+            if (point_below_line(boat_xy, lines[0][1]) and point_below_line(boat_xy, lines[0][0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(
                         add_angle(math.degrees(wind), sail_angle))
@@ -236,8 +236,8 @@ if __name__ == '__main__':
 
                 if(event == 0):
                     event = 1
-            elif(point_above_line(boat_xy, lines[1]) and
-                 point_above_line(boat_xy, lines[0])):
+            elif(point_above_line(boat_xy, lines[0][1]) and
+                 point_above_line(boat_xy, lines[0][0])):
                 if((wind > 90) and (wind < 270)):
                     boat = math.radians(subtract_angle(
                         math.degrees(wind), sail_angle))
@@ -248,10 +248,10 @@ if __name__ == '__main__':
                 if(event == 0):
                     event = 1
 
-            if((point_below_line(boat_xy, lines[1]) and
-                point_above_line(boat_xy, lines[0])) or
-               (point_above_line(boat_xy, lines[1]) and
-                    point_below_line(boat_xy, lines[0]))):
+            if((point_below_line(boat_xy, lines[0][1]) and
+                point_above_line(boat_xy, lines[0][0])) or
+               (point_above_line(boat_xy, lines[0][1]) and
+                    point_below_line(boat_xy, lines[0][0]))):
                 event = 0
 
         else:
