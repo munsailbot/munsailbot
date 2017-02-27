@@ -1201,6 +1201,7 @@ std::pair<Line, Line> Autonomy::generateAngledControlLines(Point<double> initPos
     l2.a.x = initPos.x + offset; l2.a.y = initPos.y;
     l2.b.x = destPos.x; l2.b.y = destPos.y;
 
+    // can be reduced to single m value?
     double m1 = (l1.b.y - l1.a.y) / (l1.b.x - l1.a.x);
     double m2 = (l2.b.y - l2.a.y) / (l2.b.x - l2.a.x);
 

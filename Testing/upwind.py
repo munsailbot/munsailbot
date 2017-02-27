@@ -102,15 +102,15 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
     m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
 
     if (m < 0.5):
-        l2 = ((init_pos[0], init_pos[1]),
-              (dst_pos[0], dst_pos[1] - offset))
-        l1 = ((init_pos[0], init_pos[1]),
-              (dst_pos[0], dst_pos[1] + offset))
+        l2 = ((init_pos[0], init_pos[1] - offset),
+              (dst_pos[0], dst_pos[1]))
+        l1 = ((init_pos[0], init_pos[1] + offset),
+              (dst_pos[0], dst_pos[1]))
     else:
-        l1 = ((init_pos[0], init_pos[1]),
-              (dst_pos[0] - offset, dst_pos[1]))
-        l2 = ((init_pos[0], init_pos[1]),
-              (dst_pos[0] + offset, dst_pos[1]))
+        l1 = ((init_pos[0] - offset, init_pos[1]),
+              (dst_pos[0], dst_pos[1]))
+        l2 = ((init_pos[0] + offset, init_pos[1]),
+              (dst_pos[0], dst_pos[1]))
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
@@ -126,19 +126,18 @@ def generate_angled_control_lines2(init_pos, dst_pos, offset):
     l2 = ((init_pos[0], init_pos[1]),
           (dst_pos[0], dst_pos[1]))
 
-    m1 = float(l1[1][1] - l1[0][1]) / float(l1[1][0] - l1[0][0])
-    m2 = float(l2[1][1] - l2[0][1]) / float(l2[1][0] - l2[0][0])
+    m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
 
-    print m1, m2
-
-    if(m1 < 0.1 or m2 < 0.1):
-        if (m2 < 0.1):
-            l2 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
-            l1 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
-
-        if (m1 < 0.1):
-            l2 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
-            l1 = ((init_pos[0], init_pos[1]), (dst_pos[0], dst_pos[1]))
+    if (m < 0.5):
+        l2 = ((init_pos[0], init_pos[1] - offset),
+              (dst_pos[0], dst_pos[1]))
+        l1 = ((init_pos[0], init_pos[1] + offset),
+              (dst_pos[0], dst_pos[1]))
+    else:
+        l1 = ((init_pos[0] - offset, init_pos[1]),
+              (dst_pos[0], dst_pos[1]))
+        l2 = ((init_pos[0] + offset, init_pos[1]),
+              (dst_pos[0], dst_pos[1]))
 
     pygame.draw.line(screen, (0, 0, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
