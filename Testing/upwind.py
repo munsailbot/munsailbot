@@ -39,7 +39,7 @@ def add_angle(a, b):
 
 
 def subtract_angle(a, b):
-    """Return true if a point is above a line segment."""
+    """Subtract two angles."""
     if ((a - b) < 0):
         return (a - b) + 360
     else:
@@ -47,7 +47,7 @@ def subtract_angle(a, b):
 
 
 def point_above_line(point, line):
-    """Return true if point is about a line."""
+    """Return true if point is above a line."""
     m = float(line[1][1] - line[0][1]) / float(line[1][0] - line[0][0])
     b = float(line[1][1]) - m * float(line[1][0])
 
@@ -171,6 +171,7 @@ if __name__ == '__main__':
         label = myfont.render(time, 1, (0, 0, 0))
         screen.blit(label, (10, 10))
 
+
         if(distance_between_points(boat_xy, way_xy) > 20):
             # update boat position
             boat_x = boat_xy[0] + (math.cos(boat))
@@ -195,11 +196,9 @@ if __name__ == '__main__':
                 (boat_xy[0] + (32 * math.cos(wind)), boat_xy[1]
                  + (32 * math.sin(wind)))), 2)
 
-            # Make list of lines to check
-            angled_lines = generate_angled_control_lines(
-                init_pos, way_xy, offset)
+            angled_lines = generate_angled_control_lines(init_pos, way_xy, offset)
             lines = generate_control_lines(init_pos, way_xy, offset)
-            # TODO: Check the above/below add/sub logic
+
             if (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])) or (point_above_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])):
                 if((math.degrees(wind) >= 90) and (math.degrees(wind) < 270)):
                     boat = math.radians(
