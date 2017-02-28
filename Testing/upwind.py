@@ -95,12 +95,15 @@ def generate_control_lines(init_pos, dst_pos, offset):
 
 def generate_angled_control_lines(init_pos, dst_pos, offset):
     """Generate control  using the boat's initial position."""
+
+    m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
+
+    offset = m * offset
+
     l1 = ((init_pos[0] - offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
     l2 = ((init_pos[0] + offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
-
-    m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
 
     if (m < 0.5):
         l2 = ((init_pos[0], init_pos[1] - offset),
@@ -109,15 +112,10 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
               (dst_pos[0], dst_pos[1]))
         # TODO: Calculate offset required for 45 degree angle
 
-    elif (m > 2):
-        l2 = ((init_pos[0], init_pos[1] - (2*offset)),
-              (dst_pos[0], dst_pos[1]))
-        l1 = ((init_pos[0], init_pos[1] + (2*offset)),
-              (dst_pos[0], dst_pos[1]))
     else:
-        l1 = ((init_pos[0] - (1.5*offset), init_pos[1]),
+        l1 = ((init_pos[0] - (offset), init_pos[1]),
               (dst_pos[0], dst_pos[1]))
-        l2 = ((init_pos[0] + (1.5*offset), init_pos[1]),
+        l2 = ((init_pos[0] + (offset), init_pos[1]),
               (dst_pos[0], dst_pos[1]))
 
     m1 = abs(float(l1[1][1] - l1[0][1])/float(l1[1][0] - l1[0][0]))
@@ -151,8 +149,8 @@ if __name__ == '__main__':
     boat_r = 600
     boat_a = math.radians(45)
 
-    way_r = 400
-    way_a = math.radians(45)
+    way_r = 200
+    way_a = math.radians(10)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
