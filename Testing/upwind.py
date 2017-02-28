@@ -100,20 +100,22 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
     l2 = ((init_pos[0] + 100, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
 
-    # TODO: Should angled  be 45 degree angle?
-
     m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
-
+    #print init_pos[1], dst_pos[1], init_pos[0], dst_pos[0]
     if (m < 0.5):
         l2 = ((init_pos[0], init_pos[1] - 100),
               (dst_pos[0], dst_pos[1]))
         l1 = ((init_pos[0], init_pos[1] + 100),
               (dst_pos[0], dst_pos[1]))
+        print m
+        # TODO: Calculate offset required for 45 degree angle
+
     else:
         l1 = ((init_pos[0] - 100, init_pos[1]),
               (dst_pos[0], dst_pos[1]))
         l2 = ((init_pos[0] + 100, init_pos[1]),
               (dst_pos[0], dst_pos[1]))
+        print m
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
@@ -143,8 +145,8 @@ if __name__ == '__main__':
     boat_r = 600
     boat_a = math.radians(45)
 
-    way_r = 400
-    way_a = math.radians(45)
+    way_r = 300
+    way_a = math.radians(40)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
@@ -155,6 +157,7 @@ if __name__ == '__main__':
     state = 0
     event = 0
     offset = 64
+
     start_ticks = pygame.time.get_ticks()  # starter tick
     timer = 1
 
@@ -177,12 +180,6 @@ if __name__ == '__main__':
             boat_y = boat_xy[1] + (math.sin(boat))
             boat_xy = (boat_x, boat_y)
 
-            # draw markers for our boat and waypoint
-            pygame.draw.circle(screen, (255, 0, 0),
-                               cartesian_to_screen(boat_xy), 6)
-            pygame.draw.circle(screen, (0, 255, 0),
-                               cartesian_to_screen(way_xy), 6)
-
             # draw heading vector
             pygame.draw.line(screen, (0, 0, 255), cartesian_to_screen(boat_xy),
                              cartesian_to_screen(
@@ -195,33 +192,35 @@ if __name__ == '__main__':
                 (boat_xy[0] + (32 * math.cos(wind)), boat_xy[1]
                  + (32 * math.sin(wind)))), 2)
 
-            angled_lines = generate_angled_control_lines(
-                init_pos, way_xy, offset)
-            lines = generate_control_lines(init_pos, way_xy, offset)
+            # draw markers for our boat and waypoint
+            pygame.draw.circle(screen, (255, 0, 0),
+                               cartesian_to_screen(boat_xy), 6)
+            pygame.draw.circle(screen, (0, 255, 0),
+                               cartesian_to_screen(way_xy), 6)
 
-            if(point_below_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0])) or (point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
-				if((wind > 90) and (wind < 270)):
-					boat = math.radians(add_angle(math.degrees(wind), sail_angle))
-				else:
-					boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
-				if(event == 0):
-					event = 1
+            control = [generate_angled_control_lines(
+                init_pos, way_xy, offset), generate_control_lines(init_pos, way_xy, offset)]
 
-            elif(point_above_line(boat_xy, angled_lines[1]) and point_above_line(boat_xy, angled_lines[0])) or (point_above_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])):
+            for lines in control:
+                if(point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
+    				if((wind > 90) and (wind < 270)):
+    					boat = math.radians(add_angle(math.degrees(wind), sail_angle))
+    				else:
+    					boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
+    				if(event == 0):
+    					event = 1
 
-                if((wind > 90) and (wind < 270)):
-					boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
-                else:
-                    boat = math.radians(add_angle(math.degrees(wind), sail_angle))
-                if(event == 0):
-					event = 1
+                elif(point_above_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])):
 
-            #print "#1 ", (point_below_line(boat_xy, angled_lines[1]) and point_above_line(boat_xy, angled_lines[0]))
-            #print "#2 ", (point_above_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0]))
-            if((point_below_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])) or (point_above_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0]))):
-				event = 0
-            elif((point_below_line(boat_xy, angled_lines[1]) and point_above_line(boat_xy, angled_lines[0])) or (point_above_line(boat_xy, angled_lines[1]) and point_below_line(boat_xy, angled_lines[0]))):
-                event = 0
+                    if((wind > 90) and (wind < 270)):
+    					boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
+                    else:
+                        boat = math.radians(add_angle(math.degrees(wind), sail_angle))
+                    if(event == 0):
+    					event = 1
+
+                if((point_below_line(boat_xy, lines[1]) and point_above_line(boat_xy, lines[0])) or (point_above_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0]))):
+    				event = 0
 
         else:
             pygame.draw.circle(screen, (255, 0, 0),
