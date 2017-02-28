@@ -109,15 +109,19 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
               (dst_pos[0], dst_pos[1]))
         # TODO: Calculate offset required for 45 degree angle
 
-    else:
-        l1 = ((init_pos[0] - offset, init_pos[1]),
+    elif (m > 2):
+        l2 = ((init_pos[0], init_pos[1] - (2*offset)),
               (dst_pos[0], dst_pos[1]))
-        l2 = ((init_pos[0] + offset, init_pos[1]),
+        l1 = ((init_pos[0], init_pos[1] + (2*offset)),
+              (dst_pos[0], dst_pos[1]))
+    else:
+        l1 = ((init_pos[0] - (1.5*offset), init_pos[1]),
+              (dst_pos[0], dst_pos[1]))
+        l2 = ((init_pos[0] + (1.5*offset), init_pos[1]),
               (dst_pos[0], dst_pos[1]))
 
     m1 = abs(float(l1[1][1] - l1[0][1])/float(l1[1][0] - l1[0][0]))
     m2 = abs(float(l2[1][1] - l2[0][1])/float(l2[1][0] - l2[0][0]))
-
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
@@ -147,8 +151,8 @@ if __name__ == '__main__':
     boat_r = 600
     boat_a = math.radians(45)
 
-    way_r = 300
-    way_a = math.radians(40)
+    way_r = 400
+    way_a = math.radians(45)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
