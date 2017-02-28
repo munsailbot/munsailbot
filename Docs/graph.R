@@ -9,7 +9,13 @@ data <- subset(data, Lat!=c("99.99"))
 data <- subset(data, Lon!=c("99.99"))
 state <- c(data$Sailstate)
 
-ss <- function(x){ifelse(x > 0, 5, 2)}
+ss <- function(x){
+  ifelse(x == 0, 1,
+    ifelse(x == 1, 2,
+      ifelse(x == 2, 3,
+        ifelse(x == 3, 4,
+          ifelse(x == 4, 5, 0)
+))))}
 
 ggplot(data,aes(x=data$Lon, y=data$Lat)) +
   geom_point(color="red", (aes(size = ss(state)))) +
