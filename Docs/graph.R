@@ -21,6 +21,8 @@ ggplot(data,aes(x=data$Lon, y=data$Lat)) +
   geom_point(color="red", (aes(size = ss(state)))) +
   labs(x="",y="") +
   geom_path() +
-  coord_equal()
+  coord_equal() +
+  # Remove legend
+  theme(legend.position = "none")
 
 #fin
