@@ -98,7 +98,8 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
 
     m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
 
-    offset = m * offset
+    if m > 1:
+        offset = m*offset
 
     l1 = ((init_pos[0] - offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
@@ -110,8 +111,6 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
               (dst_pos[0], dst_pos[1]))
         l1 = ((init_pos[0], init_pos[1] + offset),
               (dst_pos[0], dst_pos[1]))
-        # TODO: Calculate offset required for 45 degree angle
-
     else:
         l1 = ((init_pos[0] - (offset), init_pos[1]),
               (dst_pos[0], dst_pos[1]))
@@ -122,9 +121,9 @@ def generate_angled_control_lines(init_pos, dst_pos, offset):
     m2 = abs(float(l2[1][1] - l2[0][1])/float(l2[1][0] - l2[0][0]))
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
-        l1[0]), cartesian_to_screen(l1[1]), 2)
+        l1[0]), cartesian_to_screen(l1[1]), 4)
     pygame.draw.line(screen, (0, 0, 255), cartesian_to_screen(
-        l2[0]), cartesian_to_screen(l2[1]), 2)
+        l2[0]), cartesian_to_screen(l2[1]), 4)
 
     return (l1, l2)
 
@@ -146,11 +145,11 @@ if __name__ == '__main__':
     sail_angle = 55
 
 	# set the initial boat and waypoint position in polar coordinates
-    boat_r = 600
+    boat_r = 400
     boat_a = math.radians(45)
 
-    way_r = 200
-    way_a = math.radians(10)
+    way_r = 300
+    way_a = math.radians(75)
 
     # convert polar to cartesian
     boat_xy = polar_to_cartesian(boat_r, boat_a)
