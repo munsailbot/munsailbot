@@ -95,27 +95,29 @@ def generate_control_lines(init_pos, dst_pos, offset):
 
 def generate_angled_control_lines(init_pos, dst_pos, offset):
     """Generate control  using the boat's initial position."""
-    l1 = ((init_pos[0] - 100, init_pos[1]),
+    l1 = ((init_pos[0] - offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
-    l2 = ((init_pos[0] + 100, init_pos[1]),
+    l2 = ((init_pos[0] + offset, init_pos[1]),
           (dst_pos[0], dst_pos[1]))
 
     m = float(init_pos[1] - dst_pos[1]) / float(init_pos[0] - dst_pos[0])
-    #print init_pos[1], dst_pos[1], init_pos[0], dst_pos[0]
+
     if (m < 0.5):
-        l2 = ((init_pos[0], init_pos[1] - 100),
+        l2 = ((init_pos[0], init_pos[1] - offset),
               (dst_pos[0], dst_pos[1]))
-        l1 = ((init_pos[0], init_pos[1] + 100),
+        l1 = ((init_pos[0], init_pos[1] + offset),
               (dst_pos[0], dst_pos[1]))
-        print m
         # TODO: Calculate offset required for 45 degree angle
 
     else:
-        l1 = ((init_pos[0] - 100, init_pos[1]),
+        l1 = ((init_pos[0] - offset, init_pos[1]),
               (dst_pos[0], dst_pos[1]))
-        l2 = ((init_pos[0] + 100, init_pos[1]),
+        l2 = ((init_pos[0] + offset, init_pos[1]),
               (dst_pos[0], dst_pos[1]))
-        print m
+
+    m1 = abs(float(l1[1][1] - l1[0][1])/float(l1[1][0] - l1[0][0]))
+    m2 = abs(float(l2[1][1] - l2[0][1])/float(l2[1][0] - l2[0][0]))
+
 
     pygame.draw.line(screen, (0, 255, 0), cartesian_to_screen(
         l1[0]), cartesian_to_screen(l1[1]), 2)
