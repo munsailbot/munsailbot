@@ -18,9 +18,13 @@ ss <- function(x){
 ))))}
 
 ggplot(data,aes(x=data$Lon, y=data$Lat)) +
+  # Graphing reported points
   geom_point(color="red", (aes(size = ss(state)))) +
+  # Removing X/Y labels
   labs(x="",y="") +
+  # Plotting path
   geom_path() +
+  # X/Y graphs are equivalent
   coord_equal() +
   # Remove legend
   theme(legend.position = "none")
