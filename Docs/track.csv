@@ -1,4 +1,4 @@
-Course to Point,Distance To Point,Sail State,Boat Speed,Lat,Lon,GPS Heading,Wind Direction,True Wind Direction
+CourseToPoint,DistanceToPoint,Sailstate,BoatSpeed,Lat,Lon,GPSHeading,WindDirection,MagHeading
 35.4691,393.736,2,0,47.5753,-52.7362,112.8,133,65
 35.4879,393.555,0,0,47.5754,-52.7363,112.8,88,65
 35.4879,393.555,0,0,47.5755,-52.7364,224.4,134,65
