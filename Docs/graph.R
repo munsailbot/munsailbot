@@ -9,6 +9,8 @@ data <- subset(data, Lat!=c("99.99"))
 data <- subset(data, Lon!=c("99.99"))
 state <- c(data$Sailstate)
 dist <- c(data$DistanceToPoint)
+speed <- c(data$BoatSpeed)
+wind <- c(data$windDirection)
 
 ss <- function(x){
   ifelse(x == 0, 1,
@@ -19,12 +21,13 @@ ss <- function(x){
 ))))}
 
 dtp <- function(x){
-  ifelse(x < 20, "blue", "red");
+  ifelse(x < 20, "blue", "white");
 }
 
 ggplot(data,aes(x=data$Lon, y=data$Lat)) +
   # Graphing reported points
-  geom_point(color=dtp(dist), (aes(size = ss(state)))) +
+  geom_point(color=dtp(dist), (aes(size = 3))) +
+  geom_point(color="red", (aes(size = ss(state)))) +
   # Removing X/Y labels
   labs(x="",y="") +
   # Plotting path
