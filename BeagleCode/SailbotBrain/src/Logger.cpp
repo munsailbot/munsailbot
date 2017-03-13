@@ -1,13 +1,13 @@
 #include "Logger.h"
+#include "Autonomy.h"
+#include "SailbotBrain.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <stdio.h>
 #include <dirent.h>
 #include <cstdlib>
 #include <sys/stat.h>
-#include <filesystem>
-using namespace std;
-using namespace std::tr2::sys;
 
 void Logger::Timestamp(){
 	time_t t = time(0);   // get time now
@@ -31,13 +31,11 @@ void Logger::TrackInit() {
   sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
-  tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,
-  GPSHeading,WindDirection,MagHeading" << std::endl;
+  tout << "CourseToPoint,DistanceToPoint,SailState,BoatSpeed,Lat,Lon,GPSHeading,WindDirection,MagHeading" << std::endl;
   tout.close();
 }
 
-void Logger::LogStep(std::vector<Waypoint> _waypoints,
-  SAIL_STATE _sailState, double wpCourse, double wpDist)) {
+void Logger::LogStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, state_t state, double wpCourse,	double wpDist, uint8_t _wpId) {
 	std::ofstream fout;
   sprintf(name, "%s/%s.txt", logdir, buffer);
   fout.open(name, std::ios::out | std::ios::app);
@@ -59,8 +57,7 @@ void Logger::LogStep(std::vector<Waypoint> _waypoints,
 }
 
 
-void Logger::TrackStep(std::vector<Waypoint> _waypoints,
-  SAIL_STATE _sailState, double wpCourse, double wpDist) {
+void Logger::TrackStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, state_t state, double wpCourse,	double wpDist, uint8_t _wpId) {
 	sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;
   tout.open (name, std::ios::out | std::ios::app);
@@ -74,7 +71,7 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints,
 }
 
 // Delete all files older than n days or files are larger than m MB
-void Logger::CheckFiles(uint8_t n, uint8_t mb) {
+/* void Logger::CheckFiles(uint8_t n, uint8_t mb) {
 	char* buf;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
@@ -106,3 +103,4 @@ void Logger::CheckFiles(uint8_t n, uint8_t mb) {
 	}
 	closedir(dir);
 }
+*/
