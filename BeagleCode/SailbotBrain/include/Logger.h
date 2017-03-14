@@ -4,6 +4,12 @@
 #include <string>
 #include <BeagleUtil.h>
 #include <vector>
+#include <iostream>
+#include <iomanip>
+#include <stdio.h>
+#include <dirent.h>
+#include <cstdlib>
+#include <sys/stat.h>
 #include "Autonomy.h"
 #include "SailbotBrain.h"
 
