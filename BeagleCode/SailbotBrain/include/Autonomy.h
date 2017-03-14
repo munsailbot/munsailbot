@@ -29,6 +29,8 @@ typedef enum{
     BOT_LEFT
 } BUOY_QUAD;
 
+#include "Logger.h"
+
 template<typename T> class Point{
 public:
     T x, y;
@@ -44,9 +46,9 @@ struct Waypoint{
 
 class TinyGPSPlus;
 
-#include "Logger.h"
 
 class Autonomy{
+
 private:
     MODE _mode;
     std::string filename;
@@ -98,11 +100,11 @@ private:
     bool _skTimerSet;
 
 public:
-    Autonomy(Timer* timer, std::string timestamp, Logger* log);
+    Autonomy(Timer* timer, std::string timestamp, class Logger* log);
     ~Autonomy();
 
     void setMode(MODE m);
-    void step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
+    void step(state_t state, class Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
 
     uint8_t getMain();
     uint8_t getRud();
