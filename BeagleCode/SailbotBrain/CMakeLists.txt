@@ -17,5 +17,6 @@ add_executable(SailbotBrain ${SOURCE})
 
 target_link_libraries(SailbotBrain
    -lncurses
+	-lboost_system
    BeagleUtil
 )
