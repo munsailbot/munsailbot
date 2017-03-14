@@ -2,6 +2,7 @@
 #include "Autonomy.h"
 #include "SailbotBrain.h"
 #include <string>
+#include <boost/filesystem.hpp>
 
 
 void Logger::Timestamp(){
@@ -67,7 +68,7 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, 
 }
 
 // Delete all files older than n days or files are larger than m MB
-/* void Logger::CheckFiles(uint8_t n, uint8_t mb) {
+ void Logger::CheckFiles(uint8_t n, uint8_t mb) {
 	char* buf;
 	DIR *dir = opendir(logdir);
 	if(!dir) {
@@ -99,4 +100,3 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, 
 	}
 	closedir(dir);
 }
-*/
