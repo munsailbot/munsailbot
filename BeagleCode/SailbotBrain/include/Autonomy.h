@@ -44,6 +44,8 @@ struct Waypoint{
 
 class TinyGPSPlus;
 
+#include "Logger.h"
+
 class Autonomy{
 private:
     MODE _mode;
@@ -100,8 +102,7 @@ public:
     ~Autonomy();
 
     void setMode(MODE m);
-    void step(state_t state, TinyGPSPlus* tinyGps, Logger* log,
-      BeagleUtil::UARTInterface* serial, std::string timestamp);
+    void step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
 
     uint8_t getMain();
     uint8_t getRud();

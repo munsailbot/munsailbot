@@ -114,6 +114,9 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     log->LogStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
     log->TrackStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
 
+    std::ofstream fout;
+  	fout.open (filename, std::ios::out | std::ios::app);
+
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
@@ -127,7 +130,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
             fout << "Initial Lat: " << _initialLatLon.x << std::endl;
             fout << "Initial Lon: "  <<_initialLatLon.y << std::endl;
 
-            log->TrackStep(_waypoints, _sailState, wpCourse, wpDist);
+            log->TrackStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
         }
     }
 
@@ -582,9 +585,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
         else{
             fout << "SK Exit: " << _timer->millis() << std::endl;
             _mode = LONG_DISTANCE;
-            outpoint.lat = 44.22369;
-            outpoint.lon = -76.483736;
-            _waypoints.push_back(outpoint);
+            // TODO: Add Outpoint?
             _wpId++;
 
         }
@@ -592,7 +593,8 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     else if(NAVIGATION_TRIAL){
 
       // CHANGED: CREATED BUOY ROUNDING WAYPOINT
-
+      std::ofstream tout;
+    	tout.open (filename, std::ios::out | std::ios::app);
       double lat,lon;
       Waypoint point, point1, point2, point3, point4;
 
@@ -932,7 +934,6 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     fout << "Rudder: " << std::dec << static_cast<int>(_lastRud) - 35 << std::endl;
     fout << "---------------" << std::endl;
     fout.close();
-    tout.close();
 
     _lastState = state;
     _tackTimer++;
