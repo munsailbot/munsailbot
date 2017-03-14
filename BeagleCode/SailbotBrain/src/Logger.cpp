@@ -1,4 +1,7 @@
 #include "Logger.h"
+#include "Autonomy.h"
+#include "SailbotBrain.h"
+
 
 void Logger::Timestamp(){
 	time_t t = time(0);   // get time now

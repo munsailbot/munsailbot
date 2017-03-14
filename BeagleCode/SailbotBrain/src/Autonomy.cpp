@@ -8,7 +8,6 @@
 #include <fstream>
 #include <iomanip>
 
-
 Autonomy::Autonomy(Timer* timer, std::string timestamp, Logger* log){
     _sailState = MOVING_CHECK;
     //For now, declare waypoints here
@@ -102,8 +101,7 @@ void Autonomy::setMode(MODE m){
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps,
-  BeagleUtil::UARTInterface* serial, std::string timestamp){
+void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp){
     uint8_t main, rud;
     main = _lastMain;
     rud = _lastRud;
@@ -113,8 +111,8 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps,
     double wpDist = tinyGps->distanceBetween(state.latitude, state.longitude,
       _waypoints[_wpId].lat, _waypoints[_wpId].lon);
 
-    log->LogStep(_waypoints, _sailState, wpCourse, wpDist);
-    log->TrackStep(_waypoints, _sailState, wpCourse, wpDist);
+    log->LogStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
+    log->TrackStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
