@@ -8,7 +8,7 @@
 #include <fstream>
 #include <iomanip>
 
-Autonomy::Autonomy(Timer* timer, std::string timestamp, Logger* log){
+Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     _sailState = MOVING_CHECK;
     //For now, declare waypoints here
     _wpId = 0;
@@ -101,7 +101,7 @@ void Autonomy::setMode(MODE m){
 }
 
 //Executes a single state->action step. The frequency of these steps is determined externally.
-void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp){
+void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, size_t timestamp){
     uint8_t main, rud;
     main = _lastMain;
     rud = _lastRud;

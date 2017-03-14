@@ -100,11 +100,11 @@ private:
     bool _skTimerSet;
 
 public:
-    Autonomy(Timer* timer, std::string timestamp, class Logger* log);
+    Autonomy(Timer* timer, size_t timestamp, class Logger* log);
     ~Autonomy();
 
     void setMode(MODE m);
-    void step(state_t state, class Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, std::string timestamp);
+    void step(state_t state, class Logger* log, TinyGPSPlus* tinyGps, BeagleUtil::UARTInterface* serial, size_t timestamp);
 
     uint8_t getMain();
     uint8_t getRud();

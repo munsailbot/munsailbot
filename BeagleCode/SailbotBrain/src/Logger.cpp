@@ -6,7 +6,7 @@
 void Logger::Timestamp(){
 	time_t t = time(0);   // get time now
 	struct tm * now = localtime( & t );
-	strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
+	timestamp = strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
 }
 
 void Logger::SetDir(char dir[30]){

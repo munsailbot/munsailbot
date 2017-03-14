@@ -49,8 +49,15 @@ int main(int argc, char* argv[])
         //CHANGED: New Logger class
         Logger* log = new Logger();
         log->Timestamp();
-        log->SetDir("/log");
-        log->CheckFiles(1,10);
+        std::string str = "/log";
+        char * d = new char[str.size() + 1];
+        std::copy(str.begin(), str.end(), d);
+        d[str.size()] = '\0'; // don't forget the terminating 0
+        log->SetDir(d);
+        //TODO: Clean up ^^
+        // don't forget to free the string after finished using it
+        delete[] d;
+        //log->CheckFiles(1,10);
         log->TrackInit();
         log->LogInit();
 
@@ -63,7 +70,7 @@ int main(int argc, char* argv[])
 
         //Create an encoder instance and an autonomy instance
         ArduinoEncoder* encoder = new ArduinoEncoder(ard);
-        Autonomy* autonomy = new Autonomy(timer, timestamp, log);
+        Autonomy* autonomy = new Autonomy(timer, log->timestamp, log);
 
         // Initialize TinyGPS
         TinyGPSPlus* tinyGps = new TinyGPSPlus();
@@ -161,7 +168,7 @@ int main(int argc, char* argv[])
                         uint8_t lastRud = autonomy->getRud();
 
                         if(enableAutonomy) {
-                                autonomy->step(currentState, tinyGps, ard, timestamp);
+                                autonomy->step(currentState, log, tinyGps, ard, log->timestamp);
                                 //execute a single step of autonomous decision
                         }
 
