@@ -1,6 +1,7 @@
 #include "Logger.h"
 #include "Autonomy.h"
 #include "SailbotBrain.h"
+#include <string>
 
 
 void Logger::Timestamp(){
@@ -9,8 +10,9 @@ void Logger::Timestamp(){
 	timestamp = strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
 }
 
-void Logger::SetDir(char dir[30]){
-	sprintf(logdir, "%s", dir);
+void Logger::SetDir(std::string dir){
+	const char * c = dir.c_str();
+	sprintf(logdir, "%s", c);
 }
 
 void Logger::LogInit() {

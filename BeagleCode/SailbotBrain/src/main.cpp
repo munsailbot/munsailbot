@@ -49,14 +49,7 @@ int main(int argc, char* argv[])
         //CHANGED: New Logger class
         Logger* log = new Logger();
         log->Timestamp();
-        std::string str = "/log";
-        char * d = new char[str.size() + 1];
-        std::copy(str.begin(), str.end(), d);
-        d[str.size()] = '\0'; // don't forget the terminating 0
-        log->SetDir(d);
-        //TODO: Clean up ^^
-        // don't forget to free the string after finished using it
-        delete[] d;
+        log->SetDir("/log");
         //log->CheckFiles(1,10);
         log->TrackInit();
         log->LogInit();

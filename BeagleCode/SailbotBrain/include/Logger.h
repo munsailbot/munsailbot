@@ -18,7 +18,7 @@ public:
   char name[256];
   char buffer [30];
   char logdir [30];
-  void SetDir(char dir[30]);
+  void SetDir(std::string dir);
   size_t timestamp;
   void Timestamp();
   void LogInit();
