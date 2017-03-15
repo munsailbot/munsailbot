@@ -3,7 +3,7 @@ This repository contains all code for the Memorial University (MUN) SailBOT team
 SailBOT is an annual competition in which teams compete in various events with autonomous sailboats.
 
 ## Overview
-###BeagleCode
+### BeagleCode
 Contains two subprojects, libBeagleUtil and SailbotBrain. Both target
 the Beaglebone Black (BBB), at present requiring ARM GCC 4.7 (gnueabi**hf**).
 
@@ -13,22 +13,22 @@ In the future this can (and should) be merged with SailbotBrain.
 SailbotBrain is an application intended to be started at boot on the BBB, and executes
 the autonomous sailing algorithm when activated by the controller.
 
-###HardwareController
+### HardwareController
 Arduino-based code for the hand-held controller. Missing proper build system at present.
 
-###MotorController
+### MotorController
 Arduino-based code for the motor controller board.
 
-###RTuinOS
+### RTuinOS
 [RTuinOS](https://github.com/PeterVranken/RTuinOS) is a real-time operating system targeting the ATmega2560.
 
 The sailbot application lives in RTuinOS/code/applications/sailbot. RTuinOS ships with its own makefile and doesn't
 require CMake - see RTuinOS/readMe.txt and the output of RTuinOS make for build instructions.
 
-###Simulator
+### Simulator
 Unfinished Java simulator for the sailbot
 
-###Testing
+### Testing
 Various python scripts used to unit-test methods and algorithms prior to implementation in C++ on the BBB.
 
 ## General build instructions
@@ -78,7 +78,9 @@ https://www.virtualbox.org/wiki/Downloads
 vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
 ```
 
-This will install and launch a headless minimal build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ~/vagrant of the Ubuntu VM is mirrored in the host OS.
+This will install and launch a headless minimal build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in /vagrant of the Ubuntu VM is mirrored in the host OS. This build uses [Fish](https://github.com/fish-shell/fish-shell) as its default shell, allows for automcomplete and has all needed compiler configuration and shortcuts.
+
+To compile, simply type ```buildsb```.
 
 ## Connect to BBB Using Screen (OSX)
 
