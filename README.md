@@ -69,16 +69,14 @@ sudo apt-get install gcc-4.7-arm-linux-gnueabihf
 ```
 ## VM Build
 
-On OSX or Windows, download and install Vagrant and Virtualbox
+To run a Virtual Machine for easy compiling on OSX or Windows, download and install [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 
-https://www.vagrantup.com/
-https://www.virtualbox.org/wiki/Downloads
-
+Then from the terminal or Command prompt:
 ```
 vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
 ```
 
-This will install and launch a headless minimal build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in /vagrant of the Ubuntu VM is mirrored in the host OS. This build uses [Fish](https://github.com/fish-shell/fish-shell) as its default shell, allows for automcomplete and has all needed compiler configuration and shortcuts.
+This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS. This build uses [Fish](https://github.com/fish-shell/fish-shell) as its default shell, allows for automcomplete and has all needed compiler configuration and shortcuts.
 
 To compile, simply type ```buildsb```.
 
