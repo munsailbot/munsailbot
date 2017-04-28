@@ -2,7 +2,6 @@
 #include "Autonomy.h"
 #include "SailbotBrain.h"
 #include <string>
-#include <boost/filesystem.hpp>
 
 
 void Logger::Timestamp(){
