@@ -76,7 +76,7 @@ Then from the terminal or Command prompt:
 vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
 ```
 
-This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS. This build uses [Fish](https://github.com/fish-shell/fish-shell) as its default shell, allows for automcomplete and has all needed compiler configuration and shortcuts.
+This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS. 
 
 To compile, simply type ```buildsb```.
 
