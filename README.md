@@ -73,7 +73,7 @@ To run a Virtual Machine for easy compiling on OSX or Windows, download and inst
 
 Then from the terminal or Command prompt:
 ```
-vagrant init munsailbot/base; vagrant up --provider virtualbox; vagrant ssh
+vagrant init munsailbot/ubuntu; vagrant up --provider virtualbox; vagrant ssh
 ```
 
 This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS. 
