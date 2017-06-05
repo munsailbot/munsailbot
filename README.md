@@ -76,6 +76,9 @@ Then from the terminal or Command prompt:
 vagrant init munsailbot/ubuntu; vagrant up --provider virtualbox; vagrant ssh
 ```
 
+Username: vagrant
+Password: vagrant
+
 This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS. 
 
 To compile, simply type ```buildsb```.
@@ -84,10 +87,12 @@ To compile, simply type ```buildsb```.
 
 Once the Beaglebone is connected via USB, from your terminal execute ```ls /dev/tty.*``` to see a list of all serial ports available. The Beaglebone should the ```usbmodem####``` one. You can connect to the file system from your terminal by calling ```screen /dev/tty.usbmodem####```. This will leave an open session on the Beaglebone, instead of SSH, which will quit when you close your session. Quit Screen by pressing Ctrl-Shift-A, then Ctrl-\.
 
-## Connect to BBB Using SSH (OSX/Windows/Linux)
+## Connect to BBB Wirelessly Using SSH (OSX/Windows/Linux)
 
-__Windows & OSX Users__ Follow steps 1 & 2 seen here http://beagleboard.org/getting-started and then navigate to 192.168.7.2 in your browser. If a Beaglebone starter page appears, you can SSH to the Beaglebone by entering ```ssh root@192.168.7.2``` in your terminal, or using an SSH-ready software like Cyberduck or WinSCP.
+At first launch, connect to the wireless network the BeagleBone creates (```BeagleBoneXXXX```)
 
-__Linux Users__ ```ssh root@192.168.7.2``` with Beaglebone connected via USB.
+__Windows & OSX Users__ Follow steps 1 & 2 seen here http://beagleboard.org/getting-started and then navigate to 192.168.0.1 in your browser. If a Beaglebone starter page appears, you can SSH to the Beaglebone by entering ```ssh root@192.168.0.1``` in your terminal, or using an SSH-ready software like Cyberduck or WinSCP.
 
-After completing the "General Build Instructions" steps, you will have a file called "SailbotBrain" - drop this into the home folder of your Beaglebone using a GUI (Cyberduck/WinSCP) or using the terminal command ```scp [path to SailbotBrain folder]/SailbotBrain root@192.168.7.2:~/SailbotBrain```. The file in this folder named "SailbotBrain" will execute when the BBB is powered on.
+__Linux Users__ ```ssh root@192.168.0.1``` with Beaglebone connected via USB.
+
+After completing the "General Build Instructions" steps, you will have a file called "SailbotBrain" - drop this into the home folder of your Beaglebone using a GUI (Cyberduck/WinSCP) or using the terminal command ```scp [path to SailbotBrain folder]/SailbotBrain root@192.168.0.1:~/SailbotBrain```. The file in this folder named "SailbotBrain" will execute when the BBB is powered on.
