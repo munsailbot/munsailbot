@@ -89,7 +89,7 @@ Once the Beaglebone is connected via USB, from your terminal execute ```ls /dev/
 
 ## Connect to BBB Wirelessly Using SSH (OSX/Windows/Linux)
 
-At first launch, connect to the wireless network the BeagleBone creates (```BeagleBoneXXXX```)
+At first launch, connect to the wireless network the BeagleBone creates (```BeagleBoneXXXX``` or munSailBot-BBB if configured)
 
 __Windows & OSX Users__ Follow steps 1 & 2 seen here http://beagleboard.org/getting-started and then navigate to 192.168.0.1 in your browser. If a Beaglebone starter page appears, you can SSH to the Beaglebone by entering ```ssh root@192.168.0.1``` in your terminal, or using an SSH-ready software like Cyberduck or WinSCP.
 
