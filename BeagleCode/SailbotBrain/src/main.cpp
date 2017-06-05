@@ -50,7 +50,8 @@ int main(int argc, char* argv[])
         Logger* log = new Logger();
         log->Timestamp();
         log->SetDir("/log");
-        log->CheckFiles(1,10);
+	//TODO: This causes segmentation faul
+        //log->CheckFiles(1,10);
         log->TrackInit();
         log->LogInit();
 
