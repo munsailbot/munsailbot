@@ -76,8 +76,8 @@ Then from the terminal or Command prompt:
 vagrant init munsailbot/ubuntu; vagrant up --provider virtualbox; vagrant ssh
 ```
 
-Username: vagrant
-Password: vagrant
+`Username: vagrant`
+`Password: vagrant`
 
 This will install and launch a build of Ubuntu with all project dependencies which can be used to easily compile and share files between the host and VM. Any changes made in ```/vagrant``` of the Ubuntu VM is mirrored in the host OS folder the initial vagrant command was executed in. 
 
