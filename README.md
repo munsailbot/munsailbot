@@ -95,4 +95,4 @@ __Windows & OSX Users__ Follow steps 1 & 2 seen here http://beagleboard.org/gett
 
 __Linux Users__ ```ssh root@192.168.0.1``` with Beaglebone connected via USB.
 
-After completing the "General Build Instructions" steps, you will have a file called "SailbotBrain" - drop this into the home folder of your Beaglebone using a GUI (Cyberduck/WinSCP) or using the terminal command ```scp [path to SailbotBrain folder]/SailbotBrain root@192.168.0.1:~/SailbotBrain```. The file in this folder named "SailbotBrain" will execute when the BBB is powered on.
+After completing the "General Build Instructions" steps, you will have a file called "SailbotBrain" in your bin folder - drop this into the home folder of your Beaglebone using a GUI (Cyberduck/WinSCP) or using the terminal command ```scp [path to SailbotBrain folder]/SailbotBrain root@192.168.0.1:~/SailbotBrain```. The file in this folder named "SailbotBrain" will execute when the BBB is powered on.
