@@ -83,6 +83,11 @@ This will install and launch a build of Ubuntu with all project dependencies whi
 
 To compile, simply type ```buildsb```.
 
+```exit``` to leave VM
+```vagrant halt``` to shut down VM
+```vagrant up``` to mount VM
+```vagrant ssh``` to enter VM from terminal
+
 ## Connect to BBB Using Screen (OSX)
 
 Once the Beaglebone is connected via USB, from your terminal execute ```ls /dev/tty.*``` to see a list of all serial ports available. The Beaglebone should the ```usbmodem####``` one. You can connect to the file system from your terminal by calling ```screen /dev/tty.usbmodem####```. This will leave an open session on the Beaglebone, instead of SSH, which will quit when you close your session. Quit Screen by pressing Ctrl-Shift-A, then Ctrl-\.
