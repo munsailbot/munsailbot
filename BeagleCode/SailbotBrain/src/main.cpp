@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
         Logger* log = new Logger();
         log->Timestamp();
         log->SetDir("/log");
-	//TODO: This causes segmentation faul
+        //TODO: This causes segmentation fault
         //log->CheckFiles(1,10);
         log->TrackInit();
         log->LogInit();
@@ -73,7 +73,6 @@ int main(int argc, char* argv[])
         TinyGPSCustom magHeading(*tinyGps, "HCHDT", 1);
         TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
         TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
-        // TODO: TrueWindSpeed value from TinyGPS
         //TODO: Kalman filter instead
         HanningFilter<int> windFilter;
         HanningFilter<double> compassFilter;
@@ -168,7 +167,6 @@ int main(int argc, char* argv[])
 
                         if((autonomy->getRud() != lastRud)) {
                                 lerpCur = 1;
-
                                 desiredRud = autonomy->getRud();
                         }
 
@@ -219,10 +217,11 @@ int main(int argc, char* argv[])
                                 }
                         }
 
-                        //TODO: if the rudder is scaled, the -35 conversion
+                        // TODO: if the rudder is scaled, the -35 conversion
                         // on the arduino side must be scaled as well
                         // TODO: Is scaled rudder giving 35 for our design?
-                        float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f;
+                        // CHANGED: Flipped rudder control direction for reversed motor
+                        float scaledRud = static_cast<float>(autonomy->getRud()) * -0.6f;
                         uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
                         if(enableAutonomy == true) {
