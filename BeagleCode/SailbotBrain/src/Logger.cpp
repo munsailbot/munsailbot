@@ -89,8 +89,8 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, 
 		size += t_stat.st_size;
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
 	}
-	if (size > (mb*1000000000)) {
-		while (size > (mb*10000000000))
+	if (size > (mb*10000000)) {
+		while (size > (mb*10000000))
 			{
 				next_file = readdir(dir);
 				sprintf(filepath, "%s/%s", logdir, next_file->d_name);
