@@ -18,7 +18,12 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     //TODO: Check if there is a text file
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
     std::string mode;
-    std::getline(fin, mode);
+    std::string rudderInput;
+    int _rudderOrientation;
+    std::getline(fin, mode, rudderInput);
+
+    if (rudderInput == "-1"){ _rudderOrientation = -1; }
+    else { _rudderOrientation = 1 }; 
 
     char filename[256];
 	  std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
@@ -941,6 +946,11 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
 
 uint8_t Autonomy::getMain(){
     return _lastMain;
+}
+
+// From third line of waypoints.txt - should be "-1" if inverted
+uint8_t Autonomy::getOrientation(){
+    return _rudderOrientation;
 }
 
 uint8_t Autonomy::getRud(){
