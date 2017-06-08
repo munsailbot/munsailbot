@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
                         // on the arduino side must be scaled as well
                         // TODO: Is scaled rudder giving 35 for our design?
                         // CHANGED: Flipped rudder control direction for reversed motor
-                        float scaledRud = static_cast<float>(autonomy->getRud()) * -0.6f;
+                        float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f * autonomy->getOrientation();
                         uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
                         if(enableAutonomy == true) {
