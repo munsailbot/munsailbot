@@ -19,11 +19,7 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     std::ifstream fin("/root/waypoints.txt", std::ios::in);
     std::string mode;
     std::string rudderInput;
-    int _rudderOrientation;
-    std::getline(fin, mode, rudderInput);
-
-    if (rudderInput == "-1"){ _rudderOrientation = -1; }
-    else { _rudderOrientation = 1 }; 
+    std::getline(fin, mode);
 
     char filename[256];
 	  std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
@@ -64,6 +60,11 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
 
         _waypoints.push_back(point);
     }
+
+    std::getline(fin, rudderInput);
+
+    if (rudderInput == "-1"){ this->_rudderOrientation = -1; }
+    else { this->_rudderOrientation = 1 ;} 
 
     fin.close();
 
@@ -948,13 +949,12 @@ uint8_t Autonomy::getMain(){
     return _lastMain;
 }
 
-// From third line of waypoints.txt - should be "-1" if inverted
-uint8_t Autonomy::getOrientation(){
-    return _rudderOrientation;
-}
-
 uint8_t Autonomy::getRud(){
     return _lastRud;
+}
+
+uint8_t Autonomy::rudderOrientation(){
+    return _rudderOrientation;
 }
 
 void Autonomy::resetTimer(){
