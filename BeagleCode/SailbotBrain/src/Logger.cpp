@@ -12,6 +12,7 @@ void Logger::Timestamp(){
 	timestamp = strftime(buffer, sizeof(buffer),"%Y%m%d_%H%M%S",now);
 }
 
+//  The destination of the log file - must already exist
 void Logger::SetDir(std::string dir){
 	const char * c = dir.c_str();
 	sprintf(logdir, "%s", c);
@@ -89,8 +90,8 @@ void Logger::TrackStep(std::vector<Waypoint> _waypoints, SAIL_STATE _sailState, 
 		size += t_stat.st_size;
 		if ((now-t_stat.st_mtime) > (n * 86400)) remove(filepath);
 	}
-	if (size > (mb*10000000)) {
-		while (size > (mb*10000000))
+	if (size > (mb*1000000)) {
+		while (size > (mb*1000000))
 			{
 				next_file = readdir(dir);
 				sprintf(filepath, "%s/%s", logdir, next_file->d_name);
