@@ -78,6 +78,7 @@ private:
     bool _recentTack;
     bool _setRound;
     bool _secondRound;
+    int _rudderOrientation;
 
     //State tracking
     uint8_t _downwindCount;
@@ -108,6 +109,7 @@ public:
 
     uint8_t getMain();
     uint8_t getRud();
+    uint8_t rudderOrientation();
 
     void resetTimer();
 
