@@ -9,7 +9,8 @@
 typedef enum{
     LONG_DISTANCE,
     STATION_KEEPING_STRAT1,
-    NAVIGATION_TRIAL
+    NAVIGATION_TRIAL,
+    MACHINE_VISION
 } MODE;
 
 typedef enum{

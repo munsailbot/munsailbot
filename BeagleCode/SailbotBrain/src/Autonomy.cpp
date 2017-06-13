@@ -41,6 +41,10 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
+    else if(mode == "mv"){
+      this->setMode(MACHINE_VISION);
+      _roundDir = 1;
+    }
     else{
       fout << "Invalid autonomy mode" << std::endl;
     }
@@ -126,6 +130,8 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
+    if(_mode  == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
+
 
     if(_initialCoordsCaptured == false){
         if(state.latitude != 99.99 && state.longitude != 99.99){
@@ -932,6 +938,9 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
       _lastState = state;
       _tackTimer++;
     };
+    else if(MACHINE_VISION){
+        // Empty for now
+    }
 
     _lastMain = main;
     _lastRud = rud;
