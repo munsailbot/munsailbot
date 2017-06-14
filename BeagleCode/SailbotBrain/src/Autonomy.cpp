@@ -22,10 +22,10 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     std::getline(fin, mode);
 
     char filename[256];
-	  std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
-  	std::ofstream fout;
-  	fout.open (filename, std::ios::out | std::ios::app);
-  	fout << "Mode: " << mode << std::endl;
+    std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
+    std::ofstream fout;
+    fout.open (filename, std::ios::out | std::ios::app);
+    fout << "Mode: " << mode << std::endl;
 
     if(mode == "ld"){
         this->setMode(LONG_DISTANCE);
@@ -43,7 +43,6 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     }
     else if(mode == "mv"){
       this->setMode(MACHINE_VISION);
-      _roundDir = 1;
     }
     else{
       fout << "Invalid autonomy mode" << std::endl;
@@ -125,7 +124,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     log->TrackStep(_waypoints, _sailState, state, wpCourse, wpDist, _wpId);
 
     std::ofstream fout;
-  	fout.open (filename, std::ios::out | std::ios::app);
+    fout.open (filename, std::ios::out | std::ios::app);
 
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
@@ -606,7 +605,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
 
       // CHANGED: CREATED BUOY ROUNDING WAYPOINT
       std::ofstream tout;
-    	tout.open (filename, std::ios::out | std::ios::app);
+        tout.open (filename, std::ios::out | std::ios::app);
       double lat,lon;
       Waypoint point, point1, point2, point3, point4;
 
