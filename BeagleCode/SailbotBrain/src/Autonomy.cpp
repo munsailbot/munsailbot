@@ -606,7 +606,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
 
       // CHANGED: CREATED BUOY ROUNDING WAYPOINT
       std::ofstream tout;
-    	tout.open (filename, std::ios::out | std::ios::app);
+      tout.open (filename, std::ios::out | std::ios::app);
       double lat,lon;
       Waypoint point, point1, point2, point3, point4;
 
@@ -938,9 +938,6 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
       _lastState = state;
       _tackTimer++;
     };
-    else if(MACHINE_VISION){
-        // Empty for now
-    }
 
     _lastMain = main;
     _lastRud = rud;
