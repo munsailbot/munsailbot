@@ -20,7 +20,7 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
     std::string mode;
     std::string rudderInput;
     std::getline(fin, mode);
-
+    _rudderOrientation = -1;
     char filename[256];
     std::sprintf(filename, "%s/%s.txt", log->logdir, log->buffer);
     std::ofstream fout;
@@ -627,64 +627,64 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
           else {_buoyPoint = TOP_RIGHT;}
         }
 
-      if (_setRound == false){
-        int roundDist = 0.0001;
+        if (_setRound == false) {
+            int roundDist = 0.0001;
 
-        switch (_buoyPoint) {
-          case TOP_LEFT:
+            switch (_buoyPoint) {
+              case TOP_LEFT:
 
-              point.lat = _waypoints[_wpId].lat;
-              point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
-              point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
-              point1.lon = _waypoints[_wpId].lon;
-              point2.lat = _waypoints[_wpId].lat;
-              point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
-              _waypoints.push_back(point);
-              _waypoints.push_back(point1);
-              _waypoints.push_back(point2);
-              _setRound = true;
+                  point.lat = _waypoints[_wpId].lat;
+                  point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+                  point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
+                  point1.lon = _waypoints[_wpId].lon;
+                  point2.lat = _waypoints[_wpId].lat;
+                  point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+                  _waypoints.push_back(point);
+                  _waypoints.push_back(point1);
+                  _waypoints.push_back(point2);
+                  _setRound = true;
 
-          case TOP_RIGHT:
+              case TOP_RIGHT:
 
-              point.lat = _waypoints[_wpId].lat;
-              point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
-              point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
-              point1.lon = _waypoints[_wpId].lon;
-              point2.lat = _waypoints[_wpId].lat;
-              point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
-              _waypoints.push_back(point);
-              _waypoints.push_back(point1);
-              _waypoints.push_back(point2);
-              _setRound = true;
+                  point.lat = _waypoints[_wpId].lat;
+                  point.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+                  point1.lat = _waypoints[_wpId].lat - (roundDist * _roundDir);
+                  point1.lon = _waypoints[_wpId].lon;
+                  point2.lat = _waypoints[_wpId].lat;
+                  point2.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+                  _waypoints.push_back(point);
+                  _waypoints.push_back(point1);
+                  _waypoints.push_back(point2);
+                  _setRound = true;
 
-          case BOT_RIGHT:
+              case BOT_RIGHT:
 
-              point.lat = _waypoints[_wpId].lat;
-              point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
-              point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
-              point1.lon = _waypoints[_wpId].lon;
-              point2.lat = _waypoints[_wpId].lat;
-              point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
-              _waypoints.push_back(point);
-              _waypoints.push_back(point1);
-              _waypoints.push_back(point2);
-              _setRound = true;
+                  point.lat = _waypoints[_wpId].lat;
+                  point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+                  point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
+                  point1.lon = _waypoints[_wpId].lon;
+                  point2.lat = _waypoints[_wpId].lat;
+                  point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+                  _waypoints.push_back(point);
+                  _waypoints.push_back(point1);
+                  _waypoints.push_back(point2);
+                  _setRound = true;
 
-          case BOT_LEFT:
+              case BOT_LEFT:
 
-              point.lat = _waypoints[_wpId].lat;
-              point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
-              point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
-              point1.lon = _waypoints[_wpId].lon;
-              point2.lat = _waypoints[_wpId].lat;
-              point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
-              _waypoints.push_back(point);
-              _waypoints.push_back(point1);
-              _waypoints.push_back(point2);
-              _setRound = true;
+                  point.lat = _waypoints[_wpId].lat;
+                  point.lon = _waypoints[_wpId].lon - (roundDist * _roundDir);
+                  point1.lat = _waypoints[_wpId].lat + (roundDist * _roundDir);
+                  point1.lon = _waypoints[_wpId].lon;
+                  point2.lat = _waypoints[_wpId].lat;
+                  point2.lon = _waypoints[_wpId].lon + (roundDist * _roundDir);
+                  _waypoints.push_back(point);
+                  _waypoints.push_back(point1);
+                  _waypoints.push_back(point2);
+                  _setRound = true;
 
-          }
-      }
+            }
+        }
 
       motorstate_t r;
 
@@ -938,7 +938,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
       _tackTimer++;
     };
     else if(MACHINE_VISION){
-        // Empty for now
+        
     }
 
     _lastMain = main;
@@ -979,7 +979,6 @@ motorstate_t Autonomy::courseByWind(int windRelative, int angleToSail){
 
     int32_t theta = static_cast<uint32_t>(angleToSail - windRelative);
     out.rudder = static_cast<int>(floorf((35.0f/180.0f)*static_cast<float>(theta)));
-    out.rudder *= -1;
 
     if(abs(windRelative) < 45){
         out.main = 0;
