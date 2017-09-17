@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bryan/host/Sailbot-16/munsailbot/BeagleCode
+CMAKE_SOURCE_DIR = /home/vagrant/git/munsailbot/BeagleCode
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build
+CMAKE_BINARY_DIR = /home/vagrant/git/munsailbot/BeagleCode/build
 
 # Include any dependencies generated for this target.
 include SailbotBrain/CMakeFiles/SailbotBrain.dir/depend.make
@@ -51,17 +51,17 @@ include SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o: ../SailbotBrain/src/ArduinoEncoder.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp > CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp > CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp -o CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp -o CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o.requires
@@ -74,17 +74,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o.provides.build
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o: ../SailbotBrain/src/Autonomy.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp > CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp > CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp -o CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp -o CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o.requires
@@ -97,17 +97,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o.provides.build: Sail
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o: ../SailbotBrain/src/AverageAngle.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp > CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp > CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp -o CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp -o CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o.requires
@@ -120,17 +120,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o.provides.build: 
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o: ../SailbotBrain/src/filterAlphaBeta.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp > CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp > CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp -o CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp -o CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o.requires
@@ -141,19 +141,42 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o.provides: Sai
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o.provides.build: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o
 
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/src/Logger.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o"
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Logger.cpp
+
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/Logger.cpp.i"
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Logger.cpp > CMakeFiles/SailbotBrain.dir/src/Logger.cpp.i
+
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/Logger.cpp.s"
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Logger.cpp -o CMakeFiles/SailbotBrain.dir/src/Logger.cpp.s
+
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.requires:
+.PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.requires
+
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.provides: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.requires
+	$(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.provides.build
+.PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.provides
+
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.provides.build: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
+
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o: ../SailbotBrain/src/LSM303DLM.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp > CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp > CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp -o CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp -o CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o.requires
@@ -166,17 +189,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o.provides.build: Sai
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/src/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/main.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/main.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/main.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/main.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/main.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/main.cpp > CMakeFiles/SailbotBrain.dir/src/main.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/main.cpp > CMakeFiles/SailbotBrain.dir/src/main.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/main.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/main.cpp -o CMakeFiles/SailbotBrain.dir/src/main.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/main.cpp -o CMakeFiles/SailbotBrain.dir/src/main.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o.requires
@@ -189,17 +212,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o.provides.build: SailbotB
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o: ../SailbotBrain/src/Timer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp > CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp > CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp -o CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp -o CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o.requires
@@ -212,17 +235,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o.provides.build: Sailbot
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o: ../SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp > CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp > CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp -o CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp -o CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o.requires
@@ -235,17 +258,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o.provide
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o: ../SailbotBrain/src/Utility.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp > CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp > CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp -o CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp -o CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o.requires
@@ -258,17 +281,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o.provides.build: Sailb
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o: ../SailbotBrain/src/VectorFilter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp > CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp > CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o.requires
@@ -281,17 +304,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o.provides.build: 
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o: ../SailbotBrain/src/WindFilter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp > CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp > CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o.requires
@@ -304,17 +327,17 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o.provides.build: Sa
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o: SailbotBrain/CMakeFiles/SailbotBrain.dir/flags.make
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o: ../SailbotBrain/src/WindStatFilter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o -c /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o -c /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp > CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp > CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.7  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && /usr/bin/arm-linux-gnueabihf-g++-4.8  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp -o CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o.requires:
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o.requires
@@ -331,6 +354,7 @@ SailbotBrain_OBJECTS = \
 "CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o" \
 "CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o" \
 "CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o" \
+"CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o" \
 "CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o" \
 "CMakeFiles/SailbotBrain.dir/src/main.cpp.o" \
 "CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o" \
@@ -347,6 +371,7 @@ bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cp
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o
+bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o
@@ -356,10 +381,12 @@ bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make
+bin/SailbotBrain: /usr/local/lib/libboost_filesystem.so
+bin/SailbotBrain: /usr/local/lib/libboost_system.so
 bin/SailbotBrain: lib/libBeagleUtil.so
 bin/SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/SailbotBrain"
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SailbotBrain.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SailbotBrain.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 SailbotBrain/CMakeFiles/SailbotBrain.dir/build: bin/SailbotBrain
@@ -369,6 +396,7 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/Sailb
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o.requires
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o.requires
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o.requires
+SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o.requires
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o.requires
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o.requires
 SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o.requires
@@ -380,10 +408,10 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/requires: SailbotBrain/CMakeFiles/Sailb
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/requires
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/clean:
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain && $(CMAKE_COMMAND) -P CMakeFiles/SailbotBrain.dir/cmake_clean.cmake
+	cd /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain && $(CMAKE_COMMAND) -P CMakeFiles/SailbotBrain.dir/cmake_clean.cmake
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/clean
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/depend:
-	cd /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bryan/host/Sailbot-16/munsailbot/BeagleCode /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/SailbotBrain /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/build/SailbotBrain/CMakeFiles/SailbotBrain.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vagrant/git/munsailbot/BeagleCode /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain /home/vagrant/git/munsailbot/BeagleCode/build /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain/CMakeFiles/SailbotBrain.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/depend
 

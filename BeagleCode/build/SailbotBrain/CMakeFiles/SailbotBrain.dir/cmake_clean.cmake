@@ -3,6 +3,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o"
   "CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o"
   "CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o"
+  "CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o"
   "CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o"
   "CMakeFiles/SailbotBrain.dir/src/main.cpp.o"
   "CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o"

@@ -1,12 +1,12 @@
-set(CMAKE_C_COMPILER "/usr/bin/arm-linux-gnueabihf-gcc-4.7")
+set(CMAKE_C_COMPILER "/usr/bin/arm-linux-gnueabihf-gcc-4.8")
 set(CMAKE_C_COMPILER_ARG1 "")
 set(CMAKE_C_COMPILER_ID "GNU")
-set(CMAKE_C_COMPILER_VERSION "4.7.3")
+set(CMAKE_C_COMPILER_VERSION "4.8.4")
 set(CMAKE_C_PLATFORM_ID "Linux")
 
 set(CMAKE_AR "/usr/bin/ar")
 set(CMAKE_RANLIB "/usr/bin/ranlib")
-set(CMAKE_LINKER "/usr/bin/arm-linux-gnueabihf-g++-4.7")
+set(CMAKE_LINKER "/usr/bin/arm-linux-gnueabihf-g++-4.8")
 set(CMAKE_COMPILER_IS_GNUCC 1)
 set(CMAKE_C_COMPILER_LOADED 1)
 set(CMAKE_C_COMPILER_WORKS TRUE)
@@ -49,7 +49,7 @@ endif()
 
 
 set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "c")
-set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/arm-linux-gnueabihf/lib;/lib;/usr/lib;/usr/lib/gcc-cross/arm-linux-gnueabihf/4.7")
+set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8;/usr/arm-linux-gnueabihf/lib;/lib;/usr/lib")
 set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
 
 

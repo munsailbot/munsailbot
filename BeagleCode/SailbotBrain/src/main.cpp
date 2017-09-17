@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
         //log->CheckFiles(1,10);
         log->TrackInit();
         log->LogInit();
-
+        
         BeagleUtil::UART* uart4 = new BeagleUtil::UART(BeagleUtil::UART4, BeagleUtil::UART_USE_PIN, B4800);
         BeagleUtil::UART* uart5 = new BeagleUtil::UART(BeagleUtil::UART5, BeagleUtil::UART_USE_PIN, B4800);
 

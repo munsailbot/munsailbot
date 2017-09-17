@@ -26,6 +26,7 @@ void Logger::LogInit() {
   fout.close();
 }
 
+
 void Logger::TrackInit() {
   sprintf(name, "%s/%s.csv", logdir, buffer);
   std::ofstream tout;

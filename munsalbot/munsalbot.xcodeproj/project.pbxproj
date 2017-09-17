@@ -6,6 +6,11 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		938DD3ED1EEA63C500C95932 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 938DD3EB1EEA63C500C95932 /* libboost_filesystem.dylib */; };
+		938DD3EE1EEA63C500C95932 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 938DD3EC1EEA63C500C95932 /* libboost_system.dylib */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		938DD3DD1EEA636D00C95932 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +25,9 @@
 
 /* Begin PBXFileReference section */
 		938DD3DF1EEA636D00C95932 /* munsalbot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = munsalbot; sourceTree = BUILT_PRODUCTS_DIR; };
+		938DD3E91EEA638400C95932 /* munsailbot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = munsailbot; path = ..; sourceTree = "<group>"; };
+		938DD3EB1EEA63C500C95932 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../Boost/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
+		938DD3EC1EEA63C500C95932 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../Boost/lib/libboost_system.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938DD3ED1EEA63C500C95932 /* libboost_filesystem.dylib in Frameworks */,
+				938DD3EE1EEA63C500C95932 /* libboost_system.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,7 +46,9 @@
 		938DD3D61EEA636D00C95932 = {
 			isa = PBXGroup;
 			children = (
+				938DD3E91EEA638400C95932 /* munsailbot */,
 				938DD3E01EEA636D00C95932 /* Products */,
+				938DD3EA1EEA63C500C95932 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,6 +58,15 @@
 				938DD3DF1EEA636D00C95932 /* munsalbot */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		938DD3EA1EEA63C500C95932 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				938DD3EB1EEA63C500C95932 /* libboost_filesystem.dylib */,
+				938DD3EC1EEA63C500C95932 /* libboost_system.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +226,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = JP8XGY6DSH;
+				FRAMEWORK_SEARCH_PATHS = /Users/bryan/Boost/lib;
+				HEADER_SEARCH_PATHS = /Users/bryan/Boost/include;
+				LIBRARY_SEARCH_PATHS = /Users/bryan/Boost/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -213,6 +237,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = JP8XGY6DSH;
+				FRAMEWORK_SEARCH_PATHS = /Users/bryan/Boost/lib;
+				HEADER_SEARCH_PATHS = /Users/bryan/Boost/include;
+				LIBRARY_SEARCH_PATHS = /Users/bryan/Boost/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -236,6 +263,7 @@
 				938DD3E81EEA636D00C95932 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

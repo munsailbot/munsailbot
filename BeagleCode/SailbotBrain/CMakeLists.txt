@@ -10,6 +10,7 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/TinyGPSPlus)
 include_directories(${CMAKE_SOURCE_DIR}/ncurses/include)
+message("Beagle here" ${CMAKE_SOURCE_DIR}/BeagleUtil/include)
 include_directories(${CMAKE_SOURCE_DIR}/BeagleUtil/include)
 include_directories(${Boost_INCLUDE_DIR})
 

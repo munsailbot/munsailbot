@@ -4,27 +4,27 @@
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.o
  ../BeagleUtil/include/Analog.h
  ../BeagleUtil/include/Common.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/Analog.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/Analog.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.o
  ../BeagleUtil/include/Common.h
  ../BeagleUtil/include/GPIO.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/GPIO.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/GPIO.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.o
  ../BeagleUtil/include/Common.h
  ../BeagleUtil/include/I2C.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/I2C.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/I2C.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.o
  ../BeagleUtil/include/Common.h
  ../BeagleUtil/include/PWM.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/PWM.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/PWM.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.o
  ../BeagleUtil/include/Common.h
  ../BeagleUtil/include/UART.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/UART.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/UART.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.o
  ../BeagleUtil/include/Common.h
  ../BeagleUtil/include/UART.h
  ../BeagleUtil/include/UARTInterface.h
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/UARTInterface.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/UARTInterface.cpp
 BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.o
- /home/bryan/host/Sailbot-16/munsailbot/BeagleCode/BeagleUtil/src/main.cpp
+ /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/src/main.cpp
