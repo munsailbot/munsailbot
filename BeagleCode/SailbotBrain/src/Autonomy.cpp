@@ -41,9 +41,9 @@ Autonomy::Autonomy(Timer* timer, size_t timestamp, Logger* log){
       this->setMode(NAVIGATION_TRIAL);
       _roundDir = 1;
     }
-    else if(mode == "mv"){
-      this->setMode(MACHINE_VISION);
-    }
+    //else if(mode == "mv"){
+    //  this->setMode(MACHINE_VISION);
+    //}
     else{
       fout << "Invalid autonomy mode" << std::endl;
     }
