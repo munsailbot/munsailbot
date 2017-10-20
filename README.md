@@ -38,3 +38,5 @@ On Ubuntu, for example
 ```
 sudo apt-get install gcc-4.7-arm-linux-gnueabihf
 ```
+
+### See the Wiki for a Virtual Machine based development environment
