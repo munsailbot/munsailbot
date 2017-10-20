@@ -30,7 +30,7 @@ Most of the code is meant to be built with CMake and make. CMake is a cross-plat
 and IDE projects. The following instructions assume CMake is available and used from a Linux-based OS. It should also work
 the same on Windows and OS X, but you will need to ensure that it can find the appropriate compilers.
 
-There is a guide [here](http://jkuhlm.bplaced.net/hellobone/) for cross-compiling for the BBB from Windows.
+There is a guide [here] (http://jkuhlm.bplaced.net/hellobone/) for cross-compiling for the BBB from Windows.
 It also discusses building with make and Eclipse. CMake may be configured to generate an Eclipse project if you wish.
 
 To generate a *nix makefile for Linux/MacOS, the usual procedure is
@@ -61,3 +61,5 @@ On Ubuntu, for example
 ```
 sudo apt-get install gcc-4.7-arm-linux-gnueabihf
 ```
+
+### See the Wiki for a simplified Virtual Machine based compile system
