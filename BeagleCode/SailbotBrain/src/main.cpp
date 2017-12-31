@@ -4,7 +4,6 @@
 #include "ArduinoEncoder.h"
 #include "Autonomy.h"
 #include "Utility.h"
-#include "HanningFilter.h"
 #include "ConstKalmanFilter.h"
 #include "WindFilter.h"
 #include "WindStatFilter.h"
@@ -74,8 +73,8 @@ int main(int argc, char* argv[])
         TinyGPSCustom tmg(*tinyGps, "GPVTG", 1);
         TinyGPSCustom sog(*tinyGps, "GPVTG", 5);
         //TODO: Kalman filter instead
-        HanningFilter<int> windFilter;
-        HanningFilter<double> compassFilter;
+        ConstKalmanFilter<int> windFilter;
+        ConstKalmanFilter<double> compassFilter;
         WindFilter* bayesWindFilter = new WindFilter();
         WindStatFilter windStatFilter;
 
@@ -134,8 +133,7 @@ int main(int argc, char* argv[])
 
                 char c2 = ard->readByte();
 
-                if(encoder->encode(c2))
-                      encoder->parse();
+                if(encoder->encode(c2)) { encoder->parse() }
 
                 if((timer->millis() - lastTime) >= 500) {
                       //running at 2hz for now
@@ -160,10 +158,7 @@ int main(int argc, char* argv[])
 
                         uint8_t lastRud = autonomy->getRud();
 
-                        if(enableAutonomy) {
-                                autonomy->step(currentState, log, tinyGps, ard, log->timestamp);
-                                //execute a single step of autonomous decision
-                        }
+                        if(enableAutonomy) { autonomy->step(currentState, log, tinyGps, ard, log->timestamp) }
 
                         if((autonomy->getRud() != lastRud)) {
                                 lerpCur = 1;
@@ -220,7 +215,7 @@ int main(int argc, char* argv[])
                         // TODO: if the rudder is scaled, the -35 conversion
                         // on the arduino side must be scaled as well
                         // TODO: Is scaled rudder giving 35 for our design?
-                        // CHANGED: Flipped rudder control direction for reversed motor
+                        
                         float scaledRud = static_cast<float>(autonomy->getRud()) * 0.6f * autonomy->rudderOrientation();
                         uint8_t scaledRudInt = static_cast<uint8_t>(floorf(scaledRud));
 
