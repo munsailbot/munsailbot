@@ -1,4 +1,4 @@
-# Install script for directory: /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain
+# Install script for directory: /vagrant/git/munsailbot/BeagleCode/SailbotBrain
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

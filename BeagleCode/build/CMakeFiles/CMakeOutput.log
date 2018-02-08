@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/2.8.12.2/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/2.8.12.2/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/bin/arm-linux-gnueabihf-g++-4.8 
@@ -23,37 +23,35 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/2.8.12.2/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/2.8.12.2/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
+Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec1161149003/fast"
-make: Warning: File `Makefile' has modification time 0.0031 s in the future
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1161149003.dir/build.make CMakeFiles/cmTryCompileExec1161149003.dir/build
-make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec1161149003.dir/testCCompiler.c.o
-/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec1161149003.dir/testCCompiler.c.o   -c /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTryCompileExec1161149003
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1161149003.dir/link.txt --verbose=1
-/usr/bin/arm-linux-gnueabihf-gcc-4.8       CMakeFiles/cmTryCompileExec1161149003.dir/testCCompiler.c.o  -o cmTryCompileExec1161149003 -rdynamic 
-make[1]: Leaving directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
-make: warning:  Clock skew detected.  Your build may be incomplete.
+Run Build Command:/usr/bin/make "cmTryCompileExec1055964801/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1055964801.dir/build.make CMakeFiles/cmTryCompileExec1055964801.dir/build
+make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1055964801.dir/testCCompiler.c.o
+/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec1055964801.dir/testCCompiler.c.o   -c /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec1055964801
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1055964801.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc-4.8       CMakeFiles/cmTryCompileExec1055964801.dir/testCCompiler.c.o  -o cmTryCompileExec1055964801 -rdynamic 
+make[1]: Leaving directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
+Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec3850996256/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3850996256.dir/build.make CMakeFiles/cmTryCompileExec3850996256.dir/build
-make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o
-/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c
-Linking C executable cmTryCompileExec3850996256
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3850996256.dir/link.txt --verbose=1
-/usr/bin/arm-linux-gnueabihf-gcc-4.8     -v CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec3850996256 -rdynamic  
+Run Build Command:/usr/bin/make "cmTryCompileExec2412533208/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2412533208.dir/build.make CMakeFiles/cmTryCompileExec2412533208.dir/build
+make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o
+/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec2412533208
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2412533208.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc-4.8     -v CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2412533208 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/arm-linux-gnueabihf-gcc-4.8
 COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/lto-wrapper
@@ -63,24 +61,24 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) 
 COMPILER_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/bin/
 LIBRARY_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3850996256' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
- /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec3850996256 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o
-make[1]: Leaving directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2412533208' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
+ /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec2412533208 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o
+make[1]: Leaving directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(arm-linux-gnueabihf-g\+\+-4\.8|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec3850996256/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec3850996256.dir/build.make CMakeFiles/cmTryCompileExec3850996256.dir/build]
-  ignore line: [make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp']
-  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
-  ignore line: [Building C object CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTryCompileExec3850996256]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3850996256.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc-4.8     -v CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec3850996256 -rdynamic  ]
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec2412533208/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec2412533208.dir/build.make CMakeFiles/cmTryCompileExec2412533208.dir/build]
+  ignore line: [make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc-4.8    -o CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec2412533208]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2412533208.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc-4.8     -v CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2412533208 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/arm-linux-gnueabihf-gcc-4.8]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/lto-wrapper]
@@ -90,8 +88,8 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/bin/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3850996256' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu']
-  link line: [ /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec3850996256 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2412533208' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu']
+  link line: [ /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec2412533208 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o]
     arg [/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -106,7 +104,7 @@ Parsed C implicit link information from above output:
     arg [armelf_linux_eabi] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTryCompileExec3850996256] ==> ignore
+    arg [cmTryCompileExec2412533208] ==> ignore
     arg [/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o] ==> ignore
     arg [/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o] ==> ignore
     arg [/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o] ==> ignore
@@ -115,7 +113,7 @@ Parsed C implicit link information from above output:
     arg [-L/lib/../lib] ==> dir [/lib/../lib]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib] ==> dir [/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib]
-    arg [CMakeFiles/cmTryCompileExec3850996256.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec2412533208.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -142,32 +140,32 @@ Parsed C implicit link information from above output:
 
 
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
+Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec404117916/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec404117916.dir/build.make CMakeFiles/cmTryCompileExec404117916.dir/build
-make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec404117916.dir/testCXXCompiler.cxx.o
-/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec404117916.dir/testCXXCompiler.cxx.o -c /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTryCompileExec404117916
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec404117916.dir/link.txt --verbose=1
-/usr/bin/arm-linux-gnueabihf-g++-4.8        CMakeFiles/cmTryCompileExec404117916.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec404117916 -rdynamic 
-make[1]: Leaving directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+Run Build Command:/usr/bin/make "cmTryCompileExec457209096/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec457209096.dir/build.make CMakeFiles/cmTryCompileExec457209096.dir/build
+make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec457209096.dir/testCXXCompiler.cxx.o
+/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec457209096.dir/testCXXCompiler.cxx.o -c /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec457209096
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec457209096.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-g++-4.8        CMakeFiles/cmTryCompileExec457209096.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec457209096 -rdynamic 
+make[1]: Leaving directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
+Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec242933123/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec242933123.dir/build.make CMakeFiles/cmTryCompileExec242933123.dir/build
-make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTryCompileExec242933123
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec242933123.dir/link.txt --verbose=1
-/usr/bin/arm-linux-gnueabihf-g++-4.8      -v CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec242933123 -rdynamic  
+Run Build Command:/usr/bin/make "cmTryCompileExec3095154762/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3095154762.dir/build.make CMakeFiles/cmTryCompileExec3095154762.dir/build
+make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec3095154762
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3095154762.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-g++-4.8      -v CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec3095154762 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/arm-linux-gnueabihf-g++-4.8
 COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/lto-wrapper
@@ -177,24 +175,24 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) 
 COMPILER_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/bin/
 LIBRARY_PATH=/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec242933123' '-rdynamic' '-shared-libgcc' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
- /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec242933123 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o
-make[1]: Leaving directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3095154762' '-rdynamic' '-shared-libgcc' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
+ /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -z relro -o cmTryCompileExec3095154762 /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crt1.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crti.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtbegin.o -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/crtend.o /usr/lib/gcc-cross/arm-linux-gnueabihf/4.8/../../../../arm-linux-gnueabihf/lib/../lib/crtn.o
+make[1]: Leaving directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp'
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(arm-linux-gnueabihf-g\+\+-4\.8|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec242933123/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec242933123.dir/build.make CMakeFiles/cmTryCompileExec242933123.dir/build]
-  ignore line: [make[1]: Entering directory `/home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp']
-  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
-  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o]
-  link line: [/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec3095154762/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec3095154762.dir/build.make CMakeFiles/cmTryCompileExec3095154762.dir/build]
+  ignore line: [make[1]: Entering directory `/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o]
+  link line: [/usr/bin/arm-linux-gnueabihf-g++-4.8     -o CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp]
     arg [/usr/bin/arm-linux-gnueabihf-g++-4.8] ==> ignore
     arg [-o] ==> ignore
-    arg [CMakeFiles/cmTryCompileExec242933123.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec3095154762.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-c] ==> ignore
     arg [/usr/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp] ==> ignore
   implicit libs: []

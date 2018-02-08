@@ -57,7 +57,6 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/inclu
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/include/Logger.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/include/SailbotBrain.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/include/Timer.h
-SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/src/Logger.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/assert.hpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/cerrno.hpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/checked_delete.hpp
@@ -587,6 +586,7 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/bo
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/utility/addressof.hpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/utility/enable_if.hpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: /usr/local/include/boost/version.hpp
+SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o: ../SailbotBrain/src/Logger.cpp
 
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o: ../SailbotBrain/include/SailbotBrain.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o: ../SailbotBrain/include/Timer.h
@@ -636,7 +636,6 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/Autonomy.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/AverageAngle.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/ConstKalmanFilter.h
-SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/HanningFilter.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/Logger.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/SailbotBrain.h
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o: ../SailbotBrain/include/Timer.h

@@ -938,9 +938,6 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
       _tackTimer++;
     };
     
-    else if(MACHINE_VISION){
-        
-    }
 
     _lastMain = main;
     _lastRud = rud;

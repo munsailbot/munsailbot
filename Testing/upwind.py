@@ -206,7 +206,7 @@ if __name__ == '__main__':
 
             for lines in control:
                 if(point_below_line(boat_xy, lines[1]) and point_below_line(boat_xy, lines[0])):
-       				if((wind > 90) and (wind < 270)):
+    				if((wind > 90) and (wind < 270)):
     					boat = math.radians(add_angle(math.degrees(wind), sail_angle))
     				else:
     					boat = math.radians(subtract_angle(math.degrees(wind), sail_angle))
