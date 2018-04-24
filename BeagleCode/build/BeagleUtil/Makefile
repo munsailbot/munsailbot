@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vagrant/git/munsailbot/BeagleCode
+CMAKE_SOURCE_DIR = /vagrant/git/munsailbot/BeagleCode
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vagrant/git/munsailbot/BeagleCode/build
+CMAKE_BINARY_DIR = /vagrant/git/munsailbot/BeagleCode/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles /home/vagrant/git/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/progress.marks
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles 0
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_progress_start /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles /vagrant/git/munsailbot/BeagleCode/build/BeagleUtil/CMakeFiles/progress.marks
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/clean
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/preinstall
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/preinstall
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 BeagleUtil/CMakeFiles/BeagleUtil.dir/rule:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/CMakeFiles/BeagleUtil.dir/rule
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 BeagleUtil/CMakeFiles/BeagleUtil.dir/rule
 .PHONY : BeagleUtil/CMakeFiles/BeagleUtil.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ BeagleUtil: BeagleUtil/CMakeFiles/BeagleUtil.dir/rule
 
 # fast build rule for target.
 BeagleUtil/fast:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/build
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/build
 .PHONY : BeagleUtil/fast
 
 src/Analog.o: src/Analog.cpp.o
@@ -117,7 +117,7 @@ src/Analog.o: src/Analog.cpp.o
 
 # target to build an object file
 src/Analog.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.o
 .PHONY : src/Analog.cpp.o
 
 src/Analog.i: src/Analog.cpp.i
@@ -125,7 +125,7 @@ src/Analog.i: src/Analog.cpp.i
 
 # target to preprocess a source file
 src/Analog.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.i
 .PHONY : src/Analog.cpp.i
 
 src/Analog.s: src/Analog.cpp.s
@@ -133,7 +133,7 @@ src/Analog.s: src/Analog.cpp.s
 
 # target to generate assembly for a file
 src/Analog.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/Analog.cpp.s
 .PHONY : src/Analog.cpp.s
 
 src/GPIO.o: src/GPIO.cpp.o
@@ -141,7 +141,7 @@ src/GPIO.o: src/GPIO.cpp.o
 
 # target to build an object file
 src/GPIO.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.o
 .PHONY : src/GPIO.cpp.o
 
 src/GPIO.i: src/GPIO.cpp.i
@@ -149,7 +149,7 @@ src/GPIO.i: src/GPIO.cpp.i
 
 # target to preprocess a source file
 src/GPIO.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.i
 .PHONY : src/GPIO.cpp.i
 
 src/GPIO.s: src/GPIO.cpp.s
@@ -157,7 +157,7 @@ src/GPIO.s: src/GPIO.cpp.s
 
 # target to generate assembly for a file
 src/GPIO.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/GPIO.cpp.s
 .PHONY : src/GPIO.cpp.s
 
 src/I2C.o: src/I2C.cpp.o
@@ -165,7 +165,7 @@ src/I2C.o: src/I2C.cpp.o
 
 # target to build an object file
 src/I2C.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.o
 .PHONY : src/I2C.cpp.o
 
 src/I2C.i: src/I2C.cpp.i
@@ -173,7 +173,7 @@ src/I2C.i: src/I2C.cpp.i
 
 # target to preprocess a source file
 src/I2C.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.i
 .PHONY : src/I2C.cpp.i
 
 src/I2C.s: src/I2C.cpp.s
@@ -181,7 +181,7 @@ src/I2C.s: src/I2C.cpp.s
 
 # target to generate assembly for a file
 src/I2C.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/I2C.cpp.s
 .PHONY : src/I2C.cpp.s
 
 src/PWM.o: src/PWM.cpp.o
@@ -189,7 +189,7 @@ src/PWM.o: src/PWM.cpp.o
 
 # target to build an object file
 src/PWM.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.o
 .PHONY : src/PWM.cpp.o
 
 src/PWM.i: src/PWM.cpp.i
@@ -197,7 +197,7 @@ src/PWM.i: src/PWM.cpp.i
 
 # target to preprocess a source file
 src/PWM.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.i
 .PHONY : src/PWM.cpp.i
 
 src/PWM.s: src/PWM.cpp.s
@@ -205,7 +205,7 @@ src/PWM.s: src/PWM.cpp.s
 
 # target to generate assembly for a file
 src/PWM.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/PWM.cpp.s
 .PHONY : src/PWM.cpp.s
 
 src/UART.o: src/UART.cpp.o
@@ -213,7 +213,7 @@ src/UART.o: src/UART.cpp.o
 
 # target to build an object file
 src/UART.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.o
 .PHONY : src/UART.cpp.o
 
 src/UART.i: src/UART.cpp.i
@@ -221,7 +221,7 @@ src/UART.i: src/UART.cpp.i
 
 # target to preprocess a source file
 src/UART.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.i
 .PHONY : src/UART.cpp.i
 
 src/UART.s: src/UART.cpp.s
@@ -229,7 +229,7 @@ src/UART.s: src/UART.cpp.s
 
 # target to generate assembly for a file
 src/UART.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UART.cpp.s
 .PHONY : src/UART.cpp.s
 
 src/UARTInterface.o: src/UARTInterface.cpp.o
@@ -237,7 +237,7 @@ src/UARTInterface.o: src/UARTInterface.cpp.o
 
 # target to build an object file
 src/UARTInterface.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.o
 .PHONY : src/UARTInterface.cpp.o
 
 src/UARTInterface.i: src/UARTInterface.cpp.i
@@ -245,7 +245,7 @@ src/UARTInterface.i: src/UARTInterface.cpp.i
 
 # target to preprocess a source file
 src/UARTInterface.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.i
 .PHONY : src/UARTInterface.cpp.i
 
 src/UARTInterface.s: src/UARTInterface.cpp.s
@@ -253,7 +253,7 @@ src/UARTInterface.s: src/UARTInterface.cpp.s
 
 # target to generate assembly for a file
 src/UARTInterface.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/UARTInterface.cpp.s
 .PHONY : src/UARTInterface.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -261,7 +261,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -269,7 +269,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -277,7 +277,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f BeagleUtil/CMakeFiles/BeagleUtil.dir/build.make BeagleUtil/CMakeFiles/BeagleUtil.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -321,6 +321,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -12,7 +12,7 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o
  ../SailbotBrain/include/ArduinoEncoder.h
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/ArduinoEncoder.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o
  ../BeagleUtil/include/BeagleUtil.h
  ../BeagleUtil/include/Common.h
@@ -30,12 +30,12 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o
  ../ncurses/include/curses.h
  ../ncurses/include/ncurses_dll.h
  ../ncurses/include/unctrl.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Autonomy.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o
  ../SailbotBrain/include/AverageAngle.h
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/AverageAngle.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o
  ../BeagleUtil/include/BeagleUtil.h
  ../BeagleUtil/include/Common.h
@@ -45,7 +45,7 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o
  ../BeagleUtil/include/UART.h
  ../BeagleUtil/include/UARTInterface.h
  ../SailbotBrain/include/LSM303DLM.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/LSM303DLM.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
  ../BeagleUtil/include/BeagleUtil.h
  ../BeagleUtil/include/Common.h
@@ -58,7 +58,6 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
  ../SailbotBrain/include/Logger.h
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Logger.cpp
  /usr/local/include/boost/assert.hpp
  /usr/local/include/boost/cerrno.hpp
  /usr/local/include/boost/checked_delete.hpp
@@ -588,15 +587,16 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
  /usr/local/include/boost/utility/addressof.hpp
  /usr/local/include/boost/utility/enable_if.hpp
  /usr/local/include/boost/version.hpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Logger.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Timer.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
  ../SailbotBrain/include/TinyGPSPlus/TinyGPS++.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/TinyGPSPlus/TinyGPS++.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o
  ../BeagleUtil/include/BeagleUtil.h
  ../BeagleUtil/include/Common.h
@@ -608,13 +608,13 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
  ../SailbotBrain/include/Utility.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/Utility.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
  ../SailbotBrain/include/Vec2.hpp
  ../SailbotBrain/include/VectorFilter.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/VectorFilter.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
@@ -622,22 +622,21 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o
  ../ncurses/include/curses.h
  ../ncurses/include/ncurses_dll.h
  ../ncurses/include/unctrl.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindFilter.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
  ../SailbotBrain/include/WindStatFilter.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/WindStatFilter.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o
  ../SailbotBrain/include/filterAlphaBeta.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/filterAlphaBeta.cpp
 SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o
  ../BeagleUtil/include/BeagleUtil.h
  ../SailbotBrain/include/ArduinoEncoder.h
  ../SailbotBrain/include/Autonomy.h
  ../SailbotBrain/include/AverageAngle.h
  ../SailbotBrain/include/ConstKalmanFilter.h
- ../SailbotBrain/include/HanningFilter.h
  ../SailbotBrain/include/Logger.h
  ../SailbotBrain/include/SailbotBrain.h
  ../SailbotBrain/include/Timer.h
@@ -649,11 +648,11 @@ SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o
  ../ncurses/include/curses.h
  ../ncurses/include/ncurses_dll.h
  ../ncurses/include/unctrl.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/BeagleUtil.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/Common.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/GPIO.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/I2C.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/PWM.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/UART.h
- /home/vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/UARTInterface.h
- /home/vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/main.cpp
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/BeagleUtil.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/Common.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/GPIO.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/I2C.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/PWM.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/UART.h
+ /vagrant/git/munsailbot/BeagleCode/BeagleUtil/include/UARTInterface.h
+ /vagrant/git/munsailbot/BeagleCode/SailbotBrain/src/main.cpp

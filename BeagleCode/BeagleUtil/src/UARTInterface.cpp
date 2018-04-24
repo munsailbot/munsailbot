@@ -44,7 +44,7 @@ namespace BeagleUtil
                 if(tcsetattr(_handle, TCSAFLUSH, &options) < 0)
                     std::cout << "Couldn't set UART port attributes." << std::endl;
             }
-            else
+            else 
                 std::cout << "Could not get UART port options" << std::endl;
         }
     }

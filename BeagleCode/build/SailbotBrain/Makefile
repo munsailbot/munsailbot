@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vagrant/git/munsailbot/BeagleCode
+CMAKE_SOURCE_DIR = /vagrant/git/munsailbot/BeagleCode
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vagrant/git/munsailbot/BeagleCode/build
+CMAKE_BINARY_DIR = /vagrant/git/munsailbot/BeagleCode/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles /home/vagrant/git/munsailbot/BeagleCode/build/SailbotBrain/CMakeFiles/progress.marks
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vagrant/git/munsailbot/BeagleCode/build/CMakeFiles 0
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -E cmake_progress_start /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles /vagrant/git/munsailbot/BeagleCode/build/SailbotBrain/CMakeFiles/progress.marks
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/git/munsailbot/BeagleCode/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/clean
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/preinstall
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/preinstall
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 SailbotBrain/CMakeFiles/SailbotBrain.dir/rule:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/CMakeFiles/SailbotBrain.dir/rule
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f CMakeFiles/Makefile2 SailbotBrain/CMakeFiles/SailbotBrain.dir/rule
 .PHONY : SailbotBrain/CMakeFiles/SailbotBrain.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ SailbotBrain: SailbotBrain/CMakeFiles/SailbotBrain.dir/rule
 
 # fast build rule for target.
 SailbotBrain/fast:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/build
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/build
 .PHONY : SailbotBrain/fast
 
 src/ArduinoEncoder.o: src/ArduinoEncoder.cpp.o
@@ -117,7 +117,7 @@ src/ArduinoEncoder.o: src/ArduinoEncoder.cpp.o
 
 # target to build an object file
 src/ArduinoEncoder.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.o
 .PHONY : src/ArduinoEncoder.cpp.o
 
 src/ArduinoEncoder.i: src/ArduinoEncoder.cpp.i
@@ -125,7 +125,7 @@ src/ArduinoEncoder.i: src/ArduinoEncoder.cpp.i
 
 # target to preprocess a source file
 src/ArduinoEncoder.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.i
 .PHONY : src/ArduinoEncoder.cpp.i
 
 src/ArduinoEncoder.s: src/ArduinoEncoder.cpp.s
@@ -133,7 +133,7 @@ src/ArduinoEncoder.s: src/ArduinoEncoder.cpp.s
 
 # target to generate assembly for a file
 src/ArduinoEncoder.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/ArduinoEncoder.cpp.s
 .PHONY : src/ArduinoEncoder.cpp.s
 
 src/Autonomy.o: src/Autonomy.cpp.o
@@ -141,7 +141,7 @@ src/Autonomy.o: src/Autonomy.cpp.o
 
 # target to build an object file
 src/Autonomy.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.o
 .PHONY : src/Autonomy.cpp.o
 
 src/Autonomy.i: src/Autonomy.cpp.i
@@ -149,7 +149,7 @@ src/Autonomy.i: src/Autonomy.cpp.i
 
 # target to preprocess a source file
 src/Autonomy.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.i
 .PHONY : src/Autonomy.cpp.i
 
 src/Autonomy.s: src/Autonomy.cpp.s
@@ -157,7 +157,7 @@ src/Autonomy.s: src/Autonomy.cpp.s
 
 # target to generate assembly for a file
 src/Autonomy.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Autonomy.cpp.s
 .PHONY : src/Autonomy.cpp.s
 
 src/AverageAngle.o: src/AverageAngle.cpp.o
@@ -165,7 +165,7 @@ src/AverageAngle.o: src/AverageAngle.cpp.o
 
 # target to build an object file
 src/AverageAngle.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.o
 .PHONY : src/AverageAngle.cpp.o
 
 src/AverageAngle.i: src/AverageAngle.cpp.i
@@ -173,7 +173,7 @@ src/AverageAngle.i: src/AverageAngle.cpp.i
 
 # target to preprocess a source file
 src/AverageAngle.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.i
 .PHONY : src/AverageAngle.cpp.i
 
 src/AverageAngle.s: src/AverageAngle.cpp.s
@@ -181,7 +181,7 @@ src/AverageAngle.s: src/AverageAngle.cpp.s
 
 # target to generate assembly for a file
 src/AverageAngle.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/AverageAngle.cpp.s
 .PHONY : src/AverageAngle.cpp.s
 
 src/LSM303DLM.o: src/LSM303DLM.cpp.o
@@ -189,7 +189,7 @@ src/LSM303DLM.o: src/LSM303DLM.cpp.o
 
 # target to build an object file
 src/LSM303DLM.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.o
 .PHONY : src/LSM303DLM.cpp.o
 
 src/LSM303DLM.i: src/LSM303DLM.cpp.i
@@ -197,7 +197,7 @@ src/LSM303DLM.i: src/LSM303DLM.cpp.i
 
 # target to preprocess a source file
 src/LSM303DLM.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.i
 .PHONY : src/LSM303DLM.cpp.i
 
 src/LSM303DLM.s: src/LSM303DLM.cpp.s
@@ -205,7 +205,7 @@ src/LSM303DLM.s: src/LSM303DLM.cpp.s
 
 # target to generate assembly for a file
 src/LSM303DLM.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/LSM303DLM.cpp.s
 .PHONY : src/LSM303DLM.cpp.s
 
 src/Logger.o: src/Logger.cpp.o
@@ -213,7 +213,7 @@ src/Logger.o: src/Logger.cpp.o
 
 # target to build an object file
 src/Logger.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.o
 .PHONY : src/Logger.cpp.o
 
 src/Logger.i: src/Logger.cpp.i
@@ -221,7 +221,7 @@ src/Logger.i: src/Logger.cpp.i
 
 # target to preprocess a source file
 src/Logger.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.i
 .PHONY : src/Logger.cpp.i
 
 src/Logger.s: src/Logger.cpp.s
@@ -229,7 +229,7 @@ src/Logger.s: src/Logger.cpp.s
 
 # target to generate assembly for a file
 src/Logger.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Logger.cpp.s
 .PHONY : src/Logger.cpp.s
 
 src/Timer.o: src/Timer.cpp.o
@@ -237,7 +237,7 @@ src/Timer.o: src/Timer.cpp.o
 
 # target to build an object file
 src/Timer.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.o
 .PHONY : src/Timer.cpp.o
 
 src/Timer.i: src/Timer.cpp.i
@@ -245,7 +245,7 @@ src/Timer.i: src/Timer.cpp.i
 
 # target to preprocess a source file
 src/Timer.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.i
 .PHONY : src/Timer.cpp.i
 
 src/Timer.s: src/Timer.cpp.s
@@ -253,7 +253,7 @@ src/Timer.s: src/Timer.cpp.s
 
 # target to generate assembly for a file
 src/Timer.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Timer.cpp.s
 .PHONY : src/Timer.cpp.s
 
 src/TinyGPSPlus/TinyGPS++.o: src/TinyGPSPlus/TinyGPS++.cpp.o
@@ -261,7 +261,7 @@ src/TinyGPSPlus/TinyGPS++.o: src/TinyGPSPlus/TinyGPS++.cpp.o
 
 # target to build an object file
 src/TinyGPSPlus/TinyGPS++.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.o
 .PHONY : src/TinyGPSPlus/TinyGPS++.cpp.o
 
 src/TinyGPSPlus/TinyGPS++.i: src/TinyGPSPlus/TinyGPS++.cpp.i
@@ -269,7 +269,7 @@ src/TinyGPSPlus/TinyGPS++.i: src/TinyGPSPlus/TinyGPS++.cpp.i
 
 # target to preprocess a source file
 src/TinyGPSPlus/TinyGPS++.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.i
 .PHONY : src/TinyGPSPlus/TinyGPS++.cpp.i
 
 src/TinyGPSPlus/TinyGPS++.s: src/TinyGPSPlus/TinyGPS++.cpp.s
@@ -277,7 +277,7 @@ src/TinyGPSPlus/TinyGPS++.s: src/TinyGPSPlus/TinyGPS++.cpp.s
 
 # target to generate assembly for a file
 src/TinyGPSPlus/TinyGPS++.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/TinyGPSPlus/TinyGPS++.cpp.s
 .PHONY : src/TinyGPSPlus/TinyGPS++.cpp.s
 
 src/Utility.o: src/Utility.cpp.o
@@ -285,7 +285,7 @@ src/Utility.o: src/Utility.cpp.o
 
 # target to build an object file
 src/Utility.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.o
 .PHONY : src/Utility.cpp.o
 
 src/Utility.i: src/Utility.cpp.i
@@ -293,7 +293,7 @@ src/Utility.i: src/Utility.cpp.i
 
 # target to preprocess a source file
 src/Utility.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.i
 .PHONY : src/Utility.cpp.i
 
 src/Utility.s: src/Utility.cpp.s
@@ -301,7 +301,7 @@ src/Utility.s: src/Utility.cpp.s
 
 # target to generate assembly for a file
 src/Utility.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/Utility.cpp.s
 .PHONY : src/Utility.cpp.s
 
 src/VectorFilter.o: src/VectorFilter.cpp.o
@@ -309,7 +309,7 @@ src/VectorFilter.o: src/VectorFilter.cpp.o
 
 # target to build an object file
 src/VectorFilter.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.o
 .PHONY : src/VectorFilter.cpp.o
 
 src/VectorFilter.i: src/VectorFilter.cpp.i
@@ -317,7 +317,7 @@ src/VectorFilter.i: src/VectorFilter.cpp.i
 
 # target to preprocess a source file
 src/VectorFilter.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.i
 .PHONY : src/VectorFilter.cpp.i
 
 src/VectorFilter.s: src/VectorFilter.cpp.s
@@ -325,7 +325,7 @@ src/VectorFilter.s: src/VectorFilter.cpp.s
 
 # target to generate assembly for a file
 src/VectorFilter.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/VectorFilter.cpp.s
 .PHONY : src/VectorFilter.cpp.s
 
 src/WindFilter.o: src/WindFilter.cpp.o
@@ -333,7 +333,7 @@ src/WindFilter.o: src/WindFilter.cpp.o
 
 # target to build an object file
 src/WindFilter.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.o
 .PHONY : src/WindFilter.cpp.o
 
 src/WindFilter.i: src/WindFilter.cpp.i
@@ -341,7 +341,7 @@ src/WindFilter.i: src/WindFilter.cpp.i
 
 # target to preprocess a source file
 src/WindFilter.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.i
 .PHONY : src/WindFilter.cpp.i
 
 src/WindFilter.s: src/WindFilter.cpp.s
@@ -349,7 +349,7 @@ src/WindFilter.s: src/WindFilter.cpp.s
 
 # target to generate assembly for a file
 src/WindFilter.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindFilter.cpp.s
 .PHONY : src/WindFilter.cpp.s
 
 src/WindStatFilter.o: src/WindStatFilter.cpp.o
@@ -357,7 +357,7 @@ src/WindStatFilter.o: src/WindStatFilter.cpp.o
 
 # target to build an object file
 src/WindStatFilter.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.o
 .PHONY : src/WindStatFilter.cpp.o
 
 src/WindStatFilter.i: src/WindStatFilter.cpp.i
@@ -365,7 +365,7 @@ src/WindStatFilter.i: src/WindStatFilter.cpp.i
 
 # target to preprocess a source file
 src/WindStatFilter.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.i
 .PHONY : src/WindStatFilter.cpp.i
 
 src/WindStatFilter.s: src/WindStatFilter.cpp.s
@@ -373,7 +373,7 @@ src/WindStatFilter.s: src/WindStatFilter.cpp.s
 
 # target to generate assembly for a file
 src/WindStatFilter.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/WindStatFilter.cpp.s
 .PHONY : src/WindStatFilter.cpp.s
 
 src/filterAlphaBeta.o: src/filterAlphaBeta.cpp.o
@@ -381,7 +381,7 @@ src/filterAlphaBeta.o: src/filterAlphaBeta.cpp.o
 
 # target to build an object file
 src/filterAlphaBeta.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.o
 .PHONY : src/filterAlphaBeta.cpp.o
 
 src/filterAlphaBeta.i: src/filterAlphaBeta.cpp.i
@@ -389,7 +389,7 @@ src/filterAlphaBeta.i: src/filterAlphaBeta.cpp.i
 
 # target to preprocess a source file
 src/filterAlphaBeta.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.i
 .PHONY : src/filterAlphaBeta.cpp.i
 
 src/filterAlphaBeta.s: src/filterAlphaBeta.cpp.s
@@ -397,7 +397,7 @@ src/filterAlphaBeta.s: src/filterAlphaBeta.cpp.s
 
 # target to generate assembly for a file
 src/filterAlphaBeta.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/filterAlphaBeta.cpp.s
 .PHONY : src/filterAlphaBeta.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -405,7 +405,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -413,7 +413,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.i
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -421,7 +421,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.s
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(MAKE) -f SailbotBrain/CMakeFiles/SailbotBrain.dir/build.make SailbotBrain/CMakeFiles/SailbotBrain.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -483,6 +483,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /vagrant/git/munsailbot/BeagleCode/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
