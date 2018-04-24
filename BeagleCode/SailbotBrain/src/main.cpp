@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
 
                 char c2 = ard->readByte();
 
-                if(encoder->encode(c2)) { encoder->parse() }
+                if(encoder->encode(c2)) { encoder->parse(); };
 
                 if((timer->millis() - lastTime) >= 500) {
                       //running at 2hz for now
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
 
                         uint8_t lastRud = autonomy->getRud();
 
-                        if(enableAutonomy) { autonomy->step(currentState, log, tinyGps, ard, log->timestamp) }
+                        if(enableAutonomy) { autonomy->step(currentState, log, tinyGps, ard, log->timestamp); }
 
                         if((autonomy->getRud() != lastRud)) {
                                 lerpCur = 1;

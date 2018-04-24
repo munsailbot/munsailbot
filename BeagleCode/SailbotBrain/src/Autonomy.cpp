@@ -129,7 +129,7 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
     if(_mode == LONG_DISTANCE)  fout << "Mode: Long Distance" << std::endl;
     if(_mode == STATION_KEEPING_STRAT1) fout << "Mode: Station Keeping (Strategy 1)" << std::endl;
     if(_mode  == NAVIGATION_TRIAL) fout << "Mode: Navigation Trial" << std::endl;
-    if(_mode  == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
+    //if(_mode  == MACHINE_VISION) fout << "Mode: Machine Vision" << std::endl;
 
 
     if(_initialCoordsCaptured == false){
@@ -938,9 +938,9 @@ void Autonomy::step(state_t state, Logger* log, TinyGPSPlus* tinyGps, BeagleUtil
       _tackTimer++;
     };
     
-    else if(MACHINE_VISION){
-        
-    }
+    //else if(MACHINE_VISION){
+    //    
+    //}
 
     _lastMain = main;
     _lastRud = rud;
