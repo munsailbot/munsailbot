@@ -10,8 +10,6 @@
 #include "Timer.h"
 #include "filterAlphaBeta.h"
 #include "AverageAngle.h"
-//tmp
-#include <curses.h>
 #include <ctime>
 #include <string>
 
